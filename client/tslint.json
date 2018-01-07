@@ -1,0 +1,11 @@
+{
+  "defaultSeverity": "error",
+  "extends": [
+      "tslint-react",
+      "tslint-config-airbnb"
+  ],
+  "rules": {
+    "import-spacing": false,
+    "import-name": false
+  }
+}
