@@ -1,38 +1,33 @@
 import * as React               from 'react';
 import * as ReactDOM            from 'react-dom';
 
-import { AppContainer }    from 'react-hot-loader';
-// import { ConnectedRouter } from 'react-router-redux';
-// import { Provider }        from 'react-redux';
-import { Route }           from 'react-router-dom';
-import { enableLogging }   from 'mobx-logger';
+import App                      from 'src/App';
 
-// import App from './pages/App';
-
-// import store, { history } from './store';
+import { AppContainer }         from 'react-hot-loader';
+import { RouterStore,
+         syncHistoryWithStore } from 'mobx-react-router';
+import { Provider }             from 'mobx-react';
+import { BrowserRouter,
+         Route }                from 'react-router-dom';
+import { enableLogging }        from 'mobx-logger';
 
 import './style.scss';
 
-// const content = (
-//   <Provider store={store}>
-//     <ConnectedRouter history={history}>
-//       <Route path="/" component={App} />
-//     </ConnectedRouter>
-//   </Provider>
-// );
-console.log(document.getElementById('root'));
-const renderRoot = () => {
-  ReactDOM.render(
-    <div>Hello</div>,
-    document.getElementById('root'),
-  );
-};
+const routingStore = new RouterStore();
+const content = (
+  <Provider routing={routingStore}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>
+);
 
-renderRoot();
-
-// if (module.hot) {
-//   module.hot.accept('./pages/App', () => { renderRoot(); });
-// }
+ReactDOM.render(
+  <AppContainer>
+    { content }
+  </AppContainer>,
+  document.getElementById('root'),
+);
 
 enableLogging({
   action: true,

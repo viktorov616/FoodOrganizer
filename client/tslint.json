@@ -5,7 +5,15 @@
       "tslint-config-airbnb"
   ],
   "rules": {
+    "import-name": false,
     "import-spacing": false,
-    "import-name": false
+    "jsx-boolean-value": false,
+    "jsx-curly-spacing": ["always"],
+    "jsx-no-multiline-js": false,
+    "strict-boolean-expressions": [
+      true,
+      "allow-mix"
+    ],
+    "variable-name": [true, "ban-keywords", "check-format", "allow-pascal-case"]
   }
 }

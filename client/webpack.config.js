@@ -41,6 +41,10 @@ if (NODE_ENV === 'production') {
       },
     })
   );
+} else {
+    plugins.push(
+      new webpack.NamedModulesPlugin()
+    );
 }
 
 module.exports = {
@@ -56,7 +60,11 @@ module.exports = {
       path.join(__dirname, 'src'),
       'node_modules',
     ],
-    extensions: ['ts', 'tsx', '.js', '.jsx'],
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
+    alias: {
+      src: path.join(__dirname, 'src'),
+      constants: path.join(__dirname, 'src/constants'),
+    }
   },
   plugins,
   output: {
@@ -73,7 +81,7 @@ module.exports = {
             loader: 'babel-loader',
           },
         ],
-        exclude: [/node_modules/, /public/] 
+        exclude: [/node_modules/, /public/]
       }, {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
@@ -105,7 +113,7 @@ module.exports = {
           ],
         }),
       }, {
-        test: /\.js?$/,
+        test: /\.jsx?$/,
         enforce: 'pre',
         loader: "eslint-loader",
         options: {
@@ -117,12 +125,24 @@ module.exports = {
         exclude: /node_modules/,
       }, {
         test: /\.tsx?$/,
-        loader: 'ts-loader',
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              babelrc: true,
+              plugins: ['react-hot-loader/babel'],
+            },
+          }, {
+            loader: 'ts-loader',
+            options: {
+              // Type ckeching in fork plugin
+              transpileOnly: true,
+            },
+          }
+        ],
+        // loader: 'ts-loader',
         include: [path.resolve(__dirname, 'src'), path.resolve(__dirname, 'node_modules')],
-        options: {
-          // Type ckeching in fork plugin
-          transpileOnly: true,
-        },
+
       }, {
         test: /\.(png|jpg|svg|ttf|eot|woff|woff2|)$/,
         loader: 'file-loader?name=img/[name].[ext]',
