@@ -62,8 +62,10 @@ module.exports = {
     ],
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
     alias: {
-      src: path.join(__dirname, 'src'),
+      components: path.join(__dirname, 'src/components'),
       constants: path.join(__dirname, 'src/constants'),
+      pages: path.join(__dirname, 'src/pages'),
+      src: path.join(__dirname, 'src'),
     }
   },
   plugins,
@@ -127,6 +129,7 @@ module.exports = {
         test: /\.tsx?$/,
         use: [
           {
+            // for hot module replacement
             loader: 'babel-loader',
             options: {
               babelrc: true,

@@ -11,7 +11,7 @@ import { BrowserRouter,
          Route }                from 'react-router-dom';
 import { enableLogging }        from 'mobx-logger';
 
-import './style.scss';
+import './styles/style.scss';
 
 const routingStore = new RouterStore();
 const content = (
