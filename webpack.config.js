@@ -3,8 +3,9 @@ const CleanWebpackPlugin         = require('clean-webpack-plugin');
 const ExtractTextPlugin          = require('extract-text-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const path                       = require('path');
+const nodeExternals              = require('webpack-node-externals');
 
-const NODE_ENV                   = process.env.NODE_ENV;
+const { NODE_ENV }               = process.env;
 
 const publicPath                 = '/public/assets/';
 const cssName                    = 'style.min.css';
@@ -13,13 +14,9 @@ const jsName                     = 'bundle.js';
 const plugins = [
   new webpack.DefinePlugin({
     'process.env': {
-      BROWSER:  JSON.stringify(true),
+      BROWSER: JSON.stringify(true),
       NODE_ENV: JSON.stringify(NODE_ENV),
     },
-  }),
-  new ExtractTextPlugin({
-    filename: cssName,
-    disable: NODE_ENV !== 'production',
   }),
   new ForkTsCheckerWebpackPlugin({
     tslint: './tslint.json',
@@ -47,43 +44,49 @@ if (NODE_ENV === 'production') {
     );
 }
 
-module.exports = {
+const clientConfig = {
   entry: {
-    'app': [
+    app: [
       'react-hot-loader/patch',
       'babel-polyfill',
-      './src/main.tsx',
+      './client/src/main.tsx',
     ],
   },
   resolve: {
     modules: [
-      path.join(__dirname, 'src'),
+      path.join(__dirname, 'client'),
       'node_modules',
     ],
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
     alias: {
-      components: path.join(__dirname, 'src/components'),
-      constants: path.join(__dirname, 'src/constants'),
-      pages: path.join(__dirname, 'src/pages'),
-      src: path.join(__dirname, 'src'),
-    }
+      components: path.join(__dirname, 'client/src/components'),
+      constants: path.join(__dirname, 'client/src/constants'),
+      pages: path.join(__dirname, 'client/src/pages'),
+      src: path.join(__dirname, 'client/src'),
+    },
   },
-  plugins,
+  plugins: [
+    ...plugins,
+    new ExtractTextPlugin({
+      filename: cssName,
+      disable: NODE_ENV !== 'production',
+    }),
+  ],
   output: {
-    path: `${__dirname + publicPath}`,
-    filename: jsName,
+    path: path.join(__dirname, publicPath),
+    filename: `[name].${jsName}`,
     publicPath,
   },
   module: {
     rules: [
       {
-        test: /\.js$/, 
+        test: /\.js$/,
         use: [
           {
             loader: 'babel-loader',
           },
         ],
-        exclude: [/node_modules/, /public/]
+        exclude: [/node_modules/, /public/],
       }, {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
@@ -104,7 +107,7 @@ module.exports = {
             {
               loader: 'postcss-loader',
               options: {
-                plugins: function() {
+                plugins() {
                   return [
                     require('autoprefixer'),
                   ];
@@ -117,7 +120,7 @@ module.exports = {
       }, {
         test: /\.jsx?$/,
         enforce: 'pre',
-        loader: "eslint-loader",
+        loader: 'eslint-loader',
         options: {
           configFile: './.eslintrc',
           failOnError: false,
@@ -141,10 +144,10 @@ module.exports = {
               // Type ckeching in fork plugin
               transpileOnly: true,
             },
-          }
+          },
         ],
         // loader: 'ts-loader',
-        include: [path.resolve(__dirname, 'src'), path.resolve(__dirname, 'node_modules')],
+        include: [path.resolve(__dirname, 'client/src'), path.resolve(__dirname, 'node_modules')],
 
       }, {
         test: /\.(png|jpg|svg|ttf|eot|woff|woff2|)$/,
@@ -155,4 +158,47 @@ module.exports = {
       },
     ],
   },
+  devServer: {
+    proxy: {
+      '/api': 'http://localhost:7777',
+    },
+  },
 };
+
+const serverConfig = {
+  target: 'node',
+  externals: [nodeExternals()],
+  entry: {
+    server: './server/start.js',
+  },
+  resolve: {
+    modules: [
+      'node_modules',
+      path.join(__dirname, 'server'),
+    ],
+    extensions: ['.js'],
+  },
+  plugins,
+  output: {
+    path: path.join(__dirname, publicPath),
+    filename: `[name].${jsName}`,
+    publicPath,
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        use: [
+          {
+            loader: 'babel-loader',
+          },
+        ],
+        exclude: [/node_modules/, /public/],
+      },
+    ],
+  },
+};
+
+process.noDeprecation = true;
+
+module.exports = [clientConfig, serverConfig];

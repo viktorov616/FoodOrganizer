@@ -18,11 +18,11 @@ class AddRecipe extends React.Component<AddRecepieProps> {
 
         <div className="row">
           <div className="col s6">
-            <form>
+            <form onSubmit={(e) => (e.preventDefault(), console.log('submit'))}>
               <div className="input-field">
                 <input id="name" type="text"/>
                 <label
-                  for="name"
+                  htmlFor="name"
                   className="active"
                 >
                   Name
@@ -30,7 +30,7 @@ class AddRecipe extends React.Component<AddRecepieProps> {
               </div>
               <button className={cx('btn', SECONDARY_COLOR)}>
                 Submit
-                <i class="material-icons right">send</i>
+                <i className="material-icons right">send</i>
               </button>
             </form>
           </div>

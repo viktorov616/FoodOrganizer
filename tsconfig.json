@@ -19,13 +19,13 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "components/*": ["src/components/*"],
-      "constants/*": ["src/constants/*"],
-      "pages/*": ["src/pages/*"],
-      "src/*": ["src/*"],
+      "components/*": ["client/src/components/*"],
+      "constants/*": ["client/src/constants/*"],
+      "pages/*": ["client/src/pages/*"],
+      "src/*": ["client/src/*"],
     }
   },
   "include": [
-    "./src/**/*"
+    "./client/src/**/*"
   ]
 }
