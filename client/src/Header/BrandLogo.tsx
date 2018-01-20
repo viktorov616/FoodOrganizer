@@ -1,11 +1,17 @@
 import * as React  from 'react';
 
+import * as cx     from 'classnames';
+
 import { NavLink } from 'react-router-dom';
 
-const BrandLogo: React.SFC = () => (
+interface BrandLogoProps {
+  modifiers?: string;
+}
+
+const BrandLogo: React.SFC<BrandLogoProps> = ({ modifiers }) => (
   <NavLink
     to="/"
-    className="brand-logo center"
+    className={cx('brand-logo', modifiers)}
   >
     Food Organizer
   </NavLink>

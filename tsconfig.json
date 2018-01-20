@@ -23,6 +23,7 @@
       "constants/*": ["client/src/constants/*"],
       "pages/*": ["client/src/pages/*"],
       "src/*": ["client/src/*"],
+      "utils/*": ["client/src/utils/*"],
     }
   },
   "include": [

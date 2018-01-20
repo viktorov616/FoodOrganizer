@@ -63,6 +63,7 @@ const clientConfig = {
       constants: path.join(__dirname, 'client/src/constants'),
       pages: path.join(__dirname, 'client/src/pages'),
       src: path.join(__dirname, 'client/src'),
+      utils: path.join(__dirname, 'client/src/utils'),
     },
   },
   plugins: [
