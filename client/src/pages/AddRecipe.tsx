@@ -19,7 +19,7 @@ class AddRecipe extends React.Component<AddRecepieProps> {
         <Title text="Add recipe" />
 
         <div className="row">
-          <div className="col s6">
+          <div className="col g--6">
             <form onSubmit={(e) => (e.preventDefault(), console.log('submit'))}>
               <Input
                 id="name"

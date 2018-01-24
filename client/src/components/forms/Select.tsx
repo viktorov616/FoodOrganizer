@@ -18,23 +18,22 @@ class Select extends React.Component<SelectProps> {
     const { id, name, options, onChange, defaultValue } = this.props;
 
     return (
-      <div className="input-field">
-        <select
-          name={name}
-          id={id}
-          onChange={onChange}
-          defaultValue={defaultValue}
-        >
-          { options.map(({ value, text }) => (
-            <option
-              key={value}
-              value={value}
-            >
-              { text }
-            </option>
-          )) }
-        </select>
-      </div>
+      <select
+        name={name}
+        id={id}
+        onChange={onChange}
+        defaultValue={defaultValue}
+        className="select"
+      >
+        { options.map(({ value, text }) => (
+          <option
+            key={value}
+            value={value}
+          >
+            { text }
+          </option>
+        )) }
+      </select>
     );
   }
 }

@@ -20,13 +20,6 @@ class Input extends React.Component<InputProps> {
     const { label, labelClassName, type, id, onChange, name } = this.props;
     return (
       <div className="input-field">
-        <input
-          id={id}
-          type={type}
-          onChange={onChange}
-          name={(name) ? name : null}
-        />
-
         { (label)
           ? (<label
             htmlFor={id}
@@ -35,6 +28,13 @@ class Input extends React.Component<InputProps> {
             { label }
           </label>)
           : null }
+
+        <input
+          id={id}
+          type={type}
+          onChange={onChange}
+          name={(name) ? name : null}
+        />
       </div>
     );
   }

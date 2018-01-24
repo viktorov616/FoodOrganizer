@@ -2,6 +2,10 @@
   width: 100%;
 }
 
+*::-moz-focus-inner {
+  border: 0;
+}
+
 .p020 {
   padding: 0 20px;
 }
