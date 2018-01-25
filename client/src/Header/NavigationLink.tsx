@@ -14,7 +14,7 @@ const NavigationLink: React.SFC<NavigationLinkProps> = ({ name, path }) => (
     <NavLink
       exact
       to={path}
-      className="btn"
+      className="btn--flat"
     >
       { name }
     </NavLink>

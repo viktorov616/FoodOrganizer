@@ -31,9 +31,9 @@ class AddRecipe extends React.Component<AddRecepieProps> {
                 defaultValue="carrot"
                 id="blabla"
               />
-              <button className={cx('btn', SECONDARY_COLOR)}>
+              <button className="btn--raised">
                 Submit
-                <i className="material-icons right">send</i>
+                <i className="material-icons btn__icon">send</i>
               </button>
             </form>
           </div>
