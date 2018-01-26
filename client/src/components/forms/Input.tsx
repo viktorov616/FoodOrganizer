@@ -13,13 +13,13 @@ interface InputProps {
 
 class Input extends React.Component<InputProps> {
   static defaultProps = {
-    label: '',
     labelModifiers: '',
     type: 'text',
   };
 
   render() {
     const { label, labelModifiers, type, id, onChange, name } = this.props;
+
     return (
       <div className="input">
         <input

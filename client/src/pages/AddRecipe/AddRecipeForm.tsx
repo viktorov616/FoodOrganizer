@@ -1,7 +1,8 @@
 import * as React   from 'react';
 
-import Button       from 'components/forms/Button';
+import Button       from 'components/Button';
 import Input        from 'components/forms/Input';
+import Textarea     from 'components/forms/Textarea';
 import Select       from 'components/forms/Select';
 
 import { getClass } from 'utils/getClass';
@@ -21,11 +22,9 @@ class AddRecipeForm extends React.Component<AddRecipeFormProps> {
               label="Name"
             />
 
-            <Select
-              id="blabla"
-              options={[{ value: 'carrot', text: 'carrot' }, { value: 'apple', text: 'apple' }]}
-              defaultValue="carrot"
-              label="Ingredient"
+            <Textarea
+              id="description"
+              label="Description"
             />
 
             <Button
