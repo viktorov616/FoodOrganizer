@@ -1,4 +1,10 @@
+// modify surface button
+
 .btn {
+  &__text {
+    display: inline-block;
+    vertical-align: middle;
+  }
   &__icon {
     display: inline-block;
     vertical-align: middle;

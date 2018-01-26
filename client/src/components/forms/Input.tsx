@@ -1,9 +1,11 @@
-import * as React from 'react';
+import * as React   from 'react';
+
+import { getClass } from 'utils/getClass';
 
 interface InputProps {
   id: string;
   label?: string;
-  labelClassName?: string;
+  labelModifiers?: string;
   name?: string;
   onChange?: () => void;
   type?: string;
@@ -12,29 +14,30 @@ interface InputProps {
 class Input extends React.Component<InputProps> {
   static defaultProps = {
     label: '',
-    labelClassName: 'active',
+    labelModifiers: '',
     type: 'text',
   };
 
   render() {
-    const { label, labelClassName, type, id, onChange, name } = this.props;
+    const { label, labelModifiers, type, id, onChange, name } = this.props;
     return (
-      <div className="input-field">
-        { (label)
-          ? (<label
-            htmlFor={id}
-            className={labelClassName}
-          >
-            { label }
-          </label>)
-          : null }
-
+      <div className="input">
         <input
           id={id}
           type={type}
           onChange={onChange}
           name={(name) ? name : null}
+          className="input__tag"
         />
+
+        { (label)
+          ? (<label
+            htmlFor={id}
+            className={getClass('input__label', labelModifiers)}
+          >
+            { label }
+          </label>)
+          : null }
       </div>
     );
   }

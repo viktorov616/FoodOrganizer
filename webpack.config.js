@@ -1,15 +1,16 @@
-const webpack                    = require('webpack');
-const CleanWebpackPlugin         = require('clean-webpack-plugin');
-const ExtractTextPlugin          = require('extract-text-webpack-plugin');
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const path                       = require('path');
-const nodeExternals              = require('webpack-node-externals');
+const webpack                     = require('webpack');
+const CleanWebpackPlugin          = require('clean-webpack-plugin');
+const ExtractTextPlugin           = require('extract-text-webpack-plugin');
+const ForkTsCheckerWebpackPlugin  = require('fork-ts-checker-webpack-plugin');
+const path                        = require('path');
+const nodeExternals               = require('webpack-node-externals');
+const DirectoryNamedWebpackPlugin = require('directory-named-webpack-plugin');
 
-const { NODE_ENV }               = process.env;
+const { NODE_ENV }                = process.env;
 
-const publicPath                 = '/public/assets/';
-const cssName                    = 'style.min.css';
-const jsName                     = 'bundle.js';
+const publicPath                  = '/public/assets/';
+const cssName                     = 'style.min.css';
+const jsName                      = 'bundle.js';
 
 const plugins = [
   new webpack.DefinePlugin({
@@ -65,6 +66,9 @@ const clientConfig = {
       src: path.join(__dirname, 'client/src'),
       utils: path.join(__dirname, 'client/src/utils'),
     },
+    plugins: [
+      new DirectoryNamedWebpackPlugin(),
+    ],
   },
   plugins: [
     ...plugins,

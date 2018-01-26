@@ -12,7 +12,8 @@
     "jsx-no-multiline-js": false,
     "strict-boolean-expressions": [
       true,
-      "allow-mix"
+      "allow-undefined-union",
+      "allow-string"
     ],
     "variable-name": [true, "ban-keywords", "check-format", "allow-pascal-case"]
   }

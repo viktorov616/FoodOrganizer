@@ -1,0 +1,18 @@
+// modify surface input
+
+.input {
+  display: flex;
+  flex-wrap: wrap;
+
+  &__tag {
+    order: 2;
+
+    &:focus + .input__label {
+      color: $secondary
+    }
+  }
+
+  &__label {
+    order: 1;
+  }
+};
