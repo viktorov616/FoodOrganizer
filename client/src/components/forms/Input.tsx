@@ -3,12 +3,17 @@ import * as React   from 'react';
 import { getClass } from 'utils/getClass';
 
 interface InputProps {
+  children?: any;
   id: string;
   label?: string;
   labelModifiers?: string;
   name?: string;
-  onChange?: () => void;
+  onChange?: (e: React.FormEvent<HTMLInputElement>) => void;
+  onKeyDown?: (e: React.FormEvent<HTMLInputElement>) => void;
+  onKeyUp?: (e: React.FormEvent<HTMLInputElement>) => void;
+  tagModifiers?: string;
   type?: string;
+  value?: string;
 }
 
 class Input extends React.Component<InputProps> {
@@ -18,16 +23,33 @@ class Input extends React.Component<InputProps> {
   };
 
   render() {
-    const { label, labelModifiers, type, id, onChange, name } = this.props;
+    const {
+      children,
+      id,
+      label,
+      labelModifiers,
+      name,
+      onChange,
+      onKeyDown,
+      onKeyUp,
+      tagModifiers,
+      type,
+      value,
+    } = this.props;
 
     return (
       <div className="input">
+        { children }
+
         <input
+          className={getClass('input__tag', tagModifiers)}
           id={id}
-          type={type}
-          onChange={onChange}
           name={(name) ? name : null}
-          className="input__tag"
+          onChange={(onChange) ? onChange : null}
+          onKeyDown={(onKeyDown) ? onKeyDown : null}
+          onKeyUp={(onKeyUp) ? onKeyUp : null}
+          type={type}
+          value={value}
         />
 
         { (label)

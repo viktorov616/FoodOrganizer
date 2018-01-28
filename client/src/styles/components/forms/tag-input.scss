@@ -1,0 +1,10 @@
+.tag-input {
+  display: flex;
+  flex-wrap: wrap;
+
+  &__tags {
+    margin-top: $space-small / 2;
+
+    order: 2;
+  }
+}

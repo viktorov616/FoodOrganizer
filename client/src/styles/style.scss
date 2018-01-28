@@ -1,17 +1,28 @@
-@import './variables.scss';
+// Variables
+@import './variables';
 
 // surface framework
 @import './surface/surface_styles';
 
-@import './general.scss';
+// Material icons
+@import './material-icons/sizes';
 
-@import './typograthy/title.scss';
+// General styles
+@import './general';
 
-@import './layout/container.scss';
+// Typography
+@import './typography/title';
 
-@import './components/brand-logo.scss';
-@import './components/button.scss';
+// Layout
+@import './layout/container';
 
-@import './components/forms/select.scss';
-@import './components/forms/input.scss';
-@import './components/forms/textarea.scss';
+// Components
+@import './components/brand-logo';
+@import './components/button';
+@import './components/tag';
+
+// Form components
+@import './components/forms/input';
+@import './components/forms/select';
+@import './components/forms/tag-input';
+@import './components/forms/textarea';

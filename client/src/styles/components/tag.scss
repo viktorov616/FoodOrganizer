@@ -1,0 +1,38 @@
+.tag {
+  position: relative;
+
+  display: inline-flex;
+  vertical-align: top;
+
+  margin-bottom: $space-small / 2;
+  margin-right: $space-small;
+  padding: $space-small / 2;
+  padding-right: $space-med * 1.5;
+
+  background: $secondary;
+
+  border-radius: 2px;
+
+  &__text {
+    display: inline-block;
+    vertical-align: top;
+
+    margin: 0;
+
+    font-size: $font-regular;
+    color: $off-white;
+  }
+
+  &__button {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+
+    margin: 0;
+    padding: 0;
+
+    background: none;
+
+    color: $off-white;
+  }
+}
