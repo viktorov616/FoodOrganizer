@@ -1,24 +1,20 @@
-import * as React   from 'react';
+import * as React            from 'react';
 
-import * as cx      from 'classnames';
-import Button       from 'components/Button';
-import Input        from 'components/forms/Input';
-import Tag          from 'components/Tag';
+import * as cx               from 'classnames';
+import Button                from 'components/Button';
+import Input, { InputProps } from 'components/forms/Input';
+import Tag                   from 'components/Tag';
 
-import { getClass } from 'utils/getClass';
+import { getClass }          from 'utils/getClass';
 
 interface TagInputProps {
-  id: string;
-  inputTagModifiers?: string;
-  label?: string;
-  labelModifiers?: string;
-  name?: string;
   onChange?: (e: React.FormEvent<HTMLInputElement>) => void;
-  type?: string;
+  tagInputLabel?: string;
+  inputs: InputProps[];
 }
 
 interface TagInputState {
-  inputValue: string;
+  inputsValues: { [key: string]: string };
   tags: Tag[];
 }
 
@@ -29,21 +25,26 @@ interface Tag {
 
 class TagInput extends React.Component<TagInputProps, TagInputState> {
   state = {
-    inputValue: '',
+    inputsValues: this.getInitialInputsValues(),
     tags: [],
   };
 
+  getInitialInputsValues() {
+    const { inputs } = this.props;
+    const values = inputs.reduce((result, input) => ({ ...result, [input.name]: '' }), {});
+
+    return values;
+  }
+
   addTag() {
-    const { inputValue, tags } = this.state;
-
-    if (!inputValue) return;
-
+    const { inputsValues, tags } = this.state;
+    const { inputs } = this.props;
     const tag = {
-      text: inputValue,
+      text: inputs.map(input => inputsValues[input.name]).join(' '),
       id: this.generateTagId(),
     };
 
-    this.setState({ inputValue: '', tags: [...tags, tag] });
+    this.setState({ inputsValues: this.getInitialInputsValues(), tags: [...tags, tag] });
   }
 
   deleteTag = (tagId: string) => {
@@ -59,17 +60,18 @@ class TagInput extends React.Component<TagInputProps, TagInputState> {
     return tags.length;
   }
 
-  handleInputChange = (e) => {
+  handleInputChange = (e, name: string) => {
+    const { inputsValues } = this.state;
     const { onChange } = this.props;
-
-    this.setState({ inputValue: e.target.value });
+    console.log(e.target);
+    this.setState({ inputsValues: { ...inputsValues, [name]: e.target.value } });
 
     if (onChange) {
       onChange(e);
     }
   }
 
-  handleKeyDown = (e) => {
+  handleKeyDown = (e, name: string) => {
     if (e.keyCode === 13) {
       e.preventDefault();
 
@@ -79,44 +81,59 @@ class TagInput extends React.Component<TagInputProps, TagInputState> {
 
   render() {
     const {
-      inputValue,
+      inputsValues,
       tags,
     } = this.state;
     const {
-      id,
-      inputTagModifiers,
-      label,
-      labelModifiers,
-      name,
+      inputs,
       onChange,
-      type,
+      tagInputLabel,
     } = this.props;
-    console.log(tags);
 
     return (
       <div className="tag-input">
-        <Input
-          id={id}
-          label={label}
-          labelModifiers={cx(labelModifiers)}
-          tagModifiers={cx(inputTagModifiers, 'tag-input')}
-          name={name}
-          onChange={this.handleInputChange}
-          onKeyDown={this.handleKeyDown}
-          type={type}
-          value={inputValue}
-        >
-          <div className="tag-input__tags">
-            { tags.map(({ id, text }) => (
-              <Tag
-                key={id}
-                text={text}
-                id={id}
-                deleteTag={this.deleteTag}
-              />
-            )) }
-          </div>
-        </Input>
+        <p className="tag-input__label">
+          { tagInputLabel }
+        </p>
+
+        <div className="tag-input__tags">
+          { tags.map(({ id, text }) => (
+            <Tag
+              key={id}
+              text={text}
+              id={id}
+              deleteTag={this.deleteTag}
+            />
+          )) }
+        </div>
+
+        { inputs.map(({
+          id,
+          label,
+          labelModifiers,
+          name,
+          tagModifiers,
+          type,
+        }) => {
+          const changeHandler = e => this.handleInputChange(e, name);
+          const keyDownHandler = e => this.handleKeyDown(e, name);
+          const inputValue = this.state.inputsValues[name];
+
+          return (
+            <Input
+              key={id}
+              id={id}
+              label={label}
+              labelModifiers={cx(labelModifiers)}
+              tagModifiers={cx(tagModifiers, 'tag-input')}
+              name={name}
+              onChange={changeHandler}
+              onKeyDown={keyDownHandler}
+              type={type}
+              value={inputValue}
+            />
+          );
+        }) }
       </div>
     );
   }

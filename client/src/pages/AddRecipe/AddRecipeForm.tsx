@@ -28,8 +28,11 @@ class AddRecipeForm extends React.Component<AddRecipeFormProps> {
             />
 
             <TagInput
-              id="ingredients"
-              label="Ingredients"
+              inputs={[{
+                id: 'ingredients',
+                label: 'Ingredients',
+                name: 'Ingredients',
+              }]}
             />
 
             <Textarea
