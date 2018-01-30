@@ -1,10 +1,15 @@
 // modify surface button
 
 .btn {
+  &--without-margin {
+    margin-bottom: 0;
+  }
+
   &__text {
     display: inline-block;
     vertical-align: middle;
   }
+
   &__icon {
     display: inline-block;
     vertical-align: middle;

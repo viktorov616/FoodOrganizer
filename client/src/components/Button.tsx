@@ -11,6 +11,7 @@ interface ButtonProps {
   modifiers?: string;
   onClick: () => any;
   text?: string;
+  type?: string;
 }
 
 const Button: React.SFC<ButtonProps> = ({
@@ -20,10 +21,12 @@ const Button: React.SFC<ButtonProps> = ({
   modifiers,
   onClick,
   text,
+  type,
 }) => (
   <button
     className={(className) ? className : getClass('btn', modifiers)}
     onClick={onClick}
+    type={type}
   >
     { (text)
       ? <span className="btn__text">{ text }</span>
@@ -40,6 +43,7 @@ Button.defaultProps = {
   iconModifiers: '',
   modifiers: 'raised',
   text: '',
+  type: 'submit',
 };
 
 export default Button;

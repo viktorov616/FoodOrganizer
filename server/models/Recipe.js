@@ -7,7 +7,13 @@ const recipeSchema = new mongoose.Schema({
     type: String,
     required: 'You muse supply a name!',
   },
-  ingredients: [String],
+  ingredients: [{
+    name: {
+      type: String,
+      required: 'You muse supply a ingredient name!',
+    },
+    amount: String,
+  }],
   type: String, // breakfast, dinner, snack, etc
   description: String,
   rating: Number,

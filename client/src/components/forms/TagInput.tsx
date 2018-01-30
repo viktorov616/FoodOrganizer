@@ -8,12 +8,14 @@ import Tag                   from 'components/Tag';
 import { getClass }          from 'utils/getClass';
 
 interface TagInputProps {
-  onChange?: (e: React.FormEvent<HTMLInputElement>) => void;
-  tagInputLabel?: string;
+  btn?: string;
   inputs: InputProps[];
+  label?: string;
+  onChange?: (e: React.FormEvent<HTMLInputElement>) => void;
 }
 
 interface TagInputState {
+  focused: boolean;
   inputsValues: { [key: string]: string };
   tags: Tag[];
 }
@@ -21,10 +23,12 @@ interface TagInputState {
 interface Tag {
   id: string;
   text: string;
+  [key: string]: string;
 }
 
 class TagInput extends React.Component<TagInputProps, TagInputState> {
   state = {
+    focused: false,
     inputsValues: this.getInitialInputsValues(),
     tags: [],
   };
@@ -36,12 +40,13 @@ class TagInput extends React.Component<TagInputProps, TagInputState> {
     return values;
   }
 
-  addTag() {
+  addTag = () => {
     const { inputsValues, tags } = this.state;
     const { inputs } = this.props;
     const tag = {
       text: inputs.map(input => inputsValues[input.name]).join(' '),
       id: this.generateTagId(),
+      ...inputsValues,
     };
 
     this.setState({ inputsValues: this.getInitialInputsValues(), tags: [...tags, tag] });
@@ -60,10 +65,14 @@ class TagInput extends React.Component<TagInputProps, TagInputState> {
     return tags.length;
   }
 
+  handleFocus = (e) => {
+    this.setState({ focused: e.type === 'focus' });
+  }
+
   handleInputChange = (e, name: string) => {
     const { inputsValues } = this.state;
     const { onChange } = this.props;
-    console.log(e.target);
+
     this.setState({ inputsValues: { ...inputsValues, [name]: e.target.value } });
 
     if (onChange) {
@@ -81,19 +90,21 @@ class TagInput extends React.Component<TagInputProps, TagInputState> {
 
   render() {
     const {
+      focused,
       inputsValues,
       tags,
     } = this.state;
     const {
+      btn,
       inputs,
+      label,
       onChange,
-      tagInputLabel,
     } = this.props;
 
     return (
       <div className="tag-input">
-        <p className="tag-input__label">
-          { tagInputLabel }
+        <p className={getClass('tag-input__label', cx({ focused }))}>
+          { label }
         </p>
 
         <div className="tag-input__tags">
@@ -107,33 +118,36 @@ class TagInput extends React.Component<TagInputProps, TagInputState> {
           )) }
         </div>
 
-        { inputs.map(({
-          id,
-          label,
-          labelModifiers,
-          name,
-          tagModifiers,
-          type,
-        }) => {
-          const changeHandler = e => this.handleInputChange(e, name);
-          const keyDownHandler = e => this.handleKeyDown(e, name);
-          const inputValue = this.state.inputsValues[name];
+        <div className="tag-input__inputs">
+          { inputs.map((input) => {
+            const changeHandler = e => this.handleInputChange(e, input.name);
+            const keyDownHandler = e => this.handleKeyDown(e, input.name);
+            const inputValue = this.state.inputsValues[input.name];
 
-          return (
-            <Input
-              key={id}
-              id={id}
-              label={label}
-              labelModifiers={cx(labelModifiers)}
-              tagModifiers={cx(tagModifiers, 'tag-input')}
-              name={name}
-              onChange={changeHandler}
-              onKeyDown={keyDownHandler}
-              type={type}
-              value={inputValue}
-            />
-          );
-        }) }
+            return (
+              <Input
+                { ...input }
+                key={input.id}
+                modifiers={cx(input.modifiers, 'tag-input')}
+                onBlur={this.handleFocus}
+                onChange={changeHandler}
+                onFocus={this.handleFocus}
+                onKeyDown={keyDownHandler}
+                tagModifiers={cx(input.tagModifiers, 'tag-input')}
+                value={inputValue}
+              />
+            );
+          }) }
+        </div>
+
+        { (btn)
+          ? (<Button
+            modifiers="raised without-margin"
+            onClick={this.addTag}
+            text={btn}
+            type="button"
+          />)
+          : null }
       </div>
     );
   }

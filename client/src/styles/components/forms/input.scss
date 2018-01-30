@@ -6,16 +6,23 @@
 
   width: 100%;
 
+  &--tag-input {
+    & + .input--tag-input {
+      margin-left: $space-med;
+    }
+  }
+
   &__tag {
     order: 2;
-
-    &--tag-input {
-      order: 3;
-    }
 
     &:focus + .input__label {
       color: $secondary
     }
+  }
+
+  // redefine surface selector
+  .input__tag.input__tag--tag-input {
+    margin-bottom: $space-med;
   }
 
   &__label {
