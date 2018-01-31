@@ -2,4 +2,43 @@
   width: 100%;
 
   margin-bottom: $space-big;
+
+  &__input-label {
+    position: relative;
+
+    display: inline-block;
+
+    width: 25px;
+    height: 25px;
+
+    margin-right: $space-small;
+
+    font-size: 0;
+
+    &::after {
+      content: '\2606';
+
+      position: absolute;
+      left: 0;
+      top: 0;
+
+      font-size: $font-med * 2;
+      color: $secondary;
+
+      cursor: pointer;
+
+    }
+
+    &:hover::after {
+      color: lighten($secondary, 15%);
+    }
+  }
+
+  &__input {
+    display: none;
+
+    &:checked + .rating-picker__input-label::after {
+      content: '\2605';
+    }
+  }
 }

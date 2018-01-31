@@ -25,6 +25,7 @@ class AddRecipeForm extends React.Component<AddRecipeFormProps> {
         <div className="col g--6">
           <form onSubmit={this.handleSubmit}>
             <Input
+              autofocus
               id="name"
               label="Name"
               name="name"

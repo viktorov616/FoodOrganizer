@@ -3,16 +3,17 @@ import * as React   from 'react';
 import { getClass } from 'utils/getClass';
 
 export interface InputProps {
+  autofocus?: boolean;
   id: string;
   label?: string;
   labelModifiers?: string;
   modifiers?: string;
   name: string;
+  onBlur?: (e: React.FormEvent<HTMLInputElement>) => void;
   onChange?: (e: React.FormEvent<HTMLInputElement>) => void;
+  onFocus?: (e: React.FormEvent<HTMLInputElement>) => void;
   onKeyDown?: (e: React.FormEvent<HTMLInputElement>) => void;
   onKeyUp?: (e: React.FormEvent<HTMLInputElement>) => void;
-  onFocus?: (e: React.FormEvent<HTMLInputElement>) => void;
-  onBlur?: (e: React.FormEvent<HTMLInputElement>) => void;
   tagModifiers?: string;
   type?: string;
   value?: string;
@@ -27,17 +28,18 @@ class Input extends React.Component<InputProps> {
 
   render() {
     const {
+      autofocus,
       children,
       id,
       label,
       labelModifiers,
       modifiers,
       name,
+      onBlur,
       onChange,
+      onFocus,
       onKeyDown,
       onKeyUp,
-      onFocus,
-      onBlur,
       tagModifiers,
       type,
       value,
@@ -46,14 +48,15 @@ class Input extends React.Component<InputProps> {
     return (
       <div className={getClass('input', tagModifiers)}>
         <input
+          autoFocus={autofocus}
           className={getClass('input__tag', tagModifiers)}
           id={id}
           name={name}
+          onBlur={onBlur}
           onChange={onChange}
+          onFocus={onFocus}
           onKeyDown={onKeyDown}
           onKeyUp={onKeyUp}
-          onFocus={onFocus}
-          onBlur={onBlur}
           type={type}
           value={value}
         />
