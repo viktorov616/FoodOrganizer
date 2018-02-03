@@ -10,7 +10,7 @@ export interface InputProps {
   modifiers?: string;
   name: string;
   onBlur?: (e: React.FormEvent<HTMLInputElement>) => void;
-  onChange?: (e: React.FormEvent<HTMLInputElement>) => void;
+  onChange?: (name: string, value: string) => void;
   onFocus?: (e: React.FormEvent<HTMLInputElement>) => void;
   onKeyDown?: (e: React.FormEvent<HTMLInputElement>) => void;
   onKeyUp?: (e: React.FormEvent<HTMLInputElement>) => void;
@@ -26,6 +26,15 @@ class Input extends React.Component<InputProps> {
     modifiers: '',
   };
 
+  handleChange = (e) => {
+    const {
+      name,
+      onChange,
+    } = this.props;
+
+    onChange(name, e.target.value);
+  }
+
   render() {
     const {
       autofocus,
@@ -36,7 +45,6 @@ class Input extends React.Component<InputProps> {
       modifiers,
       name,
       onBlur,
-      onChange,
       onFocus,
       onKeyDown,
       onKeyUp,
@@ -53,7 +61,7 @@ class Input extends React.Component<InputProps> {
           id={id}
           name={name}
           onBlur={onBlur}
-          onChange={onChange}
+          onChange={this.handleChange}
           onFocus={onFocus}
           onKeyDown={onKeyDown}
           onKeyUp={onKeyUp}

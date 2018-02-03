@@ -12,6 +12,8 @@ interface TagInputProps {
   inputs: InputProps[];
   label?: string;
   onChange?: (e: React.FormEvent<HTMLInputElement>) => void;
+  onTagsUpdate?: (name: string, tags: { [key: string]: string }[]) => void;
+  name: string;
 }
 
 interface TagInputState {
@@ -21,8 +23,8 @@ interface TagInputState {
 }
 
 interface Tag {
-  id: string;
-  text: string;
+  _id: string;
+  _text: string;
   [key: string]: string;
 }
 
@@ -42,21 +44,30 @@ class TagInput extends React.Component<TagInputProps, TagInputState> {
 
   addTag = () => {
     const { inputsValues, tags } = this.state;
-    const { inputs } = this.props;
+    const { inputs, onTagsUpdate } = this.props;
     const tag = {
-      text: inputs.map(input => inputsValues[input.name]).join(' '),
-      id: this.generateTagId(),
+      _text: inputs.map(input => inputsValues[input.name]).join(' '),
+      _id: this.generateTagId(),
       ...inputsValues,
     };
 
     this.setState({ inputsValues: this.getInitialInputsValues(), tags: [...tags, tag] });
+
+    if (onTagsUpdate) {
+      this.handleTagUpdate();
+    }
   }
 
   deleteTag = (tagId: string) => {
     const { tags } = this.state;
-    const updatedTags = tags.filter(({ id }) => id !== tagId);
+    const { onTagsUpdate } = this.props;
+    const updatedTags = tags.filter(({ _id }) => _id !== tagId);
 
     this.setState ({ tags: updatedTags });
+
+    if (onTagsUpdate) {
+      this.handleTagUpdate();
+    }
   }
 
   generateTagId() {
@@ -88,6 +99,19 @@ class TagInput extends React.Component<TagInputProps, TagInputState> {
     }
   }
 
+  handleTagUpdate() {
+    const { tags } = this.state;
+    const { onTagsUpdate } = this.props;
+    const tagsToExport = tags.map((tag: Tag) => (
+      Object.entries(tag).reduce(
+        (result, [key, value]) => (/_id|_text/.test(key) ? result : { ...result, [key]: value }),
+        {},
+      )
+    ));
+
+    onTagsUpdate(name, tagsToExport);
+  }
+
   render() {
     const {
       focused,
@@ -108,11 +132,11 @@ class TagInput extends React.Component<TagInputProps, TagInputState> {
         </p>
 
         <div className="tag-input__tags">
-          { tags.map(({ id, text }) => (
+          { tags.map(({ _id, _text }) => (
             <Tag
-              key={id}
-              text={text}
-              id={id}
+              key={_id}
+              text={_text}
+              id={_id}
               deleteTag={this.deleteTag}
             />
           )) }

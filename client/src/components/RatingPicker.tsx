@@ -7,7 +7,7 @@ interface RatingPickerProps {
   name?: string;
   label?: string;
   modifiers?: string;
-  onChange?: (rating: number) => any;
+  onChange?: (name: string, rating: number) => any;
 }
 
 interface RatingPickerState {
@@ -26,13 +26,13 @@ class RatingPicker extends React.Component<RatingPickerProps> {
 
   handleRatingChange = (e, num) => {
     const { rating } = this.state;
-    const { onChange } = this.props;
+    const { onChange, name } = this.props;
     const newRating = (e.target.checked || rating !== num) ? num : 0;
 
     this.setState({ rating: newRating });
 
     if (onChange) {
-      onChange(num);
+      onChange(name, num);
     }
   }
 

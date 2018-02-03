@@ -9,7 +9,7 @@ interface TextareaProps {
   label?: string;
   labelModifiers?: string;
   name?: string;
-  onChange?: () => void;
+  onChange?: (name: string, value: string) => void;
   rows?: number;
 }
 
@@ -27,9 +27,25 @@ class Textarea extends React.Component<TextareaProps> {
     this.setState({ focused: e.type === 'focus' });
   }
 
+  handleChange = (e) => {
+    const {
+      name,
+      onChange,
+    } = this.props;
+
+    onChange(name, e.target.value);
+  }
+
+
   render() {
     const { focused } = this.state;
-    const { label, labelModifiers, id, onChange, name, rows } = this.props;
+    const {
+      label,
+      labelModifiers,
+      id,
+      name,
+      rows,
+    } = this.props;
 
     return (
       <div className={getClass('textarea', cx({ active: focused }))}>
@@ -37,7 +53,7 @@ class Textarea extends React.Component<TextareaProps> {
           className="textarea__tag"
           id={id}
           name={name}
-          onChange={onChange}
+          onChange={this.handleChange}
           rows={rows}
           onFocus={this.handleFocus}
           onBlur={this.handleFocus}

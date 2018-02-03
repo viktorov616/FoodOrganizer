@@ -60,10 +60,12 @@ const clientConfig = {
     ],
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
     alias: {
+      api: path.join(__dirname, 'client/src/api'),
       components: path.join(__dirname, 'client/src/components'),
       constants: path.join(__dirname, 'client/src/constants'),
       pages: path.join(__dirname, 'client/src/pages'),
       src: path.join(__dirname, 'client/src'),
+      stores: path.join(__dirname, 'client/src/stores'),
       utils: path.join(__dirname, 'client/src/utils'),
     },
     plugins: [

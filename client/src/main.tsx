@@ -2,6 +2,7 @@ import * as React               from 'react';
 import * as ReactDOM            from 'react-dom';
 
 import App                      from 'src/App';
+import addRecipeStore           from 'stores/addRecipe';
 
 import { AppContainer }         from 'react-hot-loader';
 import { RouterStore,
@@ -15,7 +16,10 @@ import './styles/style.scss';
 
 const routingStore = new RouterStore();
 const content = (
-  <Provider routing={routingStore}>
+  <Provider
+    addRecipeStore={addRecipeStore}
+    routing={routingStore}
+  >
     <BrowserRouter>
       <App />
     </BrowserRouter>

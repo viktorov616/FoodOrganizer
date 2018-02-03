@@ -19,10 +19,12 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "api/*": ["client/src/api/*"],
       "components/*": ["client/src/components/*"],
       "constants/*": ["client/src/constants/*"],
       "pages/*": ["client/src/pages/*"],
       "src/*": ["client/src/*"],
+      "stores/*": ["client/src/stores/*"],
       "utils/*": ["client/src/utils/*"],
     }
   },
