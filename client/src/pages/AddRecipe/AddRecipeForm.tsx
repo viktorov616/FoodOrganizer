@@ -1,20 +1,26 @@
-import * as React      from 'react';
+import * as React           from 'react';
 
-import Button          from 'components/Button';
-import Input           from 'components/forms/Input';
-import RatingPicker    from 'components/RatingPicker';
-import Select          from 'components/forms/Select';
-import TagInput        from 'components/forms/TagInput';
-import Textarea        from 'components/forms/Textarea';
+import Button               from 'components/Button';
+import Input                from 'components/forms/Input';
+import RatingPicker         from 'components/RatingPicker';
+import Select               from 'components/forms/Select';
+import TagInput             from 'components/forms/TagInput';
+import Textarea             from 'components/forms/Textarea';
 
-import { RATING_LIST } from 'constants/general';
-import { getClass }    from 'utils/getClass';
+import { RATING_LIST }      from 'constants/general';
+import { getClass }         from 'utils/getClass';
 import { action,
-  observable,
-  useStrict  } from 'mobx';
+         observable,
+         useStrict,
+         toJS  }            from 'mobx';
+import { observer, inject } from 'mobx-react';
 
 interface AddRecipeFormProps {
-  onSubmit: (data: data) => any;
+  // onSubmit: (data: data) => any;
+  addRecipeStore?: {
+    addRecipe: (data: data) => any;
+    isSendingRequest: boolean;
+  };
 }
 
 interface AddRecipeFormState {
@@ -26,7 +32,7 @@ interface data {
   ingredients: ingredient[];
   name: string;
   rating: number;
-  type: string;
+  type: string[];
 }
 
 interface ingredient {
@@ -34,25 +40,32 @@ interface ingredient {
   name: string;
 }
 
+@inject('addRecipeStore')
+@observer
 class AddRecipeForm extends React.Component<AddRecipeFormProps> {
   @observable data = {
     description: '',
     ingredients: [],
     name: '',
     rating: 0,
-    type: '',
+    type: [],
   };
 
-  handleSubmit = () => {
-    const { onSubmit } = this.props;
+  handleSubmit = (e) => {
+    const {
+      addRecipeStore: {
+        addRecipe,
+      },
+    } = this.props;
 
-    onSubmit(this.data);
+    e.preventDefault();
+    addRecipe(toJS(this.data));
   }
 
   @action.bound
   handleFormDataChange(name: string, value: string|number|{ [key: string]: string }[]) {
-    if (name === 'type') {
-      this.data[name] = (typeof value === 'object') ? value[name] : value;
+    if (name === 'type' && typeof value === 'object') {
+      this.data[name] = value.map(item => item[name]);
     } else {
       this.data[name] = value;
     }
@@ -99,6 +112,7 @@ class AddRecipeForm extends React.Component<AddRecipeFormProps> {
 
             <Textarea
               id="description"
+              name="description"
               label="Description"
               onChange={this.handleFormDataChange}
             />

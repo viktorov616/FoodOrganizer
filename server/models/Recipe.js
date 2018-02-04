@@ -17,7 +17,6 @@ const recipeSchema = new mongoose.Schema({
   type: String, // breakfast, dinner, snack, etc
   description: String,
   rating: Number,
-  // photo: String,
 });
 
 module.exports = mongoose.model('Recipe', recipeSchema);

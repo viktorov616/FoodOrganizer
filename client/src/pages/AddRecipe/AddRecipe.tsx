@@ -9,7 +9,7 @@ import axios          from 'axios';
 import { action,
          observable,
          useStrict  } from 'mobx';
-import { observer }   from 'mobx-react';
+import { observer, inject }   from 'mobx-react';
 
 useStrict(true);
 
@@ -20,7 +20,8 @@ interface AddRecepieProps {
   };
 }
 
-@observer(['addRecipeStore'])
+@inject('addRecipeStore')
+@observer
 class AddRecipe extends React.Component<AddRecepieProps> {
   render() {
     const {
@@ -32,7 +33,7 @@ class AddRecipe extends React.Component<AddRecepieProps> {
     return (
       <Container>
         <Title text="Add recipe" />
-        <AddRecipeForm onSubmit={addRecipe} />
+        <AddRecipeForm />
       </Container>
     );
   }

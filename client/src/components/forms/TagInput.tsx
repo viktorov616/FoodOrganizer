@@ -11,7 +11,7 @@ interface TagInputProps {
   btn?: string;
   inputs: InputProps[];
   label?: string;
-  onChange?: (e: React.FormEvent<HTMLInputElement>) => void;
+  onChange?: (name: string, value: string) => void;
   onTagsUpdate?: (name: string, tags: { [key: string]: string }[]) => void;
   name: string;
 }
@@ -50,11 +50,12 @@ class TagInput extends React.Component<TagInputProps, TagInputState> {
       _id: this.generateTagId(),
       ...inputsValues,
     };
+    const updatedTags = [...tags, tag];
 
-    this.setState({ inputsValues: this.getInitialInputsValues(), tags: [...tags, tag] });
+    this.setState({ inputsValues: this.getInitialInputsValues(), tags: updatedTags });
 
     if (onTagsUpdate) {
-      this.handleTagUpdate();
+      this.handleTagUpdate(updatedTags);
     }
   }
 
@@ -66,7 +67,7 @@ class TagInput extends React.Component<TagInputProps, TagInputState> {
     this.setState ({ tags: updatedTags });
 
     if (onTagsUpdate) {
-      this.handleTagUpdate();
+      this.handleTagUpdate(updatedTags);
     }
   }
 
@@ -80,14 +81,14 @@ class TagInput extends React.Component<TagInputProps, TagInputState> {
     this.setState({ focused: e.type === 'focus' });
   }
 
-  handleInputChange = (e, name: string) => {
+  handleInputChange = (name: string, value: string) => {
     const { inputsValues } = this.state;
     const { onChange } = this.props;
 
-    this.setState({ inputsValues: { ...inputsValues, [name]: e.target.value } });
+    this.setState({ inputsValues: { ...inputsValues, [name]: value } });
 
     if (onChange) {
-      onChange(e);
+      onChange(name, value);
     }
   }
 
@@ -99,16 +100,16 @@ class TagInput extends React.Component<TagInputProps, TagInputState> {
     }
   }
 
-  handleTagUpdate() {
-    const { tags } = this.state;
-    const { onTagsUpdate } = this.props;
+  handleTagUpdate(tags: Tag[]) {
+    const { name, onTagsUpdate } = this.props;
+    console.log(tags);
     const tagsToExport = tags.map((tag: Tag) => (
       Object.entries(tag).reduce(
         (result, [key, value]) => (/_id|_text/.test(key) ? result : { ...result, [key]: value }),
         {},
       )
     ));
-
+    console.log(tagsToExport);
     onTagsUpdate(name, tagsToExport);
   }
 
@@ -144,7 +145,6 @@ class TagInput extends React.Component<TagInputProps, TagInputState> {
 
         <div className="tag-input__inputs">
           { inputs.map((input) => {
-            const changeHandler = e => this.handleInputChange(e, input.name);
             const keyDownHandler = e => this.handleKeyDown(e, input.name);
             const inputValue = this.state.inputsValues[input.name];
 
@@ -154,7 +154,7 @@ class TagInput extends React.Component<TagInputProps, TagInputState> {
                 key={input.id}
                 modifiers={cx(input.modifiers, 'tag-input')}
                 onBlur={this.handleFocus}
-                onChange={changeHandler}
+                onChange={this.handleInputChange}
                 onFocus={this.handleFocus}
                 onKeyDown={keyDownHandler}
                 tagModifiers={cx(input.tagModifiers, 'tag-input')}

@@ -184,6 +184,9 @@ const serverConfig = {
       path.join(__dirname, 'server'),
     ],
     extensions: ['.js'],
+    plugins: [
+      new DirectoryNamedWebpackPlugin(),
+    ],
   },
   plugins,
   output: {

@@ -2,18 +2,15 @@ const express          = require('express');
 const session          = require('express-session');
 const mongoose         = require('mongoose');
 const MongoStore       = require('connect-mongo')(session);
-const path             = require('path');
 const cookieParser     = require('cookie-parser');
 const bodyParser       = require('body-parser');
 const passport         = require('passport');
 const promisify        = require('es6-promisify');
 const flash            = require('connect-flash');
 const expressValidator = require('express-validator');
-const routes           = require('./routes/index');
+const routes           = require('./routes');
 
 const app = express();
-
-app.use(express.static(path.join(__dirname, 'server/public')));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

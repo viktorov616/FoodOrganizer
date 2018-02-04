@@ -9,7 +9,7 @@ interface ButtonProps {
   icon?: string;
   iconModifiers?: string;
   modifiers?: string;
-  onClick: () => any;
+  onClick: (e: React.FormEvent<HTMLButtonElement>) => any;
   text?: string;
   type?: string;
 }

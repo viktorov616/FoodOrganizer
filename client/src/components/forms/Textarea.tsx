@@ -8,7 +8,7 @@ interface TextareaProps {
   id: string;
   label?: string;
   labelModifiers?: string;
-  name?: string;
+  name: string;
   onChange?: (name: string, value: string) => void;
   rows?: number;
 }

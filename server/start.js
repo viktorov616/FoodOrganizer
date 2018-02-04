@@ -2,10 +2,14 @@ const mongoose = require('mongoose');
 
 require('dotenv').config({ path: 'variables.env' });
 
-mongoose.createConnection(process.env.DATABASE, { useMongoClient: true });
+// Connect to MongoDB
+mongoose.connect(process.env.DATABASE, { useMongoClient: true });
 mongoose.Promise = global.Promise;
 mongoose.connection.on('error', (err) => {
   console.error(err.message);
+});
+mongoose.connection.on('connecting', () => {
+  console.log('connecting');
 });
 
 const app = require('./server');

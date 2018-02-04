@@ -6,7 +6,7 @@ const addRecipeStore = observable({
 
   addRecipe: async (data) => {
     this.isSendingRequest = true;
-
+    console.log('data', data);
     await addRecipe(data);
 
     this.isSendingRequest = false;
