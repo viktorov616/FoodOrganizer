@@ -102,14 +102,12 @@ class TagInput extends React.Component<TagInputProps, TagInputState> {
 
   handleTagUpdate(tags: Tag[]) {
     const { name, onTagsUpdate } = this.props;
-    console.log(tags);
     const tagsToExport = tags.map((tag: Tag) => (
       Object.entries(tag).reduce(
         (result, [key, value]) => (/_id|_text/.test(key) ? result : { ...result, [key]: value }),
         {},
       )
     ));
-    console.log(tagsToExport);
     onTagsUpdate(name, tagsToExport);
   }
 

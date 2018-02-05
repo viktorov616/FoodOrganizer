@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "wds": "webpack-dev-server --hide-modules --hot --debug --devtool eval --output-pathinfo --watch --colors --inline --history-api-fallback --content-base --display-error-details",
+    "wds": "webpack-dev-server --no-info --hide-modules --hot --debug --devtool eval --output-pathinfo --watch --colors --inline --history-api-fallback --content-base --display-error-details",
     "watch": "nodemon ./server/start.js --ignore public/ --ignore client/ --ignore node_modules/",
     "build": "SET NODE_ENV=production&SET BABEL_ENV=production&webpack -p",
     "start": "concurrently \"yarn run watch\" \"yarn run wds\" --names \"server\" --prefix name"

@@ -64,8 +64,19 @@ class AddRecipeForm extends React.Component<AddRecipeFormProps> {
 
   @action.bound
   handleFormDataChange(name: string, value: string|number|{ [key: string]: string }[]) {
+    // specific handling requires, because TagInput returns an array of objects for each input
     if (name === 'type' && typeof value === 'object') {
       this.data[name] = value.map(item => item[name]);
+    } else if (name === 'ingredients' && typeof value === 'object') {
+      // replace keys for objects from 'ingredients[key]' to 'key'
+      // ingredients[key] - this format used, because key can duplicate name with real inputs
+      this.data[name] = value.map((item) => {
+        const itemKeys = Object.keys(item);
+
+        return itemKeys.reduce(
+          (result, key) => ({ ...result, [key.match(/ingredients\[(.*)\]/)[1]]: item[key] }),
+          {});
+      });
     } else {
       this.data[name] = value;
     }
@@ -101,6 +112,7 @@ class AddRecipeForm extends React.Component<AddRecipeFormProps> {
             />
 
             <TagInput
+              btn="Add type"
               label="Type"
               name="type"
               inputs={[{
