@@ -12,6 +12,9 @@ mongoose.connection.on('connecting', () => {
   console.log('connecting');
 });
 
+// models
+require('./models/Recipe');
+
 const app = require('./server');
 
 app.set('port', process.env.PORT || 7777);

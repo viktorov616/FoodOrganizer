@@ -14,7 +14,7 @@ const recipeSchema = new mongoose.Schema({
     },
     amount: String,
   }],
-  type: String, // breakfast, dinner, snack, etc
+  type: [String], // breakfast, dinner, snack, etc
   description: String,
   rating: Number,
 });
