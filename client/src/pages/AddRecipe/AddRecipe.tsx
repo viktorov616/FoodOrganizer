@@ -4,7 +4,6 @@ import * as cx        from 'classnames';
 import AddRecipeForm  from './AddRecipeForm';
 import Container      from 'components/layout/Container';
 import Title          from 'components/typography/Title';
-import axios          from 'axios';
 
 import { action,
          observable,
