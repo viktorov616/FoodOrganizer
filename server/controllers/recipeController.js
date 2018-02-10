@@ -7,3 +7,9 @@ exports.createRecipe = async (req, res) => {
 
   res.json(recipe);
 };
+
+exports.getRecipes = async (req, res) => {
+  const stores = await Recipe.find();
+
+  res.json(stores);
+};
