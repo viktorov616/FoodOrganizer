@@ -32,7 +32,7 @@ interface data {
   ingredients: ingredient[];
   name: string;
   rating: number;
-  type: string[];
+  tags: string[];
 }
 
 interface ingredient {
@@ -48,7 +48,7 @@ class AddRecipeForm extends React.Component<AddRecipeFormProps> {
     ingredients: [],
     name: '',
     rating: 0,
-    type: [],
+    tags: [],
   };
 
   handleSubmit = (e) => {
@@ -65,7 +65,7 @@ class AddRecipeForm extends React.Component<AddRecipeFormProps> {
   @action.bound
   handleFormDataChange(name: string, value: string|number|{ [key: string]: string }[]) {
     // specific handling requires, because TagInput returns an array of objects for each input
-    if (name === 'type' && typeof value === 'object') {
+    if (name === 'tags' && typeof value === 'object') {
       this.data[name] = value.map(item => item[name]);
     } else if (name === 'ingredients' && typeof value === 'object') {
       // replace keys for objects from 'ingredients[key]' to 'key'
@@ -112,12 +112,12 @@ class AddRecipeForm extends React.Component<AddRecipeFormProps> {
             />
 
             <TagInput
-              btn="Add type"
-              label="Type"
-              name="type"
+              btn="Add tag"
+              label="Tags"
+              name="tags"
               inputs={[{
-                id: 'type',
-                name: 'type',
+                id: 'tags',
+                name: 'tags',
               }]}
               onTagsUpdate={this.handleFormDataChange}
             />
