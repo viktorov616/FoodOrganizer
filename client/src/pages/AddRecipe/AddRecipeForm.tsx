@@ -1,46 +1,32 @@
-import * as React           from 'react';
+import * as React      from 'react';
 
-import Button               from 'components/Button';
-import Input                from 'components/forms/Input';
-import RatingPicker         from 'components/RatingPicker';
-import Select               from 'components/forms/Select';
-import TagInput             from 'components/forms/TagInput';
-import Textarea             from 'components/forms/Textarea';
+import Button          from 'components/Button';
+import Input           from 'components/forms/Input';
+import RatingPicker    from 'components/RatingPicker';
+import Select          from 'components/forms/Select';
+import TagInput        from 'components/forms/TagInput';
+import Textarea        from 'components/forms/Textarea';
 
-import { RATING_LIST }      from 'constants/general';
-import { getClass }         from 'utils/getClass';
+import { RATING_LIST } from 'constants/general';
+import { getClass }    from 'utils/getClass';
 import { action,
          observable,
-         useStrict,
-         toJS  }            from 'mobx';
-import { observer, inject } from 'mobx-react';
+         toJS  }       from 'mobx';
+import { observer,
+         inject }      from 'mobx-react';
+import { recipe,
+         recipesStore,
+         ingredient }  from 'stores/recipes';
 
 interface AddRecipeFormProps {
-  // onSubmit: (data: data) => any;
-  addRecipeStore?: {
-    addRecipe: (data: data) => any;
-    isSendingRequest: boolean;
-  };
+  recipesStore?;
 }
 
 interface AddRecipeFormState {
-  data;
+  data: recipe;
 }
 
-interface data {
-  description: string;
-  ingredients: ingredient[];
-  name: string;
-  rating: number;
-  tags: string[];
-}
-
-interface ingredient {
-  amount: string;
-  name: string;
-}
-
-@inject('addRecipeStore')
+@inject('recipesStore')
 @observer
 class AddRecipeForm extends React.Component<AddRecipeFormProps> {
   @observable data = {
@@ -53,7 +39,7 @@ class AddRecipeForm extends React.Component<AddRecipeFormProps> {
 
   handleSubmit = (e) => {
     const {
-      addRecipeStore: {
+      recipesStore: {
         addRecipe,
       },
     } = this.props;

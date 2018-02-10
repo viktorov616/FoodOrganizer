@@ -1,7 +1,7 @@
 import * as React   from 'react';
 
 import AddRecipe    from 'pages/AddRecipe';
-import Header       from './Header/Header';
+import Header       from './Header';
 import RandomRecipe from 'pages/RandomRecipe';
 import RecipeList   from 'pages/RecipeList';
 

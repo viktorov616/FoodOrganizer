@@ -2,7 +2,7 @@ import * as React               from 'react';
 import * as ReactDOM            from 'react-dom';
 
 import App                      from 'src/App';
-import addRecipeStore           from 'stores/addRecipe';
+import recipesStore             from 'stores/Recipes';
 
 import { AppContainer }         from 'react-hot-loader';
 import { RouterStore,
@@ -11,13 +11,16 @@ import { Provider }             from 'mobx-react';
 import { BrowserRouter,
          Route }                from 'react-router-dom';
 import { enableLogging }        from 'mobx-logger';
+import { useStrict }            from 'mobx';
 
 import './styles/style.scss';
+
+useStrict(true);
 
 const routingStore = new RouterStore();
 const content = (
   <Provider
-    addRecipeStore={addRecipeStore}
+    recipesStore={recipesStore}
     routing={routingStore}
   >
     <BrowserRouter>
