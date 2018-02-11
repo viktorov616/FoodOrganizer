@@ -13,6 +13,10 @@
 
   border-radius: 2px;
 
+  &--without-button {
+    padding-right: $space-small / 2;
+  }
+
   &__text {
     display: inline-block;
     vertical-align: top;

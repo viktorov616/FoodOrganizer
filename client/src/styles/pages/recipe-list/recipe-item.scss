@@ -1,0 +1,18 @@
+.recipe-item {
+  padding: $space-small $space-med;
+  // padding-bottom: $space-small;
+
+  border-bottom: 1px solid $clouds;
+
+  &:first-child {
+    border-top: 1px solid $clouds;
+  }
+
+  &__description {
+    width: 50%;
+  }
+
+  &__img {
+    width: 50%;
+  }
+}

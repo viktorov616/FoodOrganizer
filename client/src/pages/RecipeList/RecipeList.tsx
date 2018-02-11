@@ -31,12 +31,22 @@ class RecipeList extends React.Component<RecipeListProps> {
     const {
       recipesStore,
     } = this.props;
-    console.log(toJS(recipesStore));
     return (
-      <Container>
-        <Title text="Recipe list" />
-        { recipesStore.recipes.map(recipe => <RecipeItem key={recipe._id} recipe={recipe} />) }
-      </Container>
+      <React.Fragment>
+        <Container>
+          <Title text="Recipe list" />
+        </Container>
+
+        <div className="recipe-list__list">
+          { recipesStore.recipes.map(recipe => (
+            console.log(recipe._id),
+            <RecipeItem
+              key={recipe._id}
+              recipe={recipe}
+            />
+          )) }
+        </div>
+      </React.Fragment>
     );
   }
 }

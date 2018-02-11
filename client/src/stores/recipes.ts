@@ -41,12 +41,11 @@ class RecipesStore<recipesStore>  {
   async getRecipes() {
     this.isSendingRequest = true;
     const answer = await getRecipes();
-    // console.log(answer.data);
+
     runInAction(() => {
       this.recipes = answer.data;
       this.isSendingRequest = false;
     });
-    console.log(toJS(this));
   }
 }
 

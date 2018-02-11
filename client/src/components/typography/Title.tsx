@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import * as cx    from 'classnames';
+import { getClass } from 'utils/getClass';
 
 interface TitleProps {
   text: string;
@@ -16,7 +16,7 @@ const Title: React.SFC<TitleProps> = ({
   const Heading = `h${size}`;
 
   return (
-    <Heading className={cx('title', modifiers)}>
+    <Heading className={getClass('title', modifiers)}>
       <span className="title__text">{ text }</span>
     </Heading>
   );
