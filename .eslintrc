@@ -18,7 +18,8 @@
       "extensions": [".js", ".jsx"]
     }],
     "space-before-function-paren": ["error", {
-        "anonymous": "never"
+        "anonymous": "never",
+        "named": "never"
     }]
   },
   "env": {

@@ -25,24 +25,18 @@ const plugins = [
 ];
 
 if (NODE_ENV === 'production') {
-  plugins.push(
-    new CleanWebpackPlugin([ 'assets' ], {
-      root: path.join(__dirname, 'public'),
-      verbose: true,
-    })
-  );
-  plugins.push(
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        drop_console: true,
-        unsafe: true,
-      },
-    })
-  );
+  plugins.push(new CleanWebpackPlugin(['assets'], {
+    root: path.join(__dirname, 'public'),
+    verbose: true,
+  }));
+  plugins.push(new webpack.optimize.UglifyJsPlugin({
+    compress: {
+      drop_console: true,
+      unsafe: true,
+    },
+  }));
 } else {
-    plugins.push(
-      new webpack.NamedModulesPlugin()
-    );
+  plugins.push(new webpack.NamedModulesPlugin());
 }
 
 const clientConfig = {

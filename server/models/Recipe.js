@@ -20,6 +20,7 @@ const recipeSchema = new mongoose.Schema({
     type: String,
     required: 'You muse supply a name!',
   },
+  photo: String,
   rating: Number,
   slug: String,
   tags: [String],

@@ -38,7 +38,6 @@ class Input extends React.Component<InputProps> {
   render() {
     const {
       autofocus,
-      children,
       id,
       label,
       labelModifiers,
@@ -54,7 +53,7 @@ class Input extends React.Component<InputProps> {
     } = this.props;
 
     return (
-      <div className={getClass('input', tagModifiers)}>
+      <div className={getClass('input', modifiers)}>
         <input
           autoFocus={autofocus}
           className={getClass('input__tag', tagModifiers)}

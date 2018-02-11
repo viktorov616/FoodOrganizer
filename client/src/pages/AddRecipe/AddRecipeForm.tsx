@@ -2,6 +2,7 @@ import * as React      from 'react';
 
 import Button          from 'components/Button';
 import Input           from 'components/forms/Input';
+import FileInput       from 'components/forms/FileInput';
 import RatingPicker    from 'components/RatingPicker';
 import Select          from 'components/forms/Select';
 import TagInput        from 'components/forms/TagInput';
@@ -29,6 +30,7 @@ interface AddRecipeFormState {
 @inject('recipesStore')
 @observer
 class AddRecipeForm extends React.Component<AddRecipeFormProps> {
+  state = {}
   @observable data = {
     description: '',
     ingredients: [],
@@ -49,11 +51,11 @@ class AddRecipeForm extends React.Component<AddRecipeFormProps> {
   }
 
   @action.bound
-  handleFormDataChange(name: string, value: string|number|{ [key: string]: string }[]) {
+  handleFormDataChange(name: string, value: string|number|File|{ [key: string]: string }[]) {
     // specific handling requires, because TagInput returns an array of objects for each input
-    if (name === 'tags' && typeof value === 'object') {
+    if (name === 'tags' && value instanceof Array) {
       this.data[name] = value.map(item => item[name]);
-    } else if (name === 'ingredients' && typeof value === 'object') {
+    } else if (name === 'ingredients' && value instanceof Array) {
       // replace keys for objects from 'ingredients[key]' to 'key'
       // ingredients[key] - this format used, because key can duplicate name with real inputs
       this.data[name] = value.map((item) => {
@@ -118,6 +120,13 @@ class AddRecipeForm extends React.Component<AddRecipeFormProps> {
             <RatingPicker
               ratingList={RATING_LIST}
               label="Rating"
+              onChange={this.handleFormDataChange}
+            />
+
+            <FileInput
+              id="photo"
+              label="Photo"
+              name="photo"
               onChange={this.handleFormDataChange}
             />
 

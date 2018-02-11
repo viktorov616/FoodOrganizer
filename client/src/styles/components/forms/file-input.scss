@@ -1,0 +1,65 @@
+.file-input {
+  display: block;
+
+  width: 100%;
+
+  margin-bottom: $space-big;
+
+  &__label-text {
+    display: block;
+
+    margin-bottom: $space-small;
+  }
+
+  &__tag {
+    display: none;
+  }
+
+  &__file-name-wrapper {
+    display: inline-block;
+
+    width: 100%;
+
+    margin-bottom: $space-small;
+  }
+
+  &__file-name {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  &__file-name-icon {
+    display: inline-block;
+    vertical-align: middle;
+
+    margin-right: $space-small / 2;
+
+    color: darken($primary, 20%);
+  }
+
+  &__text-wrapper {
+    color: darken($primary, 20%);
+
+    cursor: pointer;
+
+    &:hover {
+      color: $secondary;
+
+      & .file-input__upload-icon {
+        color: $secondary;
+      }
+    }
+  }
+
+  &__text {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  &__upload-icon {
+    display: inline-block;
+    vertical-align: middle;
+
+    color: $primary;
+  }
+}
