@@ -39,9 +39,8 @@ exports.createRecipe = async (req, res) => {
   try {
     const data = Object.entries(req.body).reduce((result, entry) => ({
       ...result,
-      [entry[0]]: (entry[0] === 'photo') ? entry[1] : (console.log(entry), JSON.parse(entry[1])),
+      [entry[0]]: (entry[1] instanceof File) ? entry[1] : JSON.parse(entry[1]),
     }), {});
-    console.log(data);
     const recipe = await (new Recipe(data)).save();
 
     res.json(recipe);

@@ -30,7 +30,6 @@ interface AddRecipeFormState {
 @inject('recipesStore')
 @observer
 class AddRecipeForm extends React.Component<AddRecipeFormProps> {
-  state = {}
   @observable data = {
     description: '',
     ingredients: [],
@@ -47,7 +46,7 @@ class AddRecipeForm extends React.Component<AddRecipeFormProps> {
     } = this.props;
 
     e.preventDefault();
-    addRecipe(toJS(this.data));
+    addRecipe(this.data);
   }
 
   @action.bound

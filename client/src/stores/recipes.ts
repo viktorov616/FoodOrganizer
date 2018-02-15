@@ -21,6 +21,7 @@ export interface recipe {
   rating: number;
   slug?: string;
   tags: string[];
+  photo?: File;
 }
 
 export interface ingredient {
