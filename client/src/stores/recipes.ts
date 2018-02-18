@@ -4,6 +4,7 @@ import { action,
          observable,
          toJS,
          runInAction } from 'mobx';
+import flahesStore     from './flashes';
 
 export interface recipesStore {
   addRecipe: (data: recipe) => any;
@@ -36,8 +37,14 @@ class RecipesStore<recipesStore>  {
   @action.bound
   async addRecipe(data) {
     this.isSendingRequest = true;
-    await addRecipe(data);
-    this.isSendingRequest = false;
+
+    const response = await addRecipe(data);
+
+    runInAction(() => {
+      this.isSendingRequest = false;
+      flahesStore.handleErrors(response);
+    });
+
   }
 
   @action.bound

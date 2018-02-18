@@ -16,7 +16,7 @@ export const addRecipe = (data) => {
     )
   ));
 
-  axios.post('/api/recipe', formData, config);
+  return axios.post('/api/recipe', formData, config).catch(e => e.response);
 };
 
-export const getRecipes = data => axios('/api/recipes');
+export const getRecipes = data => axios('/api/recipes').catch(e => e.response);

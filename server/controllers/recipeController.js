@@ -36,17 +36,13 @@ exports.resize = async (req, res, next) => {
 };
 
 exports.createRecipe = async (req, res) => {
-  try {
-    const data = Object.entries(req.body).reduce((result, entry) => ({
-      ...result,
-      [entry[0]]: (entry[1] instanceof File) ? entry[1] : JSON.parse(entry[1]),
-    }), {});
-    const recipe = await (new Recipe(data)).save();
+  const data = Object.entries(req.body).reduce((result, entry) => ({
+    ...result,
+    [entry[0]]: (!entry[1] || entry[1] instanceof Buffer) ? entry[1] : JSON.parse(entry[1]),
+  }), {});
+  const recipe = await (new Recipe(data)).save();
 
-    res.json(recipe);
-  } catch (error) {
-    res.json(req.data);
-  }
+  res.json(recipe);
 };
 
 exports.getRecipes = async (req, res) => {
