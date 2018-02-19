@@ -8,7 +8,8 @@ router.get('/api/recipes', catchErrors(recipeController.getRecipes));
 
 router.post(
   '/api/recipe',
-  recipeController.upload,
+  recipeController.prepareFormData,
+  recipeController.parseFormData,
   catchErrors(recipeController.resize),
   catchErrors(recipeController.createRecipe),
 );

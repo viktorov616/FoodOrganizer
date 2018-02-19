@@ -18,7 +18,17 @@ const multerOptions = {
   },
 };
 
-exports.upload = multer(multerOptions).single('photo');
+exports.prepareFormData = multer(multerOptions).single('photo');
+
+exports.parseFormData = (req, res, next) => {
+  const data = Object.entries(req.body).reduce((result, entry) => ({
+    ...result,
+    [entry[0]]: (!entry[1]) ? entry[1] : JSON.parse(entry[1]),
+  }), {});
+  req.body = data;
+
+  return next();
+};
 
 exports.resize = async (req, res, next) => {
   if (!req.file) {
@@ -36,11 +46,7 @@ exports.resize = async (req, res, next) => {
 };
 
 exports.createRecipe = async (req, res) => {
-  const data = Object.entries(req.body).reduce((result, entry) => ({
-    ...result,
-    [entry[0]]: (!entry[1] || entry[1] instanceof Buffer) ? entry[1] : JSON.parse(entry[1]),
-  }), {});
-  const recipe = await (new Recipe(data)).save();
+  const recipe = await (new Recipe(req.body)).save();
 
   res.json(recipe);
 };
