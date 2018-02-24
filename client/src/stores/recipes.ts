@@ -3,11 +3,13 @@ import { addRecipe,
 import { action,
          observable,
          toJS,
+         createTransformer,
          runInAction } from 'mobx';
 import flahesStore     from './flashes';
 
 export interface recipesStore {
   addRecipe: (data: recipe) => any;
+  getRecipeBySlug: (slug: string) => any;
   getRecipes: () => any;
   isSendingRequest: boolean;
   recipes: recipe[];
@@ -57,6 +59,15 @@ class RecipesStore<recipesStore>  {
       this.isSendingRequest = false;
     });
   }
+
+
+  public getRecipeBySlug = createTransformer(slug => (
+    this.recipes.filter(recipe =>  recipe.slug === slug)[0] || {}
+  ));
+
+  // getRecipeBySlug(slug) {
+  //   return this.recipes.filter(recipe =>  recipe.slug === slug)[0];
+  // }
 }
 
 export default new RecipesStore();

@@ -20,7 +20,6 @@ class RecipeList extends React.Component<RecipeListProps> {
     const {
       recipesStore: {
         getRecipes,
-        recipes,
       },
     } = this.props;
 
