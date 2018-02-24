@@ -1,6 +1,8 @@
 .recipe-item {
+  display: flex;
+  justify-content: space-between;
+
   padding: $space-small $space-med;
-  // padding-bottom: $space-small;
 
   border-bottom: 1px solid $clouds;
 
@@ -9,10 +11,14 @@
   }
 
   &__description {
-    width: 50%;
+    width: 35%;
   }
 
-  &__img {
-    width: 50%;
+  &__ingredients {
+    width: 30%;
+  }
+
+  &__image-wrapper {
+    width: 20%;
   }
 }

@@ -1,9 +1,11 @@
-import * as React from 'react';
+import * as React         from 'react';
 
-import Tag        from 'components/Tag';
-import Title      from 'components/typography/Title';
+import Tag                from 'components/Tag';
+import Title              from 'components/typography/Title';
 
-import { recipe } from 'stores/recipes';
+import { ParamsList,
+         ParamsListItem } from 'components/lists/ParamsList';
+import { recipe }         from 'stores/recipes';
 
 interface RecipeItemProps {
   recipe;
@@ -14,6 +16,8 @@ const RecipeItem: React.SFC<RecipeItemProps> = ({
     name,
     description,
     tags,
+    photo,
+    ingredients,
   },
 }) => (
   <div className="recipe-item">
@@ -35,6 +39,25 @@ const RecipeItem: React.SFC<RecipeItemProps> = ({
           />
         )) }
       </div>
+    </div>
+
+    <div className="recipe-item__ingredients">
+      <ParamsList>
+        { ingredients.map(({ name, amount }) => (
+          <ParamsListItem
+            itemKey={name}
+            key={`${name}${amount}`}
+            value={amount}
+          />
+        )) }
+      </ParamsList>
+    </div>
+
+    <div className="recipe-item__image-wrapper">
+      <img
+        src={(photo) ? `public/uploads/${photo}` : 'client/images/recipe_default.jpeg' }
+        alt="Recipe image"
+      />
     </div>
   </div>
 );

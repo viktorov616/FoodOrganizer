@@ -21,7 +21,8 @@ const multerOptions = {
 exports.prepareFormData = multer(multerOptions).single('photo');
 
 exports.parseFormData = (req, res, next) => {
-  const data = Object.entries(req.body).reduce((result, entry) => ({
+  const data = Object.entries(req.body).reduce((result, entry) => (
+    console.log(entry[1], typeof entry[1]),{
     ...result,
     [entry[0]]: (!entry[1]) ? entry[1] : JSON.parse(entry[1]),
   }), {});

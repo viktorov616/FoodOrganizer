@@ -1,6 +1,9 @@
 // Variables
 @import './variables';
 
+// Mixins
+@import './mixins/mixins';
+
 // surface framework
 @import './surface/surface_styles';
 
@@ -29,5 +32,8 @@
 @import './components/forms/tag-input';
 @import './components/forms/textarea';
 
+// Lists components
+@import './components/lists/params-list';
+
 // Pages
-@import './pages/recipe-list/recipe-item'
+@import './pages/recipe-list/recipe-item';

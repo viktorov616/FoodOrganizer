@@ -39,7 +39,6 @@ class RecipeList extends React.Component<RecipeListProps> {
 
         <div className="recipe-list__list">
           { recipesStore.recipes.map(recipe => (
-            console.log(recipe._id),
             <RecipeItem
               key={recipe._id}
               recipe={recipe}
