@@ -1,0 +1,24 @@
+.table {
+  &__th {
+    text-align-last: left;
+
+    &:first-child {
+      padding-left: $space-big;
+      @media screen and (max-width: $media-med) {
+        padding-left: $space-big*0.8;
+      }
+      @media screen and (max-width: $media-small) {
+        padding-left: $space-med;
+      }
+    }
+    &:last-child {
+      padding-right: $space-big;
+      @media screen and (max-width: $media-med) {
+        padding-right: $space-big*0.8;
+      }
+      @media screen and (max-width: $media-small) {
+        padding-right: $space-med;
+      }
+    }
+  }
+}

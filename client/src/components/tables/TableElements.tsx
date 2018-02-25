@@ -5,13 +5,13 @@ import * as cx      from 'classnames';
 import { getClass } from 'utils/getClass';
 
 interface TableCellProps {
-  colSpan: number;
-  modifiers: string;
-  units: string;
-  width: number;
+  colSpan?: number;
+  modifiers?: string;
+  units?: string;
+  width?: number;
 }
 
-export const Table: React.SFC<{ modifiers: string }> = ({
+export const Table: React.SFC<{ modifiers?: string }> = ({
   children,
   modifiers,
 }) => (
@@ -25,10 +25,10 @@ export const Thead: React.SFC = ({
 );
 
 export const Th: React.SFC<TableCellProps> = ({
-  units = '%',
-  colSpan = 1,
   children,
+  colSpan,
   modifiers,
+  units,
   width,
 }) => (
   <th
@@ -48,7 +48,7 @@ export const Tbody: React.SFC = ({
   <tbody className="table__body">{ children }</tbody>
 );
 
-export const Tr: React.SFC<{ modifiers: string }> = ({
+export const Tr: React.SFC<{ modifiers?: string }> = ({
   children,
   modifiers,
 }) => (
@@ -61,10 +61,10 @@ export const Tr: React.SFC<{ modifiers: string }> = ({
 
 
 export const Td: React.SFC<TableCellProps> = ({
-  units = '%',
   children,
   colSpan,
   modifiers,
+  units,
   width,
 }) => (
   <td
@@ -77,5 +77,14 @@ export const Td: React.SFC<TableCellProps> = ({
     { children }
   </td>
 );
+
+const TableCellDefaultProps = {
+  units: '%',
+  colSpan: 1,
+  width: 100,
+};
+
+Td.defaultProps = TableCellDefaultProps;
+Th.defaultProps = TableCellDefaultProps;
 
 export default Table;

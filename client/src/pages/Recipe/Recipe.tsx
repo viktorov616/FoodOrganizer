@@ -31,13 +31,12 @@ class Recipe extends React.Component<RecipeProps> {
       match: { params },
     } = this.props;
     const recipe = getRecipeBySlug(params.slug);
-    console.log(recipe, recipes);
 
     return (
       <Container>
-        <RecipeCard
-          { ...recipe }
-        />
+        { (recipe)
+          ? <RecipeCard { ...recipe } />
+          : null }
       </Container>
     );
   }

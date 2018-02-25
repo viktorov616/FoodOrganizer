@@ -15,7 +15,7 @@ import { action,
          toJS  }       from 'mobx';
 import { observer,
          inject }      from 'mobx-react';
-import { recipe,
+import { recipeFromForm,
          recipesStore,
          ingredient }  from 'stores/recipes';
 
@@ -24,7 +24,7 @@ interface AddRecipeFormProps {
 }
 
 interface AddRecipeFormState {
-  data: recipe;
+  data: recipeFromForm;
 }
 
 @inject('recipesStore')

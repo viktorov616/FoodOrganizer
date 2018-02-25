@@ -8,28 +8,35 @@ import { action,
 import flahesStore     from './flashes';
 
 export interface recipesStore {
-  addRecipe: (data: recipe) => any;
+  addRecipe: (data: recipeFromForm) => any;
   getRecipeBySlug: (slug: string) => any;
   getRecipes: () => any;
   isSendingRequest: boolean;
-  recipes: recipe[];
+  recipes: recipeFromDb[];
 }
 
-export interface recipe {
-  _id: string;
-  created?: Date;
+interface recipeBase {
   description: string;
   ingredients: ingredient[];
   name: string;
   rating: number;
   slug?: string;
   tags: string[];
-  photo?: File;
 }
 
 export interface ingredient {
   amount: string;
   name: string;
+}
+
+export interface recipeFromForm extends recipeBase {
+  photo?: File;
+}
+
+export interface recipeFromDb extends recipeBase {
+  _id: string;
+  created: Date;
+  photo?: string;
 }
 
 class RecipesStore<recipesStore>  {
@@ -62,12 +69,8 @@ class RecipesStore<recipesStore>  {
 
 
   public getRecipeBySlug = createTransformer(slug => (
-    this.recipes.filter(recipe =>  recipe.slug === slug)[0] || {}
+    this.recipes.filter(recipe =>  recipe.slug === slug)[0]
   ));
-
-  // getRecipeBySlug(slug) {
-  //   return this.recipes.filter(recipe =>  recipe.slug === slug)[0];
-  // }
 }
 
 export default new RecipesStore();

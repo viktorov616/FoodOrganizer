@@ -1,0 +1,25 @@
+.recipe-card {
+  display: flex;
+  flex-direction: column;
+
+  &__tags {
+    margin-bottom: $space-big;
+  }
+
+  &__info {
+    width: 75%;
+
+    display: flex;
+    justify-content: space-between;
+
+    margin-bottom: $space-med;
+  }
+
+  &__ingredients {
+    width: 47.5%;
+  }
+
+  &__image-wrapper {
+    width: 47.5%;
+  }
+}

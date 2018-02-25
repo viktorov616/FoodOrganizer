@@ -35,5 +35,9 @@
 // Lists components
 @import './components/lists/params-list';
 
+// Tables components
+@import './components/tables/basic-table';
+
 // Pages
 @import './pages/recipe-list/recipe-item';
+@import './pages/recipe/recipe-card';

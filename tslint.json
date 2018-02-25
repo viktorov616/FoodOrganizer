@@ -10,6 +10,7 @@
     "jsx-boolean-value": false,
     "jsx-curly-spacing": ["always"],
     "jsx-no-multiline-js": false,
+    "jsx-wrap-multiline": false,
     "strict-boolean-expressions": [
       true,
       "allow-undefined-union",
