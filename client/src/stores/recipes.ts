@@ -5,7 +5,7 @@ import { action,
          toJS,
          createTransformer,
          runInAction } from 'mobx';
-import flahesStore     from './flashes';
+import notificationsStore     from './notifications';
 
 export interface recipesStore {
   addRecipe: (data: recipeFromForm) => any;
@@ -51,7 +51,7 @@ class RecipesStore<recipesStore>  {
 
     runInAction(() => {
       this.isSendingRequest = false;
-      flahesStore.handleErrors(response);
+      notificationsStore.handleErrors(response);
     });
 
   }

@@ -38,6 +38,10 @@
 // Tables components
 @import './components/tables/basic-table';
 
+// Notification Components
+@import './components/notifications/notification';
+@import './components/notifications/notifications';
+
 // Pages
 @import './pages/recipe-list/recipe-item';
 @import './pages/recipe/recipe-card';
