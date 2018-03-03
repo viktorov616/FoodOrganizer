@@ -1,6 +1,7 @@
 import * as React   from 'react';
 
 import * as cx      from 'classnames';
+import Loader       from 'components/Loader';
 
 import { getClass } from 'utils/getClass';
 
@@ -8,6 +9,7 @@ interface ButtonProps {
   className?: string;
   icon?: string;
   iconModifiers?: string;
+  isLoading?: boolean;
   modifiers?: string;
   onClick: (e: React.FormEvent<HTMLButtonElement>) => any;
   text?: string;
@@ -18,29 +20,43 @@ const Button: React.SFC<ButtonProps> = ({
   className,
   icon,
   iconModifiers,
+  isLoading,
   modifiers,
   onClick,
   text,
   type,
-}) => (
-  <button
-    className={(className) ? className : getClass('btn', modifiers)}
-    onClick={onClick}
-    type={type}
-  >
-    { (text)
-      ? <span className="btn__text">{ text }</span>
-      : null }
+}) => {
+  function renderIcon() {
+    return (
+      (isLoading)
+        ? (<Loader
+          size="button"
+          modifiers="inline white"
+        />)
+        : <i className={cx('material-icons btn__icon', iconModifiers)}>{ icon }</i>
+    );
+  }
+  return (
+    <button
+      className={(className) ? className : getClass('btn', modifiers)}
+      onClick={onClick}
+      type={type}
+    >
+      { (text)
+        ? <span className="btn__text">{ text }</span>
+        : null }
 
-    { (icon)
-      ? <i className={cx('material-icons btn__icon', iconModifiers)}>{ icon }</i>
-      : null }
-  </button>
-);
+      { (icon)
+        ? renderIcon()
+        : null }
+    </button>
+  );
+};
 
 Button.defaultProps = {
   icon: '',
   iconModifiers: '',
+  isLoading: false,
   modifiers: 'raised',
   text: '',
   type: 'submit',

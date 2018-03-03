@@ -70,6 +70,8 @@ class AddRecipeForm extends React.Component<AddRecipeFormProps> {
   }
 
   render() {
+    const { recipesStore: { isSendingRequest } } = this.props;
+
     return (
       <div className="row">
         <div className="col g--6">
@@ -130,9 +132,10 @@ class AddRecipeForm extends React.Component<AddRecipeFormProps> {
             />
 
             <Button
-              text="Submit"
               icon="send"
+              isLoading={isSendingRequest}
               onClick={this.handleSubmit}
+              text="Submit"
             />
           </form>
         </div>

@@ -40,7 +40,7 @@ export interface recipeFromDb extends recipeBase {
 }
 
 class RecipesStore<recipesStore>  {
-  @observable isSendingRequest = true;
+  @observable isSendingRequest = false;
   @observable recipes = [];
 
   @action.bound
