@@ -3,7 +3,7 @@ import { action,
          toJS,
          runInAction } from 'mobx';
 
-interface notificationsStore {
+export interface notificationsStore {
   errors: string[];
 }
 
@@ -12,10 +12,10 @@ class NotificationsStore<notificationsStore> {
 
   @action.bound
   handleErrors(response) {
-    console.log(response);
-    if (!response || response.data || !response.data.errors) return false;
+    if (!response || !response.data || !response.data.errors) return false;
 
-    this.errors = [...this.errors, ...response.data.errors];
+    this.errors = response.data.errors;
+    window.scrollTo(0, 0);
   }
 }
 
