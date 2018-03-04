@@ -19,21 +19,18 @@ import './styles/style.scss';
 useStrict(true);
 
 const routingStore = new RouterStore();
-const content = (
-  <Provider
-    notificationsStore={notificationsStore}
-    recipesStore={recipesStore}
-    routing={routingStore}
-  >
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </Provider>
-);
 
 ReactDOM.render(
   <AppContainer>
-    { content }
+    <Provider
+      notificationsStore={notificationsStore}
+      recipesStore={recipesStore}
+      routing={routingStore}
+    >
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
   </AppContainer>,
   document.getElementById('root'),
 );

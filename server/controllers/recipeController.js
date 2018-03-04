@@ -56,3 +56,10 @@ exports.getRecipes = async (req, res) => {
 
   res.json(stores);
 };
+
+exports.getRecipe = async (req, res) => {
+  const { slug } = req.params;
+  const store = await Recipe.findOne({ slug });
+
+  res.json(store);
+};

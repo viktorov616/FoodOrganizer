@@ -6,6 +6,7 @@ import RecipeCard       from './RecipeCard';
 import { inject,
          observer }     from 'mobx-react';
 import { recipesStore } from 'stores/recipes';
+import { toJS } from 'mobx'
 
 interface RecipeProps {
   recipesStore?: recipesStore;
@@ -17,20 +18,25 @@ interface RecipeProps {
 class Recipe extends React.Component<RecipeProps> {
   componentDidMount() {
     const {
+      match,
       recipesStore: {
-        getRecipes,
+        getRecipe,
       },
     } = this.props;
 
-    getRecipes();
+    getRecipe(match.params.slug);
   }
 
   render() {
     const {
-      recipesStore: { getRecipeBySlug, recipes },
+      recipesStore: {
+        detailedRecipes,
+      },
       match: { params },
     } = this.props;
-    const recipe = getRecipeBySlug(params.slug);
+    console.log(toJS(detailedRecipes));
+    const recipe = detailedRecipes.get(params.slug);
+    console.log(recipe);
 
     return (
       <Container>

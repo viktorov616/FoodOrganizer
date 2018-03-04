@@ -27,11 +27,11 @@
 @import './components/tag';
 
 // Form components
-@import './components/forms/file-input';
-@import './components/forms/input';
-@import './components/forms/select';
-@import './components/forms/tag-input';
-@import './components/forms/textarea';
+@import './components/forms/common/file-input';
+@import './components/forms/common/input';
+@import './components/forms/common/select';
+@import './components/forms/common/tag-input';
+@import './components/forms/common/textarea';
 
 // Lists components
 @import './components/lists/params-list';

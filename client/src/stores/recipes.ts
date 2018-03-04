@@ -1,15 +1,18 @@
 import { addRecipe,
+         getRecipe,
          getRecipes } from 'api';
 import { action,
          observable,
          toJS,
          createTransformer,
-         runInAction } from 'mobx';
+         runInAction,
+         ObservableMap } from 'mobx';
 import notificationsStore     from './notifications';
 
 export interface recipesStore {
   addRecipe: (data: recipeFromForm) => any;
-  getRecipeBySlug: (slug: string) => any;
+  detailedRecipes: ObservableMap<recipeFromDb>;
+  getRecipe: (slug: string) => any;
   getRecipes: () => any;
   isSendingRequest: boolean;
   recipes: recipeFromDb[];
@@ -42,6 +45,7 @@ export interface recipeFromDb extends recipeBase {
 class RecipesStore<recipesStore>  {
   @observable isSendingRequest = false;
   @observable recipes = [];
+  @observable detailedRecipes = new ObservableMap();
 
   @action.bound
   async addRecipe(data) {
@@ -53,7 +57,18 @@ class RecipesStore<recipesStore>  {
       this.isSendingRequest = false;
       notificationsStore.handleErrors(response);
     });
+  }
 
+  @action.bound
+  async getRecipe(slug) {
+    this.isSendingRequest = true;
+    const answer = await getRecipe(slug);
+
+    runInAction(() => {
+      // extendObservable(this.detailedRecipes, { [slug]: answer.data });
+      this.detailedRecipes.set(slug, answer.data);
+      this.isSendingRequest = false;
+    });
   }
 
   @action.bound
@@ -66,11 +81,6 @@ class RecipesStore<recipesStore>  {
       this.isSendingRequest = false;
     });
   }
-
-
-  public getRecipeBySlug = createTransformer(slug => (
-    this.recipes.filter(recipe =>  recipe.slug === slug)[0]
-  ));
 }
 
 export default new RecipesStore();

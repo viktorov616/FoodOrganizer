@@ -18,4 +18,5 @@ export const addRecipe = (data) => {
   return axios.post('/api/recipe', formData, config).catch(e => e.response);
 };
 
-export const getRecipes = data => axios('/api/recipes').catch(e => e.response);
+export const getRecipe = slug => axios(`/api/recipe/${slug}`).catch(e => e.response);
+export const getRecipes = () => axios('/api/recipes').catch(e => e.response);

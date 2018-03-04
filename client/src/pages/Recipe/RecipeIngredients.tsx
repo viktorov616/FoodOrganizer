@@ -27,8 +27,10 @@ const RecipeIngredients: React.SFC<RecipeIngredientsProps> = ({
 
       <Table>
         <Thead>
-          <Th width={75}>Name</Th>
-          <Th width={25}>Amount</Th>
+          <Tr>
+            <Th width={75}>Name</Th>
+            <Th width={25}>Amount</Th>
+          </Tr>
         </Thead>
         <Tbody>
           { ingredients.map(({ name, amount }) => (

@@ -28,7 +28,7 @@ class RecipeList extends React.Component<RecipeListProps> {
 
   render() {
     const {
-      recipesStore,
+      recipesStore: { recipes },
     } = this.props;
     return (
       <React.Fragment>
@@ -37,7 +37,7 @@ class RecipeList extends React.Component<RecipeListProps> {
         </Container>
 
         <div className="recipe-list__list">
-          { recipesStore.recipes.map(recipe => (
+          { recipes.map(recipe => (
             <RecipeItem
               key={recipe._id}
               recipe={recipe}

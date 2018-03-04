@@ -13,16 +13,16 @@ interface AddRecepieProps {
 
 }
 
-class AddRecipe extends React.Component<AddRecepieProps> {
+class EditRecipe extends React.Component<AddRecepieProps> {
   render() {
     return (
       <Container>
         <Notifications />
-        <Title text="Add recipe" />
-        <AddRecipeForm />
+        <Title text="Edit recipe" />
+        <AddRecipeForm type="edit" />
       </Container>
     );
   }
 }
 
-export default AddRecipe;
+export default EditRecipe;

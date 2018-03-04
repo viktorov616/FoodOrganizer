@@ -5,6 +5,7 @@ const { catchErrors }  = require('../handlers/errorHandlers');
 const router = express.Router();
 
 router.get('/api/recipes', catchErrors(recipeController.getRecipes));
+router.get('/api/recipe/:slug', catchErrors(recipeController.getRecipe));
 
 router.post(
   '/api/recipe',

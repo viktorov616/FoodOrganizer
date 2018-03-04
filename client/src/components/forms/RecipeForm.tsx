@@ -1,12 +1,12 @@
 import * as React      from 'react';
 
 import Button          from 'components/Button';
-import Input           from 'components/forms/Input';
-import FileInput       from 'components/forms/FileInput';
+import Input           from 'components/forms/common/Input';
+import FileInput       from 'components/forms/common/FileInput';
 import RatingPicker    from 'components/RatingPicker';
-import Select          from 'components/forms/Select';
-import TagInput        from 'components/forms/TagInput';
-import Textarea        from 'components/forms/Textarea';
+import Select          from 'components/forms/common/Select';
+import TagInput        from 'components/forms/common/TagInput';
+import Textarea        from 'components/forms/common/Textarea';
 
 import { RATING_LIST } from 'constants/general';
 import { getClass }    from 'utils/getClass';
@@ -19,8 +19,9 @@ import { recipeFromForm,
          recipesStore,
          ingredient }  from 'stores/recipes';
 
-interface AddRecipeFormProps {
-  recipesStore?;
+interface RecipeFormProps {
+  recipesStore?: recipesStore;
+  type?: string;
 }
 
 interface AddRecipeFormState {
@@ -29,7 +30,11 @@ interface AddRecipeFormState {
 
 @inject('recipesStore')
 @observer
-class AddRecipeForm extends React.Component<AddRecipeFormProps> {
+class RecipeForm extends React.Component<RecipeFormProps> {
+  static defaultProps = {
+    type: 'add',
+  };
+
   @observable data = {
     description: '',
     ingredients: [],
@@ -70,7 +75,10 @@ class AddRecipeForm extends React.Component<AddRecipeFormProps> {
   }
 
   render() {
-    const { recipesStore: { isSendingRequest } } = this.props;
+    const {
+      recipesStore: { isSendingRequest },
+      type,
+    } = this.props;
 
     return (
       <div className="row">
@@ -135,7 +143,7 @@ class AddRecipeForm extends React.Component<AddRecipeFormProps> {
               icon="send"
               isLoading={isSendingRequest}
               onClick={this.handleSubmit}
-              text="Submit"
+              text={(type === 'add') ? 'Submit' : 'Save'}
             />
           </form>
         </div>
@@ -144,4 +152,4 @@ class AddRecipeForm extends React.Component<AddRecipeFormProps> {
   }
 }
 
-export default AddRecipeForm;
+export default RecipeForm;

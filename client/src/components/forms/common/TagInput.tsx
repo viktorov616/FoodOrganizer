@@ -2,7 +2,7 @@ import * as React            from 'react';
 
 import * as cx               from 'classnames';
 import Button                from 'components/Button';
-import Input, { InputProps } from 'components/forms/Input';
+import Input, { InputProps } from 'components/forms/common/Input';
 import Tag                   from 'components/Tag';
 
 import { getClass }          from 'utils/getClass';
