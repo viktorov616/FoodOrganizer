@@ -3,6 +3,7 @@ import * as React   from 'react';
 import { getClass } from 'utils/getClass';
 
 interface LoaderProps {
+  isActive?: boolean;
   modifiers?: string;
   size?: string;
 }
@@ -19,10 +20,12 @@ const SIZES = {
 };
 
 const Loader: React.SFC<LoaderProps> = ({
+  isActive,
   modifiers,
   size,
 }) => (
-  <div className={getClass('loader', modifiers)}>
+  (isActive)
+    ? (<div className={getClass('loader', modifiers)}>
     <div className="loader__inner">
       <svg
         { ...SIZES[size] }
@@ -33,18 +36,20 @@ const Loader: React.SFC<LoaderProps> = ({
         <circle
           className="loader__circle"
           fill="none"
-          stroke-width="4"
-          stroke-linecap="round"
+          strokeWidth="4"
+          strokeLinecap="round"
           cx="33"
           cy="33"
           r="30"
         />
       </svg>
     </div>
-  </div>
+  </div>)
+  : null
 );
 
 Loader.defaultProps = {
+  isActive: false,
   size: 'regular',
 };
 

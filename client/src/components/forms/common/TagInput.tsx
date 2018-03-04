@@ -14,6 +14,7 @@ interface TagInputProps {
   onChange?: (name: string, value: string) => void;
   onTagsUpdate?: (name: string, tags: { [key: string]: string }[]) => void;
   name: string;
+  tags?: Tag[];
 }
 
 interface TagInputState {
@@ -23,16 +24,20 @@ interface TagInputState {
 }
 
 interface Tag {
-  _id: string;
+  _id: number;
   _text: string;
-  [key: string]: string;
+  [key: string]: string|number;
 }
 
 class TagInput extends React.Component<TagInputProps, TagInputState> {
+  static defaultProps = {
+    tags: [],
+  };
+
   state = {
     focused: false,
     inputsValues: this.getInitialInputsValues(),
-    tags: [],
+    tags: this.props.tags,
   };
 
   getInitialInputsValues() {
@@ -43,7 +48,10 @@ class TagInput extends React.Component<TagInputProps, TagInputState> {
   }
 
   addTag = () => {
-    const { inputsValues, tags } = this.state;
+    const {
+      inputsValues,
+      tags,
+    } = this.state;
     const { inputs, onTagsUpdate } = this.props;
     const tag = {
       _text: inputs.map(input => inputsValues[input.name]).join(' '),
@@ -59,7 +67,7 @@ class TagInput extends React.Component<TagInputProps, TagInputState> {
     }
   }
 
-  deleteTag = (tagId: string) => {
+  deleteTag = (tagId: number) => {
     const { tags } = this.state;
     const { onTagsUpdate } = this.props;
     const updatedTags = tags.filter(({ _id }) => _id !== tagId);
@@ -101,7 +109,10 @@ class TagInput extends React.Component<TagInputProps, TagInputState> {
   }
 
   handleTagUpdate(tags: Tag[]) {
-    const { name, onTagsUpdate } = this.props;
+    const {
+      name,
+      onTagsUpdate,
+    } = this.props;
     const tagsToExport = tags.map((tag: Tag) => (
       Object.entries(tag).reduce(
         (result, [key, value]) => (/_id|_text/.test(key) ? result : { ...result, [key]: value }),

@@ -3,6 +3,7 @@ import * as React       from 'react';
 import Container        from 'components/layout/Container';
 import Title            from 'components/typography/Title';
 import RecipeItem       from './RecipeItem';
+import Loader           from 'components/Loader';
 
 import { inject,
          observer }     from 'mobx-react';
@@ -28,7 +29,10 @@ class RecipeList extends React.Component<RecipeListProps> {
 
   render() {
     const {
-      recipesStore: { recipes },
+      recipesStore: {
+        isSendingRequest,
+        recipes,
+      },
     } = this.props;
     return (
       <React.Fragment>
@@ -44,6 +48,8 @@ class RecipeList extends React.Component<RecipeListProps> {
             />
           )) }
         </div>
+
+        <Loader isActive={isSendingRequest} />
       </React.Fragment>
     );
   }

@@ -57,6 +57,7 @@ const clientConfig = {
       api: path.join(__dirname, 'client/src/api'),
       components: path.join(__dirname, 'client/src/components'),
       constants: path.join(__dirname, 'client/src/constants'),
+      interfaces: path.join(__dirname, 'client/src/interfaces'),
       pages: path.join(__dirname, 'client/src/pages'),
       src: path.join(__dirname, 'client/src'),
       stores: path.join(__dirname, 'client/src/stores'),

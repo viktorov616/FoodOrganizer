@@ -16,10 +16,12 @@ import { action,
 import { observer,
          inject }      from 'mobx-react';
 import { recipeFromForm,
+         recipeFromDb,
          recipesStore,
          ingredient }  from 'stores/recipes';
 
 interface RecipeFormProps {
+  recipe?: recipeFromDb;
   recipesStore?: recipesStore;
   type?: string;
 }
@@ -36,12 +38,24 @@ class RecipeForm extends React.Component<RecipeFormProps> {
   };
 
   @observable data = {
-    description: '',
-    ingredients: [],
-    name: '',
-    rating: 0,
-    tags: [],
+    description: this.getInitData('description'),
+    ingredients: this.getInitData('ingredients'),
+    name: this.getInitData('name'),
+    rating: this.getInitData('rating'),
+    tags: this.getInitData('tags'),
   };
+
+  getInitData(name: string) {
+    const defaultValues = {
+      description: '',
+      ingredients: [],
+      name: '',
+      rating: 0,
+      tags: [],
+    };
+
+    return (this.props.recipe) ? this.props.recipe[name] : defaultValues[name];
+  }
 
   handleSubmit = (e) => {
     const {
@@ -90,6 +104,7 @@ class RecipeForm extends React.Component<RecipeFormProps> {
               label="Name"
               name="name"
               onChange={this.handleFormDataChange}
+              value={this.data.name}
             />
 
             <TagInput
@@ -124,12 +139,14 @@ class RecipeForm extends React.Component<RecipeFormProps> {
               name="description"
               label="Description"
               onChange={this.handleFormDataChange}
+              value={this.data.description}
             />
 
             <RatingPicker
               ratingList={RATING_LIST}
               label="Rating"
               onChange={this.handleFormDataChange}
+              value={this.data.rating}
             />
 
             <FileInput

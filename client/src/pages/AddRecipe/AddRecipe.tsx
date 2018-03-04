@@ -1,10 +1,10 @@
-import * as React     from 'react';
+import * as React    from 'react';
 
-import * as cx        from 'classnames';
-import AddRecipeForm  from 'components/forms/RecipeForm';
-import Container      from 'components/layout/Container';
-import Title          from 'components/typography/Title';
-import Notifications  from 'components/notifications';
+import * as cx       from 'classnames';
+import RecipeForm    from 'components/forms/RecipeForm';
+import Container     from 'components/layout/Container';
+import Title         from 'components/typography/Title';
+import Notifications from 'components/notifications';
 
 import { action,
          observable } from 'mobx';
@@ -19,7 +19,7 @@ class AddRecipe extends React.Component<AddRecepieProps> {
       <Container>
         <Notifications />
         <Title text="Add recipe" />
-        <AddRecipeForm />
+        <RecipeForm />
       </Container>
     );
   }

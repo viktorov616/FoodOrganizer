@@ -1,25 +1,63 @@
-import * as React     from 'react';
+import * as React       from 'react';
 
-import * as cx        from 'classnames';
-import AddRecipeForm  from 'components/forms/RecipeForm';
-import Container      from 'components/layout/Container';
-import Title          from 'components/typography/Title';
-import Notifications  from 'components/notifications';
+import * as cx          from 'classnames';
+import RecipeForm       from 'components/forms/RecipeForm';
+import Container        from 'components/layout/Container';
+import Loader           from 'components/Loader';
+import Notifications    from 'components/notifications';
+import Title            from 'components/typography/Title';
 
-import { action,
-         observable } from 'mobx';
+import { inject,
+         observer }     from 'mobx-react';
+import { match }        from 'react-router';
+import { recipeParams } from 'interfaces/recipeParams';
+import { recipesStore } from 'stores/recipes';
 
-interface AddRecepieProps {
 
+interface EditRecipeProps {
+  recipesStore?: recipesStore;
+  match: match<recipeParams>;
 }
 
-class EditRecipe extends React.Component<AddRecepieProps> {
+@inject('recipesStore')
+@observer
+class EditRecipe extends React.Component<EditRecipeProps> {
+  componentDidMount() {
+    const {
+      match: { params },
+      recipesStore: {
+        detailedRecipes,
+        getRecipe,
+      },
+    } = this.props;
+    const recipe = detailedRecipes.get(params.slug);
+
+    if (!recipe) getRecipe(params.slug);
+  }
+
   render() {
+    const {
+      recipesStore: {
+        detailedRecipes,
+        isSendingRequest,
+      },
+      match: { params },
+    } = this.props;
+    const recipe = detailedRecipes.get(params.slug);
+
     return (
       <Container>
         <Notifications />
         <Title text="Edit recipe" />
-        <AddRecipeForm type="edit" />
+
+        { (recipe)
+          ? (<RecipeForm
+            recipe={recipe}
+            type="edit"
+          />)
+          : null }
+
+        {/* <Loader isActive={isSendingRequest} /> */}
       </Container>
     );
   }

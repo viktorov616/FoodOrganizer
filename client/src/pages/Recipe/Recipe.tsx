@@ -2,15 +2,17 @@ import * as React       from 'react';
 
 import Container        from 'components/layout/Container';
 import RecipeCard       from './RecipeCard';
+import Loader           from 'components/Loader';
 
 import { inject,
          observer }     from 'mobx-react';
+import { match }        from 'react-router';
+import { recipeParams } from 'interfaces/recipeParams';
 import { recipesStore } from 'stores/recipes';
-import { toJS } from 'mobx'
 
 interface RecipeProps {
   recipesStore?: recipesStore;
-  match: any;
+  match: match<recipeParams>;
 }
 
 @inject('recipesStore')
@@ -18,31 +20,34 @@ interface RecipeProps {
 class Recipe extends React.Component<RecipeProps> {
   componentDidMount() {
     const {
-      match,
+      match: { params },
       recipesStore: {
+        detailedRecipes,
         getRecipe,
       },
     } = this.props;
+    const recipe = detailedRecipes.get(params.slug);
 
-    getRecipe(match.params.slug);
+    if (!recipe) getRecipe(params.slug);
   }
 
   render() {
     const {
       recipesStore: {
         detailedRecipes,
+        isSendingRequest,
       },
       match: { params },
     } = this.props;
-    console.log(toJS(detailedRecipes));
     const recipe = detailedRecipes.get(params.slug);
-    console.log(recipe);
 
     return (
       <Container>
         { (recipe)
           ? <RecipeCard { ...recipe } />
           : null }
+
+        <Loader isActive={isSendingRequest} />
       </Container>
     );
   }

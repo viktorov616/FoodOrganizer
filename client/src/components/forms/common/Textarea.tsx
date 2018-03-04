@@ -11,6 +11,7 @@ interface TextareaProps {
   name: string;
   onChange?: (name: string, value: string) => void;
   rows?: number;
+  value?: string;
 }
 
 class Textarea extends React.Component<TextareaProps> {
@@ -45,6 +46,7 @@ class Textarea extends React.Component<TextareaProps> {
       id,
       name,
       rows,
+      value,
     } = this.props;
 
     return (
@@ -57,6 +59,7 @@ class Textarea extends React.Component<TextareaProps> {
           rows={rows}
           onFocus={this.handleFocus}
           onBlur={this.handleFocus}
+          value={value}
         />
 
         { (label)

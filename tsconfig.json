@@ -23,6 +23,7 @@
       "api/*": ["client/src/api/*"],
       "components/*": ["client/src/components/*"],
       "constants/*": ["client/src/constants/*"],
+      "interfaces/*": ["client/src/interfaces/*"],
       "pages/*": ["client/src/pages/*"],
       "src/*": ["client/src/*"],
       "stores/*": ["client/src/stores/*"],

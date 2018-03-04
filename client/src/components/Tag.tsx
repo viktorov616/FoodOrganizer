@@ -6,9 +6,9 @@ import * as cx      from 'classnames';
 import { getClass } from 'utils/getClass';
 
 interface TagProps {
-  id?: string;
+  id?: number;
   modifiers?: string;
-  deleteTag?: (id) => any;
+  deleteTag?: (id: number) => any;
   text: string;
   withButton?: boolean;
 }

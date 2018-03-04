@@ -30,6 +30,7 @@ const Button: React.SFC<ButtonProps> = ({
     return (
       (isLoading)
         ? (<Loader
+          isActive
           size="button"
           modifiers="inline white"
         />)
