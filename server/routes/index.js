@@ -15,4 +15,12 @@ router.post(
   catchErrors(recipeController.createRecipe),
 );
 
+router.post(
+  '/api/recipe/:slug',
+  recipeController.prepareFormData,
+  recipeController.parseFormData,
+  catchErrors(recipeController.resize),
+  catchErrors(recipeController.updateRecipe),
+);
+
 module.exports = router;

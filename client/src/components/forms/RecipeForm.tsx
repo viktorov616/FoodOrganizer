@@ -57,22 +57,46 @@ class RecipeForm extends React.Component<RecipeFormProps> {
     return (this.props.recipe) ? this.props.recipe[name] : defaultValues[name];
   }
 
+  getTagsValue(name: string) {
+    switch (name) {
+      case 'ingredients':
+        return this.data.ingredients.map(ingredient => ({
+          ...ingredient,
+          _text: Object.entries(ingredient)
+            .filter(entry => entry[0] !== '_id')
+            .map(entry => entry[1])
+            .join(' '),
+        }));
+      case 'tags':
+      default:
+        return this.data.tags.map((tag, i) => ({
+          tag,
+          _id: i,
+          _text: tag,
+        }));
+    }
+  }
+
   handleSubmit = (e) => {
     const {
       recipesStore: {
         addRecipe,
+        updateRecipe,
       },
+      type,
+      recipe,
     } = this.props;
 
     e.preventDefault();
-    addRecipe(this.data);
+
+    (type === 'add') ? addRecipe(this.data) : updateRecipe(this.data, recipe.slug);
   }
 
   @action.bound
   handleFormDataChange(name: string, value: string|number|File|{ [key: string]: string }[]) {
     // specific handling requires, because TagInput returns an array of objects for each input
     if (name === 'tags' && value instanceof Array) {
-      this.data[name] = value.map(item => item[name]);
+      this.data[name] = value.map(item => item.tag);
     } else if (name === 'ingredients' && value instanceof Array) {
       // replace keys for objects from 'ingredients[key]' to 'key'
       // ingredients[key] - this format used, because key can duplicate name with real inputs
@@ -90,6 +114,7 @@ class RecipeForm extends React.Component<RecipeFormProps> {
 
   render() {
     const {
+      recipe,
       recipesStore: { isSendingRequest },
       type,
     } = this.props;
@@ -121,6 +146,7 @@ class RecipeForm extends React.Component<RecipeFormProps> {
                 name: 'ingredients[amount]',
               }]}
               onTagsUpdate={this.handleFormDataChange}
+              tags={this.getTagsValue('ingredients')}
             />
 
             <TagInput
@@ -128,10 +154,11 @@ class RecipeForm extends React.Component<RecipeFormProps> {
               label="Tags"
               name="tags"
               inputs={[{
-                id: 'tags',
-                name: 'tags',
+                id: 'tag',
+                name: 'tag',
               }]}
               onTagsUpdate={this.handleFormDataChange}
+              tags={this.getTagsValue('tags')}
             />
 
             <Textarea
@@ -154,6 +181,8 @@ class RecipeForm extends React.Component<RecipeFormProps> {
               label="Photo"
               name="photo"
               onChange={this.handleFormDataChange}
+              photoToDisplay={(recipe) ? recipe.photo : null}
+              text={(type === 'edit' && recipe.photo) ? 'Upload new' : 'Click to upload'}
             />
 
             <Button

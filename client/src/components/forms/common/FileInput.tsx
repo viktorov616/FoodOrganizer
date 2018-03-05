@@ -1,6 +1,9 @@
-import * as React   from 'react';
+import * as React                from 'react';
 
-import { getClass } from 'utils/getClass';
+import Image, { ImagePropsType } from 'components/images/Image';
+
+
+import { getClass }              from 'utils/getClass';
 
 interface FileInputProps {
   id: string;
@@ -9,6 +12,7 @@ interface FileInputProps {
   modifiers?: string;
   name: string;
   onChange: (name: string, value: string) => void;
+  photoToDisplay?: string;
   tagModifiers?: string;
   text?: string;
 }
@@ -49,6 +53,7 @@ class FileInput extends React.Component<FileInputProps, FileInputState> {
       name,
       tagModifiers,
       text,
+      photoToDisplay,
     } = this.props;
 
     return (
@@ -61,11 +66,21 @@ class FileInput extends React.Component<FileInputProps, FileInputState> {
             ? <span className={getClass('file-input__label-text', labelModifiers)}>{ label }</span>
             : null }
 
-          { (fileName)
+          { (photoToDisplay || fileName)
             ? (<span className="file-input__file-name-wrapper">
               <i className="material-icons file-input__file-name-icon">photo</i>
-              <span className="file-input__file-name">{ fileName }</span>
+              <span className="file-input__file-name">{ fileName || photoToDisplay }</span>
             </span>)
+            : null }
+
+          { (photoToDisplay && !fileName)
+            ? (<Image
+              alt="Recipe image"
+              name={photoToDisplay}
+              type={ImagePropsType.WITH_NAME}
+              uploadType="user"
+              wrapperClass="file-input__image-wrapper"
+            />)
             : null }
 
           <span className="file-input__text-wrapper">

@@ -1,6 +1,7 @@
-import * as React              from 'react';
+import * as React               from 'react';
 
-import { DEFAULT_IMAGES_PATH } from 'constants/images';
+import { DEFAULT_IMAGES_PATH,
+         UPLOADS_PATH         } from 'constants/images';
 
 export enum ImagePropsType {
   WITH_NAME,
@@ -22,6 +23,7 @@ interface ImagePropsWithSrc extends ImagePropsBase {
 interface ImagePropsWithName extends ImagePropsBase {
   type: ImagePropsType.WITH_NAME;
   name: string;
+  uploadType: string;
 }
 
 type ImageProps = ImagePropsWithSrc|ImagePropsWithName;
@@ -31,8 +33,11 @@ const Image: React.SFC<ImageProps> = (props) => {
     switch (props.type) {
       case ImagePropsType.WITH_SRC:
         return props.src;
-      case ImagePropsType.WITH_NAME:
-        return `${DEFAULT_IMAGES_PATH}${props.name}`;
+      case ImagePropsType.WITH_NAME: {
+        const path = (props.uploadType === 'user') ? UPLOADS_PATH : DEFAULT_IMAGES_PATH;
+
+        return `${path}${props.name}`;
+      }
     }
   }
 
@@ -57,6 +62,10 @@ const Image: React.SFC<ImageProps> = (props) => {
       />
     </div>
   );
+};
+
+Image.defaultProps = {
+  uploadType: 'user',
 };
 
 export default Image;

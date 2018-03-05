@@ -1,13 +1,14 @@
 import { addRecipe,
          getRecipe,
-         getRecipes } from 'api';
+         getRecipes,
+         updateRecipe }     from 'api';
 import { action,
          observable,
          toJS,
          createTransformer,
          runInAction,
-         ObservableMap } from 'mobx';
-import notificationsStore     from './notifications';
+         ObservableMap }    from 'mobx';
+import notificationsStore   from './notifications';
 
 export interface recipesStore {
   addRecipe: (data: recipeFromForm) => any;
@@ -16,6 +17,7 @@ export interface recipesStore {
   getRecipes: () => any;
   isSendingRequest: boolean;
   recipes: recipeFromDb[];
+  updateRecipe: (data: recipeFromForm, slug: string) => any;
 }
 
 interface recipeBase {
@@ -48,7 +50,7 @@ class RecipesStore<recipesStore>  {
   @observable detailedRecipes = new ObservableMap();
 
   @action.bound
-  async addRecipe(data) {
+  async addRecipe(data: recipeFromForm) {
     this.isSendingRequest = true;
 
     const response = await addRecipe(data);
@@ -62,11 +64,10 @@ class RecipesStore<recipesStore>  {
   @action.bound
   async getRecipe(slug) {
     this.isSendingRequest = true;
-    const answer = await getRecipe(slug);
+    const response = await getRecipe(slug);
 
     runInAction(() => {
-      // extendObservable(this.detailedRecipes, { [slug]: answer.data });
-      this.detailedRecipes.set(slug, answer.data);
+      this.detailedRecipes.set(slug, response.data);
       this.isSendingRequest = false;
     });
   }
@@ -74,11 +75,23 @@ class RecipesStore<recipesStore>  {
   @action.bound
   async getRecipes() {
     this.isSendingRequest = true;
-    const answer = await getRecipes();
+    const response = await getRecipes();
 
     runInAction(() => {
-      this.recipes = answer.data;
+      this.recipes = response.data;
       this.isSendingRequest = false;
+    });
+  }
+
+  @action.bound
+  async updateRecipe(data, slug) {
+    this.isSendingRequest = true;
+
+    const response = await updateRecipe(data, slug);
+
+    runInAction(() => {
+      this.isSendingRequest = false;
+      notificationsStore.handleErrors(response);
     });
   }
 }

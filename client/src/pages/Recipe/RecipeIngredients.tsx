@@ -43,6 +43,6 @@ const RecipeIngredients: React.SFC<RecipeIngredientsProps> = ({
       </Table>
     </div>)
     : null
-)
+);
 
 export default RecipeIngredients;

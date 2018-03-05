@@ -51,6 +51,16 @@ exports.createRecipe = async (req, res) => {
   res.json(recipe);
 };
 
+exports.updateRecipe = async (req, res) => {
+  const recipe = await Recipe.findOneAndUpdate(
+    { slug: req.params.slug },
+    req.body,
+    { new: true, runValidators: true },
+  ).exec();
+
+  res.json(recipe);
+};
+
 exports.getRecipes = async (req, res) => {
   const stores = await Recipe.find();
 

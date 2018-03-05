@@ -62,4 +62,10 @@
 
     color: $primary;
   }
+
+  &__image-wrapper {
+    width: 20%;
+
+    margin-bottom: $space-small;
+  }
 }

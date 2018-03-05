@@ -1,22 +1,31 @@
 import axios from 'axios';
 
-export const addRecipe = (data) => {
-  const formData = new FormData();
+import { getRecipeDataToSend } from 'utils/convertData';
+import { recipeFromForm } from 'stores/recipes';
+
+export function addRecipe(data: recipeFromForm) {
+  const dataToSend = getRecipeDataToSend(data);
   const config = {
     headers: {
       'content-type': 'multipart/form-data',
     },
   };
 
-  Object.entries(data).forEach((entry: [string, any]) => (
-    formData.append(
-      entry[0],
-      (!(entry[1] instanceof File)) ? JSON.stringify(entry[1]) : entry[1],
-    )
-  ));
+  return axios.post('/api/recipe', dataToSend, config).catch(e => e.response);
+}
 
-  return axios.post('/api/recipe', formData, config).catch(e => e.response);
-};
+export function updateRecipe(data: recipeFromForm, slug: string) {
+  const dataToSend = getRecipeDataToSend(data);
+  const config = {
+    headers: {
+      'content-type': 'multipart/form-data',
+    },
+  };
 
-export const getRecipe = slug => axios(`/api/recipe/${slug}`).catch(e => e.response);
+  console.log(data);
+
+  return axios.post(`/api/recipe/${slug}`, dataToSend, config).catch(e => e.response);
+}
+
+export const getRecipe = (slug: string) => axios(`/api/recipe/${slug}`).catch(e => e.response);
 export const getRecipes = () => axios('/api/recipes').catch(e => e.response);

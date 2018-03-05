@@ -66,7 +66,7 @@ class RatingPicker extends React.Component<RatingPickerProps> {
                 type="checkbox"
                 name={name}
                 checked={num <= rating}
-                onClick={handleClick}
+                onChange={handleClick}
               />
 
               <label
