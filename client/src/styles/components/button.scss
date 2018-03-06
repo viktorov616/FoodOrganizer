@@ -5,6 +5,26 @@
     margin-bottom: 0;
   }
 
+  &--link {
+    padding: 0;
+
+    background: none;
+
+    box-shadow: none;
+
+    color: $primary;
+    text-transform: none;
+
+    &:hover {
+      color: lighten($primary, 25%)
+    }
+
+    & + .btn--link {
+      margin-left: $space-small;
+
+    }
+  }
+
   &__text {
     display: inline-block;
     vertical-align: middle;

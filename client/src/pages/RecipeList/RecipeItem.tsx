@@ -6,8 +6,10 @@ import Image, { ImagePropsType } from 'components/images/Image';
 
 import { ParamsList,
          ParamsListItem }        from 'components/lists/ParamsList';
-import { recipeFromDb }          from 'stores/recipes';
+import { Link }                  from 'react-router-dom';
+import { getClass }              from 'utils/getClass';
 import { getRecipeImageSrc }     from 'utils/common';
+import { recipeFromDb }          from 'stores/recipes';
 
 interface RecipeItemProps {
   recipe: recipeFromDb;
@@ -19,6 +21,7 @@ const RecipeItem: React.SFC<RecipeItemProps> = ({
     ingredients,
     name,
     photo,
+    slug,
     tags,
   },
 }) => (
@@ -32,7 +35,7 @@ const RecipeItem: React.SFC<RecipeItemProps> = ({
 
       <p>{ description }</p>
 
-      <div>
+      <div className="recipe-item__tags">
         { tags.map(tag => (
           <Tag
             key={tag}
@@ -40,6 +43,22 @@ const RecipeItem: React.SFC<RecipeItemProps> = ({
             text={tag}
           />
         )) }
+      </div>
+
+      <div className="recipe-item__actions">
+        <Link
+          className={getClass('btn', 'link')}
+          to={`/recipes/${slug}`}
+        >
+          Show
+        </Link>
+
+        <Link
+          className={getClass('btn', 'link')}
+          to={`/recipes/${slug}/edit`}
+        >
+          Edit
+        </Link>
       </div>
     </div>
 
