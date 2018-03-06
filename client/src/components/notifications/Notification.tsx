@@ -5,14 +5,20 @@ import Button       from 'components/Button';
 import { getClass } from 'utils/getClass';
 
 interface NotificationProps {
+  removeNotifications: (type: string) => any;
   type?: string;
   texts: string[];
 }
 
 const Notification: React.SFC<NotificationProps> = ({
-  type = 'error',
+  removeNotifications,
   texts,
+  type = 'errors',
 }) => {
+  function handleRemoveNotifications() {
+    removeNotifications(type);
+  }
+
   function renderSingleText() {
     return (
       <p className="notification__text">
@@ -43,7 +49,7 @@ const Notification: React.SFC<NotificationProps> = ({
       <Button
         className="notification__button"
         icon="close"
-        onClick={() => console.log('hey')}
+        onClick={handleRemoveNotifications}
       />
     </div>
   );

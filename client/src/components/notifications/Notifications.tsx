@@ -15,13 +15,21 @@ interface NotificationsProps {
 @observer
 class Notifications extends React.Component<NotificationsProps> {
   render() {
-    const { notificationsStore: { errors } } = this.props;
+    const {
+      notificationsStore: {
+        errors,
+        removeNotifications,
+      },
+    } = this.props;
 
     if (!errors.length) return null;
 
     return (
       <div className="notifications">
-        <Notification texts={errors} />
+        <Notification
+          texts={errors}
+          removeNotifications={removeNotifications}
+        />
       </div>
     );
   }
