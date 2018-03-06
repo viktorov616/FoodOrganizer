@@ -59,7 +59,7 @@ class TagInput extends React.Component<TagInputProps, TagInputState> {
       ...inputsValues,
     };
     const updatedTags = [...tags, tag];
-    console.log(tag, updatedTags);
+
     this.setState({ inputsValues: this.getInitialInputsValues(), tags: updatedTags });
 
     if (onTagsUpdate) {

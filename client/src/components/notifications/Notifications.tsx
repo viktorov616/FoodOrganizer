@@ -16,7 +16,7 @@ interface NotificationsProps {
 class Notifications extends React.Component<NotificationsProps> {
   render() {
     const { notificationsStore: { errors } } = this.props;
-    console.log(toJS(errors));
+
     if (!errors.length) return null;
 
     return (

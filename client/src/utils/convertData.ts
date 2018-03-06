@@ -3,10 +3,10 @@ import { recipeFromForm } from 'stores/recipes';
 export function getRecipeDataToSend(data: recipeFromForm) {
   const dataToSend = new FormData();
 
-  Object.entries(data).forEach((entry: [string, any]) => (
+  Object.entries(data).forEach(([key, value]: [string, any]) => (
     dataToSend.append(
-      entry[0],
-      (!(entry[1] instanceof File)) ? JSON.stringify(entry[1]) : entry[1],
+      key,
+      (!(value instanceof File)) ? JSON.stringify(value) : value,
     )
   ));
 

@@ -21,9 +21,9 @@ const multerOptions = {
 exports.prepareFormData = multer(multerOptions).single('photo');
 
 exports.parseFormData = (req, res, next) => {
-  const data = Object.entries(req.body).reduce((result, entry) => ({
+  const data = Object.entries(req.body).reduce((result, [key, value]) => ({
     ...result,
-    [entry[0]]: (!entry[1]) ? entry[1] : JSON.parse(entry[1]),
+    [key]: (!value) ? value : JSON.parse(value),
   }), {});
   req.body = data;
 
@@ -52,13 +52,13 @@ exports.createRecipe = async (req, res) => {
 };
 
 exports.updateRecipe = async (req, res) => {
-  const recipe = await Recipe.findOneAndUpdate(
-    { slug: req.params.slug },
-    req.body,
-    { new: true, runValidators: true },
-  ).exec();
+  const recipe = await Recipe.findOne({ slug: req.params.slug });
 
-  res.json(recipe);
+  Object.entries(req.body).forEach(([key, value]) => { recipe[key] = value; });
+  // using save instead of findAndUpdate, because of a pre save hook
+  const updatedRecipe = await recipe.save();
+
+  res.json(updatedRecipe);
 };
 
 exports.getRecipes = async (req, res) => {

@@ -63,8 +63,8 @@ class RecipeForm extends React.Component<RecipeFormProps> {
         return this.data.ingredients.map(ingredient => ({
           ...ingredient,
           _text: Object.entries(ingredient)
-            .filter(entry => entry[0] !== '_id')
-            .map(entry => entry[1])
+            .filter(([key]) => key !== '_id')
+            .map(([key, value]) => value)
             .join(' '),
         }));
       case 'tags':

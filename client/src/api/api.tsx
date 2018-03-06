@@ -22,8 +22,6 @@ export function updateRecipe(data: recipeFromForm, slug: string) {
     },
   };
 
-  console.log(data);
-
   return axios.post(`/api/recipe/${slug}`, dataToSend, config).catch(e => e.response);
 }
 
