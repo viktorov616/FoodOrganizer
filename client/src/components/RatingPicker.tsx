@@ -1,13 +1,16 @@
-import * as React from 'react';
+import * as React   from 'react';
+
+import * as cx      from 'classnames';
 
 import { getClass } from 'utils/getClass';
 
 interface RatingPickerProps {
-  ratingList: number[];
-  name?: string;
   label?: string;
   modifiers?: string;
+  name?: string;
   onChange?: (name: string, rating: number) => any;
+  ratingList: number[];
+  readOnly?: boolean;
   value?: number;
 }
 
@@ -20,6 +23,7 @@ class RatingPicker extends React.Component<RatingPickerProps> {
     modifiers: '',
     name: 'rating',
     number: 0,
+    readOnly: false,
   };
 
   state = {
@@ -41,14 +45,15 @@ class RatingPicker extends React.Component<RatingPickerProps> {
   render() {
     const { rating } = this.state;
     const {
-      ratingList,
       label,
       modifiers,
       name,
+      ratingList,
+      readOnly,
     } = this.props;
 
     return (
-      <div className={getClass('rating-picker', modifiers)}>
+      <div className={getClass('rating-picker', cx(modifiers, { 'read-only': readOnly }))}>
         { (label)
           ? (<p className="rating-picker__label">
             { label }
@@ -61,17 +66,18 @@ class RatingPicker extends React.Component<RatingPickerProps> {
           return (
             <React.Fragment key={num}>
               <input
-                id={`${name}-${num}`}
-                className="rating-picker__input"
-                type="checkbox"
-                name={name}
                 checked={num <= rating}
+                className="rating-picker__input"
+                id={`${name}-${num}`}
+                name={name}
                 onChange={handleClick}
+                readOnly={readOnly}
+                type="checkbox"
               />
 
               <label
-                htmlFor={`${name}-${num}`}
                 className="rating-picker__input-label"
+                htmlFor={`${name}-${num}`}
               >
                 { num }
               </label>

@@ -1,9 +1,11 @@
 import * as React                from 'react';
 
+import Image, { ImagePropsType } from 'components/images/Image';
+import RatingPicker              from 'components/RatingPicker';
 import Tag                       from 'components/Tag';
 import Title                     from 'components/typography/Title';
-import Image, { ImagePropsType } from 'components/images/Image';
 
+import { RATING_LIST }           from 'constants/general';
 import { ParamsList,
          ParamsListItem }        from 'components/lists/ParamsList';
 import { Link }                  from 'react-router-dom';
@@ -21,6 +23,7 @@ const RecipeItem: React.SFC<RecipeItemProps> = ({
     ingredients,
     name,
     photo,
+    rating,
     slug,
     tags,
   },
@@ -31,6 +34,13 @@ const RecipeItem: React.SFC<RecipeItemProps> = ({
         text={name}
         size="3"
         modifiers="without-underline low-margin"
+      />
+
+      <RatingPicker
+        readOnly
+        ratingList={RATING_LIST}
+        modifiers="medium-margin"
+        value={rating}
       />
 
       <p>{ description }</p>
@@ -50,7 +60,7 @@ const RecipeItem: React.SFC<RecipeItemProps> = ({
           className={getClass('btn', 'link')}
           to={`/recipes/${slug}`}
         >
-          Show
+          View details
         </Link>
 
         <Link

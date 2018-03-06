@@ -3,6 +3,14 @@
 
   margin-bottom: $space-big;
 
+  &--medium-margin {
+    margin-bottom: $space-med;
+  }
+
+  &--read-only {
+    pointer-events: none;
+  }
+
   &__input-label {
     position: relative;
 

@@ -1,10 +1,12 @@
 import * as React                from 'react';
 
 import Image, { ImagePropsType } from 'components/images/Image';
+import RatingPicker              from 'components/RatingPicker';
 import RecipeIngredients         from './RecipeIngredients';
 import Tag                       from 'components/Tag';
 import Title                     from 'components/typography/Title';
 
+import { RATING_LIST }           from 'constants/general';
 import { getRecipeImageSrc }     from 'utils/common';
 import { recipeFromDb }          from 'stores/recipes';
 
@@ -16,12 +18,20 @@ const RecipeCard: React.SFC<RecipeCardProps> = ({
   ingredients,
   name,
   photo,
+  rating,
   tags,
 }) => (
   <div className="recipe-card">
     <Title
       text={name}
       modifiers="without-underline low-margin"
+    />
+
+    <RatingPicker
+      readOnly
+      ratingList={RATING_LIST}
+      modifiers="medium-margin"
+      value={rating}
     />
 
     <div className="recipe-card__tags">
