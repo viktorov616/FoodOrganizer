@@ -2,6 +2,7 @@ import * as React   from 'react';
 
 import * as cx      from 'classnames';
 import Loader       from 'components/Loader';
+import MaterialIcon from 'components/icons/MaterialIcon';
 
 import { getClass } from 'utils/getClass';
 
@@ -12,7 +13,7 @@ interface ButtonProps {
   isLoading?: boolean;
   modifiers?: string;
   onClick: (e: React.FormEvent<HTMLButtonElement>) => any;
-  text?: string;
+  text?: string|JSX.Element;
   type?: string;
 }
 
@@ -34,7 +35,11 @@ const Button: React.SFC<ButtonProps> = ({
           size="button"
           modifiers="inline white"
         />)
-        : <i className={cx('material-icons btn__icon', iconModifiers)}>{ icon }</i>
+        : (<MaterialIcon
+          baseClass="btn__icon"
+          icon={icon}
+          iconModifiers={iconModifiers}
+        />)
     );
   }
   return (

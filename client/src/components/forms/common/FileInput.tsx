@@ -1,7 +1,7 @@
 import * as React                from 'react';
 
 import Image, { ImagePropsType } from 'components/images/Image';
-
+import MaterialIcon              from 'components/icons/MaterialIcon';
 
 import { getClass }              from 'utils/getClass';
 
@@ -68,7 +68,11 @@ class FileInput extends React.Component<FileInputProps, FileInputState> {
 
           { (photoToDisplay || fileName)
             ? (<span className="file-input__file-name-wrapper">
-              <i className="material-icons file-input__file-name-icon">photo</i>
+              <MaterialIcon
+                baseClass="file-input__file-name-icon"
+                icon="photo"
+              />
+
               <span className="file-input__file-name">{ fileName || photoToDisplay }</span>
             </span>)
             : null }
@@ -85,7 +89,11 @@ class FileInput extends React.Component<FileInputProps, FileInputState> {
 
           <span className="file-input__text-wrapper">
             <span className="file-input__text">{ text }</span>
-            <i className="material-icons file-input__upload-icon">file_upload</i>
+
+            <MaterialIcon
+              baseClass="file-input__upload-icon"
+              icon="file_upload"
+            />
           </span>
 
           <input

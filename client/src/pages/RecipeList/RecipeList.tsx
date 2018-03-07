@@ -1,14 +1,17 @@
 import * as React       from 'react';
 
 import Container        from 'components/layout/Container';
-import Title            from 'components/typography/Title';
-import RecipeItem       from './RecipeItem';
 import Loader           from 'components/Loader';
+import Pagination       from 'components/pagination';
+import RecipeItem       from './RecipeItem';
+import Title            from 'components/typography/Title';
 
 import { inject,
          observer }     from 'mobx-react';
 import { recipesStore } from 'stores/recipes';
-import { toJS }         from 'mobx';
+import { action,
+         toJS,
+         observable }   from 'mobx';
 
 interface RecipeListProps {
   recipesStore?: recipesStore;
@@ -17,6 +20,8 @@ interface RecipeListProps {
 @inject('recipesStore')
 @observer
 class RecipeList extends React.Component<RecipeListProps> {
+  @observable currentPage = 0;
+
   componentDidMount() {
     const {
       recipesStore: {
@@ -25,6 +30,11 @@ class RecipeList extends React.Component<RecipeListProps> {
     } = this.props;
 
     getRecipes();
+  }
+
+  @action.bound
+  onPageChange(page: number) {
+    this.currentPage = page;
   }
 
   render() {
@@ -49,6 +59,11 @@ class RecipeList extends React.Component<RecipeListProps> {
           )) }
         </div>
 
+        <Pagination
+          pagesCount={3}
+          currentPage={this.currentPage}
+          onPageChange={this.onPageChange}
+        />
         <Loader isActive={isSendingRequest} />
       </React.Fragment>
     );
