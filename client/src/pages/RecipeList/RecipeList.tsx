@@ -1,17 +1,20 @@
-import * as React       from 'react';
+import * as React                  from 'react';
 
-import Container        from 'components/layout/Container';
-import Loader           from 'components/Loader';
-import Pagination       from 'components/pagination';
-import RecipeItem       from './RecipeItem';
-import Title            from 'components/typography/Title';
+import Container                   from 'components/layout/Container';
+import Loader                      from 'components/Loader';
+import Pagination                  from 'components/pagination';
+import RecipeItem                  from './RecipeItem';
+import Title                       from 'components/typography/Title';
 
+import { DEFAULT_ITEMS_PER_PAGE,
+         START_PAGE              } from 'constants/pagination';
+import { getPaginationIndexes }    from 'utils/pagination';
 import { inject,
-         observer }     from 'mobx-react';
-import { recipesStore } from 'stores/recipes';
+         observer }                from 'mobx-react';
+import { recipesStore }            from 'stores/recipes';
 import { action,
          toJS,
-         observable }   from 'mobx';
+         observable }              from 'mobx';
 
 interface RecipeListProps {
   recipesStore?: recipesStore;
@@ -20,7 +23,7 @@ interface RecipeListProps {
 @inject('recipesStore')
 @observer
 class RecipeList extends React.Component<RecipeListProps> {
-  @observable currentPage = 0;
+  @observable currentPage = START_PAGE;
 
   componentDidMount() {
     const {
@@ -35,6 +38,8 @@ class RecipeList extends React.Component<RecipeListProps> {
   @action.bound
   onPageChange(page: number) {
     this.currentPage = page;
+
+    window.scrollTo(0, 0);
   }
 
   render() {
@@ -44,6 +49,11 @@ class RecipeList extends React.Component<RecipeListProps> {
         recipes,
       },
     } = this.props;
+    const {
+      maxIndex,
+      minIndex,
+    } = getPaginationIndexes({ currentPage: this.currentPage });
+
     return (
       <React.Fragment>
         <Container>
@@ -51,7 +61,7 @@ class RecipeList extends React.Component<RecipeListProps> {
         </Container>
 
         <div className="recipe-list__list">
-          { recipes.map(recipe => (
+          { recipes.slice(minIndex, maxIndex).map(recipe => (
             <RecipeItem
               key={recipe._id}
               recipe={recipe}
@@ -60,7 +70,7 @@ class RecipeList extends React.Component<RecipeListProps> {
         </div>
 
         <Pagination
-          pagesCount={3}
+          pagesCount={Math.ceil(recipes.length / DEFAULT_ITEMS_PER_PAGE)}
           currentPage={this.currentPage}
           onPageChange={this.onPageChange}
         />

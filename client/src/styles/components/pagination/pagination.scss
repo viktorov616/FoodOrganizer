@@ -62,6 +62,16 @@
       color: $primary
     }
 
+    &:disabled {
+      cursor: not-allowed;
+
+      color: $clouds;
+
+      &:hover {
+        color: $clouds
+      }
+    }
+
     &:first-child {
       margin-right: $space-small / 2;
     }
@@ -73,5 +83,14 @@
 
   &__action-label {
     vertical-align: middle;
+  }
+
+  &__break-label {
+    cursor: default;
+
+    margin: 0 $space-small / 2;
+
+    color: $concrete;
+    font-weight: 600;
   }
 }

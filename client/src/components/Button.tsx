@@ -8,6 +8,7 @@ import { getClass } from 'utils/getClass';
 
 interface ButtonProps {
   className?: string;
+  disabled?: boolean;
   icon?: string;
   iconModifiers?: string;
   isLoading?: boolean;
@@ -19,6 +20,7 @@ interface ButtonProps {
 
 const Button: React.SFC<ButtonProps> = ({
   className,
+  disabled,
   icon,
   iconModifiers,
   isLoading,
@@ -45,6 +47,7 @@ const Button: React.SFC<ButtonProps> = ({
   return (
     <button
       className={(className) ? className : getClass('btn', modifiers)}
+      disabled={disabled}
       onClick={onClick}
       type={type}
     >
