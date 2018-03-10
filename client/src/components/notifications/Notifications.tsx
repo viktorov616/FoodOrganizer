@@ -5,7 +5,6 @@ import Notification           from 'components/notifications/Notification';
 import { notificationsStore } from 'stores/notifications';
 import { inject,
          observer }           from 'mobx-react';
-         import { toJS } from 'mobx'
 
 interface NotificationsProps {
   notificationsStore;

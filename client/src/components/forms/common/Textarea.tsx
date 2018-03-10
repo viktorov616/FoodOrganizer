@@ -12,6 +12,7 @@ interface TextareaProps {
   onChange?: (name: string, value: string) => void;
   rows?: number;
   value?: string;
+  modifiers?: string;
 }
 
 class Textarea extends React.Component<TextareaProps> {
@@ -41,16 +42,17 @@ class Textarea extends React.Component<TextareaProps> {
   render() {
     const { focused } = this.state;
     const {
+      id,
       label,
       labelModifiers,
-      id,
+      modifiers,
       name,
       rows,
       value,
     } = this.props;
 
     return (
-      <div className={getClass('textarea', cx({ active: focused }))}>
+      <div className={getClass('textarea', cx(modifiers, { active: focused }))}>
         <textarea
           className="textarea__tag"
           id={id}

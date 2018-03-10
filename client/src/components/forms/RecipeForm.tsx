@@ -1,24 +1,25 @@
-import * as React      from 'react';
+import * as React          from 'react';
 
-import Button          from 'components/Button';
-import Input           from 'components/forms/common/Input';
-import FileInput       from 'components/forms/common/FileInput';
-import RatingPicker    from 'components/RatingPicker';
-import Select          from 'components/forms/common/Select';
-import TagInput        from 'components/forms/common/TagInput';
-import Textarea        from 'components/forms/common/Textarea';
+import Button              from 'components/Button';
+import FileInput           from 'components/forms/common/FileInput';
+import Input               from 'components/forms/common/Input';
+import RatingPicker        from 'components/RatingPicker';
+import Select              from 'components/forms/common/Select';
+import StepByStepFragment  from './StepByStepFragment';
+import TagInput            from 'components/forms/common/TagInput';
+import Textarea            from 'components/forms/common/Textarea';
 
-import { RATING_LIST } from 'constants/general';
-import { getClass }    from 'utils/getClass';
+import { RATING_LIST }     from 'constants/general';
+import { getClass }        from 'utils/getClass';
 import { action,
          observable,
-         toJS  }       from 'mobx';
+         toJS  }           from 'mobx';
 import { observer,
-         inject }      from 'mobx-react';
+         inject }          from 'mobx-react';
 import { recipeFromForm,
          recipeFromDb,
          recipesStore,
-         ingredient }  from 'stores/recipes';
+         ingredient      } from 'stores/recipes';
 
 interface RecipeFormProps {
   recipe?: recipeFromDb;
@@ -44,6 +45,7 @@ class RecipeForm extends React.Component<RecipeFormProps> {
     rating: this.getInitData('rating'),
     tags: this.getInitData('tags'),
   };
+  @observable stepByStepFormVisible = false;
 
   getInitData(name: string) {
     const defaultValues = {
@@ -110,6 +112,11 @@ class RecipeForm extends React.Component<RecipeFormProps> {
     } else {
       this.data[name] = value;
     }
+  }
+
+  @action
+  showStepByStepForm = () => {
+    this.stepByStepFormVisible = true;
   }
 
   render() {
@@ -184,6 +191,16 @@ class RecipeForm extends React.Component<RecipeFormProps> {
               photoToDisplay={(recipe) ? recipe.photo : null}
               text={(type === 'edit' && recipe.photo) ? 'Upload new' : 'Click to upload'}
             />
+
+            { (this.stepByStepFormVisible)
+              ? <StepByStepFragment />
+              : (<Button
+                icon="format_list_numbered"
+                onClick={this.showStepByStepForm}
+                text="Add step by step guide"
+                modifiers="raised single"
+                type="button"
+              />) }
 
             <Button
               icon="send"

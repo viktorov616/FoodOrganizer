@@ -25,6 +25,12 @@
     }
   }
 
+  &--single {
+    display: block;
+
+    margin-bottom: $space-big;
+  }
+
   &__text {
     display: inline-block;
     vertical-align: middle;

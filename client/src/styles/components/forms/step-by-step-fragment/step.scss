@@ -1,0 +1,61 @@
+.step {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  padding-left: $space-big;
+  padding-bottom: $space-med;
+
+  &::before {
+    content: '';
+
+    position: absolute;
+    left: $space-big / 2;
+    top: 20px;
+
+    width: 2px;
+    height: calc(100% - 20px);
+
+    background: $clouds;
+  }
+
+  &__label {
+    order: 1;
+
+    margin-bottom: $space-small;
+  }
+
+  &__label-number {
+    position: absolute;
+    left: $space-big / 2 - 2px;
+
+    font-size: $font-small;
+    color: white;
+
+    z-index: 20;
+
+    &::after {
+      content: '';
+
+      position: absolute;
+      left: -8px;
+      top: -3px;
+
+      width: 24px;
+      height: 24px;
+
+      border-radius: 50%;
+
+      background: $primary;
+
+      z-index: -1;
+
+      // opacity: .5;
+    }
+  }
+
+  &__label-text {
+
+  }
+}
