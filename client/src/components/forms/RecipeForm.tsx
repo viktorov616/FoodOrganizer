@@ -43,6 +43,7 @@ class RecipeForm extends React.Component<RecipeFormProps> {
     ingredients: this.getInitData('ingredients'),
     name: this.getInitData('name'),
     rating: this.getInitData('rating'),
+    steps: this.getInitData('steps'),
     tags: this.getInitData('tags'),
   };
   @observable stepByStepFormVisible = false;
@@ -53,6 +54,7 @@ class RecipeForm extends React.Component<RecipeFormProps> {
       ingredients: [],
       name: '',
       rating: 0,
+      steps: [],
       tags: [],
     };
 
@@ -100,7 +102,7 @@ class RecipeForm extends React.Component<RecipeFormProps> {
     if (name === 'tags' && value instanceof Array) {
       this.data[name] = value.map(item => item.tag);
     } else if (name === 'ingredients' && value instanceof Array) {
-      // replace keys for objects from 'ingredients[key]' to 'key'
+      // replace keys for objects from 'ingredients[key]' to '[key]'
       // ingredients[key] - this format used, because key can duplicate name with real inputs
       this.data[name] = value.map((item) => {
         const itemKeys = Object.keys(item);
@@ -193,7 +195,7 @@ class RecipeForm extends React.Component<RecipeFormProps> {
             />
 
             { (this.stepByStepFormVisible)
-              ? <StepByStepFragment />
+              ? <StepByStepFragment onStepsChange={this.handleFormDataChange} />
               : (<Button
                 icon="format_list_numbered"
                 onClick={this.showStepByStepForm}

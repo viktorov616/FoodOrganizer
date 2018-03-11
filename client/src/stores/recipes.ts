@@ -1,14 +1,16 @@
 import { addRecipe,
          getRecipe,
          getRecipes,
-         updateRecipe }     from 'api';
+         updateRecipe }       from 'api';
 import { action,
          observable,
          toJS,
          createTransformer,
          runInAction,
-         ObservableMap }    from 'mobx';
-import notificationsStore   from './notifications';
+         ObservableMap      } from 'mobx';
+import { step }               from 'interfaces/stepByStepFragment';
+import notificationsStore     from './notifications';
+
 
 export interface recipesStore {
   addRecipe: (data: recipeFromForm) => any;
@@ -26,6 +28,7 @@ interface recipeBase {
   name: string;
   rating: number;
   slug?: string;
+  steps?: step[];
   tags: string[];
 }
 

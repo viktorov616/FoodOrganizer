@@ -1,9 +1,6 @@
 .step {
   position: relative;
 
-  display: flex;
-  flex-direction: column;
-
   padding-left: $space-big;
   padding-bottom: $space-med;
 
@@ -20,8 +17,22 @@
     background: $clouds;
   }
 
+  &--active {
+    &::before {
+      background: $secondary;
+    }
+
+    & .step__label-number::after {
+      background: $secondary;
+    }
+
+    & .step__label-text {
+      color: $secondary;
+    }
+  }
+
   &__label {
-    order: 1;
+    display: block;
 
     margin-bottom: $space-small;
   }
@@ -40,7 +51,7 @@
 
       position: absolute;
       left: -8px;
-      top: -3px;
+      top: -2px;
 
       width: 24px;
       height: 24px;
@@ -50,12 +61,6 @@
       background: $primary;
 
       z-index: -1;
-
-      // opacity: .5;
     }
-  }
-
-  &__label-text {
-
   }
 }

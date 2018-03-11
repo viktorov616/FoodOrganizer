@@ -23,6 +23,10 @@ const recipeSchema = new mongoose.Schema({
   photo: String,
   rating: Number,
   slug: String,
+  steps: [{
+    num: Number,
+    text: String,
+  }],
   tags: [String],
 });
 

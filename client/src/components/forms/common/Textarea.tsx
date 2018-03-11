@@ -8,11 +8,12 @@ interface TextareaProps {
   id: string;
   label?: string;
   labelModifiers?: string;
+  modifiers?: string;
   name: string;
   onChange?: (name: string, value: string) => void;
+  onFocus?: (focused: boolean) => void;
   rows?: number;
   value?: string;
-  modifiers?: string;
 }
 
 class Textarea extends React.Component<TextareaProps> {
@@ -26,7 +27,12 @@ class Textarea extends React.Component<TextareaProps> {
   };
 
   handleFocus = (e) => {
-    this.setState({ focused: e.type === 'focus' });
+    const { onFocus } = this.props;
+    const focused = e.type === 'focus';
+
+    this.setState({ focused });
+
+    if (onFocus) onFocus(focused);
   }
 
   handleChange = (e) => {
