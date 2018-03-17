@@ -1,6 +1,12 @@
 // modify surface button
 
 .btn {
+  &:disabled {
+    pointer-events: none;
+
+    opacity: .7;
+  }
+
   &--without-margin {
     margin-bottom: 0;
   }

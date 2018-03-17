@@ -8,9 +8,8 @@ import { action,
          createTransformer,
          runInAction,
          ObservableMap      } from 'mobx';
-import { step }               from 'interfaces/stepByStepFragment';
 import notificationsStore     from './notifications';
-
+import { clearEmptySteps }    from 'utils/recipeUtils';
 
 export interface recipesStore {
   addRecipe: (data: recipeFromForm) => any;
@@ -28,7 +27,7 @@ interface recipeBase {
   name: string;
   rating: number;
   slug?: string;
-  steps?: step[];
+  steps?: string[];
   tags: string[];
 }
 
@@ -54,9 +53,11 @@ class RecipesStore<recipesStore>  {
 
   @action.bound
   async addRecipe(data: recipeFromForm) {
+    const dataToSend = clearEmptySteps(data);
+
     this.isSendingRequest = true;
 
-    const response = await addRecipe(data);
+    const response = await addRecipe(dataToSend);
 
     runInAction(() => {
       this.isSendingRequest = false;
@@ -88,9 +89,11 @@ class RecipesStore<recipesStore>  {
 
   @action.bound
   async updateRecipe(data, slug) {
+    const dataToSend = clearEmptySteps(data);
+
     this.isSendingRequest = true;
 
-    const response = await updateRecipe(data, slug);
+    const response = await updateRecipe(dataToSend, slug);
 
     runInAction(() => {
       this.isSendingRequest = false;

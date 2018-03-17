@@ -55,6 +55,10 @@ const RecipeCard: React.SFC<RecipeCardProps> = ({
       <RecipeIngredients ingredients={ingredients} />
     </div>
     { description }
+
+    <div className="recipe-card__step-by-step">
+      
+    </div>
   </div>
 );
 

@@ -8,25 +8,18 @@ import { action,
          observable,
          toJS        } from 'mobx';
 import { observer }    from 'mobx-react';
-import { step }        from 'interfaces/stepByStepFragment';
 
 interface StepByStepFragmentProps {
-  onStepsChange: (name: string, value: step[]) => void;
+  onStepsChange: (name: string, value: string[]) => void;
 }
 
 @observer
 class StepByStepFragment extends React.Component<StepByStepFragmentProps> {
-  @observable steps = [{
-    num: 1,
-    text: '',
-  }];
+  @observable steps = [''];
 
   @action
   addStep = () => {
-    this.steps.push({
-      num: this.steps.length + 1,
-      text: '',
-    });
+    this.steps.push('');
   }
 
   @action
@@ -38,31 +31,29 @@ class StepByStepFragment extends React.Component<StepByStepFragmentProps> {
   handleTextChange = (step, value) => {
     const { onStepsChange } = this.props;
 
-    this.steps.forEach((item) => {
-      if (item.num === step) {
-        item.text = value;
-      }
-    });
+    this.steps[step - 1] = value;
+
+    console.log(toJS(this.steps));
 
     onStepsChange('steps', this.steps);
   }
 
   isAddStepsDisabled() {
-    return this.steps[this.steps.length - 1].text === '';
+    return this.steps[this.steps.length - 1] === '';
   }
 
   render() {
     return (
       <React.Fragment>
         <div>
-          { this.steps.map(({ num, text }) => (
+          { this.steps.map((step, i) => (
             <Step
               id={`step-${1}`}
-              key={num}
-              label={`Step ${num}`}
-              name={`step-${num}`}
-              num={num}
-              text={text}
+              key={i}
+              label={`Step ${i + 1}`}
+              name={`step-${i + 1}`}
+              num={i + 1}
+              text={step}
               onTextChange={this.handleTextChange}
             />
           )) }
