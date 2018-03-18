@@ -2,7 +2,9 @@ import * as React                from 'react';
 
 import Image, { ImagePropsType } from 'components/images/Image';
 import RatingPicker              from 'components/RatingPicker';
+import RecipeDescription         from './RecipeDescription';
 import RecipeIngredients         from './RecipeIngredients';
+import RecipeStepByStep          from './RecipeStepByStep';
 import Tag                       from 'components/Tag';
 import Title                     from 'components/typography/Title';
 
@@ -19,6 +21,7 @@ const RecipeCard: React.SFC<RecipeCardProps> = ({
   name,
   photo,
   rating,
+  steps,
   tags,
 }) => (
   <div className="recipe-card">
@@ -44,20 +47,27 @@ const RecipeCard: React.SFC<RecipeCardProps> = ({
       )) }
     </div>
 
-    <div className="recipe-card__info">
+    <div className="recipe-card__info container">
       <Image
         alt="Recipe image"
         src={getRecipeImageSrc(photo)}
         type={ImagePropsType.WITH_SRC}
-        wrapperClass="recipe-card__image-wrapper"
+        wrapperClass="recipe-card__image-wrapper g--4"
       />
 
-      <RecipeIngredients ingredients={ingredients} />
+      { (ingredients)
+        ? <RecipeIngredients ingredients={ingredients} />
+        : null }
     </div>
-    { description }
 
-    <div className="recipe-card__step-by-step">
-      
+    <div className="container g--12">
+      { (steps && steps.length)
+        ? <RecipeStepByStep steps={steps} />
+        : null }
+
+      { (description)
+        ? <RecipeDescription description={description} />
+        : null }
     </div>
   </div>
 );

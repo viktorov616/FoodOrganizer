@@ -129,89 +129,87 @@ class RecipeForm extends React.Component<RecipeFormProps> {
     } = this.props;
 
     return (
-      <div className="row">
-        <div className="col g--6">
-          <form onSubmit={this.handleSubmit}>
-            <Input
-              autofocus
-              id="name"
-              label="Name"
-              name="name"
-              onChange={this.handleFormDataChange}
-              value={this.data.name}
-            />
+      <div className="g--6">
+        <form onSubmit={this.handleSubmit}>
+          <Input
+            autofocus
+            id="name"
+            label="Name"
+            name="name"
+            onChange={this.handleFormDataChange}
+            value={this.data.name}
+          />
 
-            <TagInput
-              btn="Add ingredient"
-              label="Ingredients"
-              name="ingredients"
-              inputs={[{
-                id: 'ingredients[name]',
-                label: 'Name',
-                name: 'ingredients[name]',
-              }, {
-                id: 'ingredients[amount]',
-                label: 'Amount',
-                name: 'ingredients[amount]',
-              }]}
-              onTagsUpdate={this.handleFormDataChange}
-              tags={this.getTagsValue('ingredients')}
-            />
+          <TagInput
+            btn="Add ingredient"
+            label="Ingredients"
+            name="ingredients"
+            inputs={[{
+              id: 'ingredients[name]',
+              label: 'Name',
+              name: 'ingredients[name]',
+            }, {
+              id: 'ingredients[amount]',
+              label: 'Amount',
+              name: 'ingredients[amount]',
+            }]}
+            onTagsUpdate={this.handleFormDataChange}
+            tags={this.getTagsValue('ingredients')}
+          />
 
-            <TagInput
-              btn="Add tag"
-              label="Tags"
-              name="tags"
-              inputs={[{
-                id: 'tag',
-                name: 'tag',
-              }]}
-              onTagsUpdate={this.handleFormDataChange}
-              tags={this.getTagsValue('tags')}
-            />
+          <TagInput
+            btn="Add tag"
+            label="Tags"
+            name="tags"
+            inputs={[{
+              id: 'tag',
+              name: 'tag',
+            }]}
+            onTagsUpdate={this.handleFormDataChange}
+            tags={this.getTagsValue('tags')}
+          />
 
-            <Textarea
-              id="description"
-              name="description"
-              label="Description"
-              onChange={this.handleFormDataChange}
-              value={this.data.description}
-            />
+          <Textarea
+            id="description"
+            name="description"
+            label="Description"
+            onChange={this.handleFormDataChange}
+            value={this.data.description}
+          />
 
-            <RatingPicker
-              ratingList={RATING_LIST}
-              label="Rating"
-              onChange={this.handleFormDataChange}
-              value={this.data.rating}
-            />
+          <RatingPicker
+            ratingList={RATING_LIST}
+            label="Rating"
+            onChange={this.handleFormDataChange}
+            value={this.data.rating}
+          />
 
-            <FileInput
-              id="photo"
-              label="Photo"
-              name="photo"
-              onChange={this.handleFormDataChange}
-              photoToDisplay={(recipe) ? recipe.photo : null}
-              text={(type === 'edit' && recipe.photo) ? 'Upload new' : 'Click to upload'}
-            />
+          <FileInput
+            id="photo"
+            label="Photo"
+            name="photo"
+            onChange={this.handleFormDataChange}
+            photoToDisplay={(recipe) ? recipe.photo : null}
+            text={(type === 'edit' && recipe.photo) ? 'Upload new' : 'Click to upload'}
+          />
 
-            { (this.stepByStepFormVisible)
-              ? <StepByStepFragment onStepsChange={this.handleFormDataChange} />
-              : (<Button
-                icon="format_list_numbered"
-                onClick={this.showStepByStepForm}
-                text="Add step by step guide"
-                modifiers="raised single"
-                type="button"
-              />) }
+          { (this.stepByStepFormVisible)
+            ? <StepByStepFragment onStepsChange={this.handleFormDataChange} />
+            : (<Button
+              icon="format_list_numbered"
+              onClick={this.showStepByStepForm}
+              text="Add step by step guide"
+              modifiers="raised single"
+              type="button"
+            />) }
 
-            <Button
-              icon="send"
-              isLoading={isSendingRequest}
-              onClick={this.handleSubmit}
-              text={(type === 'add') ? 'Submit' : 'Save'}
-            />
-          </form>
-        </div>
+          <Button
+            icon="send"
+            isLoading={isSendingRequest}
+            onClick={this.handleSubmit}
+            text={(type === 'add') ? 'Submit' : 'Save'}
+          />
+        </form>
       </div>
     );
   }

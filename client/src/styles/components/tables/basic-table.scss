@@ -21,4 +21,10 @@
       }
     }
   }
+
+  &__tr {
+    &:hover {
+      background: inherit;
+    }
+  }
 }

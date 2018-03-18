@@ -48,12 +48,13 @@ export const Tbody: React.SFC = ({
   <tbody className="table__body">{ children }</tbody>
 );
 
-export const Tr: React.SFC<{ modifiers?: string }> = ({
+export const Tr: React.SFC<{ modifiers?: string, isHeader?: boolean }> = ({
+  isHeader,
   children,
   modifiers,
 }) => (
   <tr
-    className={getClass('table__tr', modifiers)}
+    className={cx(getClass('table__tr', modifiers), { 'table-header': isHeader })}
   >
     { children }
   </tr>
