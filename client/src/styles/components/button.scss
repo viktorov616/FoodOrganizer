@@ -37,6 +37,10 @@
     margin-bottom: $space-big;
   }
 
+  &--right {
+    float: right;
+  }
+
   &__text {
     display: inline-block;
     vertical-align: middle;

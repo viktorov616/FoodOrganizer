@@ -30,4 +30,9 @@
   &--low-margin {
     margin-bottom: $space-small;
   }
+
+  &--inline-block {
+    display: inline-block;
+    vertical-align: top;
+  }
 }

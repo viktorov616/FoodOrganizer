@@ -1,10 +1,12 @@
 import * as React                  from 'react';
 
+import Button                      from 'components/Button';
 import Container                   from 'components/layout/Container';
 import Loader                      from 'components/Loader';
 import Pagination                  from 'components/pagination';
 import RecipeItem                  from './RecipeItem';
 import Title                       from 'components/typography/Title';
+import RecipesFilter               from './RecipesFilter';
 
 import { DEFAULT_ITEMS_PER_PAGE,
          START_PAGE              } from 'constants/pagination';
@@ -24,6 +26,7 @@ interface RecipeListProps {
 @observer
 class RecipeList extends React.Component<RecipeListProps> {
   @observable currentPage = START_PAGE;
+  @observable filterIsActive = false;
 
   componentDidMount() {
     const {
@@ -42,6 +45,11 @@ class RecipeList extends React.Component<RecipeListProps> {
     window.scrollTo(0, 0);
   }
 
+  @action.bound
+  toggleFilter() {
+    this.filterIsActive = !this.filterIsActive;
+  }
+
   render() {
     const {
       recipesStore: {
@@ -57,8 +65,22 @@ class RecipeList extends React.Component<RecipeListProps> {
     return (
       <React.Fragment>
         <Container>
-          <Title text="Recipe list" />
+          <Title
+            text="Recipe list"
+            modifiers="inline-block"
+          />
+
+          <Button
+            icon={(this.filterIsActive) ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}
+            modifiers="right raised"
+            onClick={this.toggleFilter}
+            text={(this.filterIsActive) ? 'Hide filter' : 'Show filter'}
+          />
         </Container>
+
+        { (this.filterIsActive)
+          ? <RecipesFilter />
+          : null }
 
         <div className="recipe-list__list">
           { recipes.slice(minIndex, maxIndex).map(recipe => (
