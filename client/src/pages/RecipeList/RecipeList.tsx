@@ -54,7 +54,7 @@ class RecipeList extends React.Component<RecipeListProps> {
     const {
       recipesStore: {
         isSendingRequest,
-        recipes,
+        filtredRecipes,
       },
     } = this.props;
     const {
@@ -72,7 +72,7 @@ class RecipeList extends React.Component<RecipeListProps> {
 
           <Button
             icon={(this.filterIsActive) ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}
-            modifiers="right raised"
+            modifiers="right raised mt10"
             onClick={this.toggleFilter}
             text={(this.filterIsActive) ? 'Hide filter' : 'Show filter'}
           />
@@ -83,7 +83,7 @@ class RecipeList extends React.Component<RecipeListProps> {
           : null }
 
         <div className="recipe-list__list">
-          { recipes.slice(minIndex, maxIndex).map(recipe => (
+          { filtredRecipes.slice(minIndex, maxIndex).map(recipe => (
             <RecipeItem
               key={recipe._id}
               recipe={recipe}
@@ -92,7 +92,7 @@ class RecipeList extends React.Component<RecipeListProps> {
         </div>
 
         <Pagination
-          pagesCount={Math.ceil(recipes.length / DEFAULT_ITEMS_PER_PAGE)}
+          pagesCount={Math.ceil(filtredRecipes.length / DEFAULT_ITEMS_PER_PAGE)}
           currentPage={this.currentPage}
           onPageChange={this.onPageChange}
         />

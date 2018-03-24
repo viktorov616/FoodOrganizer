@@ -1,6 +1,10 @@
 .tag-input {
   margin-bottom: $space-big;
 
+  &--without-margin {
+    margin-bottom: 0;
+  }
+
   &__label {
     margin-bottom: $space-small;
 

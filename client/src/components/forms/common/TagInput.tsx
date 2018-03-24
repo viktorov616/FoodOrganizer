@@ -8,13 +8,16 @@ import Tag                   from 'components/Tag';
 import { getClass }          from 'utils/getClass';
 
 interface TagInputProps {
+  additionalClass?: string;
   btn?: string;
   inputs: InputProps[];
   label?: string;
+  modifiers?: string;
+  name: string;
   onChange?: (name: string, value: string) => void;
   onTagsUpdate?: (name: string, tags: { [key: string]: string }[]) => void;
-  name: string;
   tags?: Tag[];
+  withoutTags?: boolean;
 }
 
 interface TagInputState {
@@ -130,28 +133,33 @@ class TagInput extends React.Component<TagInputProps, TagInputState> {
       tags,
     } = this.state;
     const {
+      additionalClass,
       btn,
       inputs,
       label,
+      modifiers,
       onChange,
+      withoutTags,
     } = this.props;
 
     return (
-      <div className="tag-input">
+      <div className={cx(getClass('tag-input', modifiers), additionalClass)}>
         <p className={getClass('tag-input__label', cx({ focused }))}>
           { label }
         </p>
 
-        <div className="tag-input__tags">
-          { tags.map(({ _id, _text }) => (
-            <Tag
-              key={_id}
-              text={_text}
-              id={_id}
-              deleteTag={this.deleteTag}
-            />
-          )) }
-        </div>
+        { (withoutTags)
+          ? null
+          : (<div className="tag-input__tags">
+            { tags.map(({ _id, _text }) => (
+              <Tag
+                key={_id}
+                text={_text}
+                id={_id}
+                deleteTag={this.deleteTag}
+              />
+            )) }
+          </div>) }
 
         <div className="tag-input__inputs">
           { inputs.map((input) => {

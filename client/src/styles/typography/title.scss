@@ -35,4 +35,26 @@
     display: inline-block;
     vertical-align: top;
   }
+
+  &--background-primary {
+    background: $primary;
+  }
+
+  &--white {
+    color: white
+  }
+
+  &--padding {
+    padding: $space-small;
+  }
+
+  &--uppercase {
+    text-transform: uppercase;
+  }
+
+  &--light {
+    .title__text {
+      font-weight: 300;
+    }
+  }
 }

@@ -6,10 +6,12 @@ import { action,
          observable,
          toJS,
          createTransformer,
+         computed,
          runInAction,
          ObservableMap      } from 'mobx';
 import notificationsStore     from './notifications';
-import { clearEmptySteps }    from 'utils/recipeUtils';
+import { clearEmptySteps,
+         checkFilterParam }   from 'utils/recipeUtils';
 
 export interface recipesStore {
   addRecipe: (data: recipeFromForm) => any;
@@ -18,7 +20,16 @@ export interface recipesStore {
   getRecipes: () => any;
   isSendingRequest: boolean;
   recipes: recipeFromDb[];
+  updateFilter: (key: string, value: string[]) => any;
   updateRecipe: (data: recipeFromForm, slug: string) => any;
+  filtredRecipes: recipeFromDb[];
+  filter: filter;
+}
+
+interface filter {
+  ingredient: string[];
+  name: string[];
+  tag: string[];
 }
 
 interface recipeBase {
@@ -50,6 +61,11 @@ class RecipesStore<recipesStore>  {
   @observable isSendingRequest = false;
   @observable recipes = [];
   @observable detailedRecipes = new ObservableMap();
+  @observable filter = {
+    ingredient: [],
+    name: [],
+    tag: [],
+  };
 
   @action.bound
   async addRecipe(data: recipeFromForm) {
@@ -63,6 +79,18 @@ class RecipesStore<recipesStore>  {
       this.isSendingRequest = false;
       notificationsStore.handleErrors(response);
     });
+  }
+
+  @computed
+  get filtredRecipes() {
+    return this.recipes.filter(recipe => (
+      checkFilterParam(this.filter.name, recipe.name)
+      && checkFilterParam(this.filter.tag, recipe.tags.join(''))
+      && checkFilterParam(
+        this.filter.ingredient,
+        recipe.ingredients.reduce((result, { name }) => `${result}${name}`, ''),
+      )
+    ));
   }
 
   @action.bound
@@ -85,6 +113,11 @@ class RecipesStore<recipesStore>  {
       this.recipes = response.data;
       this.isSendingRequest = false;
     });
+  }
+
+  @action.bound
+  updateFilter(key, value) {
+    this.filter[key] = value;
   }
 
   @action.bound

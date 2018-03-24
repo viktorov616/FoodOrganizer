@@ -33,8 +33,6 @@ class StepByStepFragment extends React.Component<StepByStepFragmentProps> {
 
     this.steps[step - 1] = value;
 
-    console.log(toJS(this.steps));
-
     onStepsChange('steps', this.steps);
   }
 

@@ -1,3 +1,11 @@
-.padding-container {
-  padding: 0 $space-med;
+// extends surface container
+
+.container {
+  &--jc-sb {
+    justify-content: space-between;
+  }
+
+  &--jc-fe {
+    justify-content: flex-end;
+  }
 }
