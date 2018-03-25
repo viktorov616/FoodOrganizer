@@ -20,6 +20,7 @@ const FILTER_INPUTS = [
 
 interface RecipesFilterProps {
   recipesStore?: recipesStore;
+  toggleFilter: () => void;
 }
 
 @inject('recipesStore')
@@ -34,17 +35,27 @@ class RecipesFilter extends React.Component<RecipesFilterProps> {
   }
 
   render() {
-    const {
-      recipesStore: { updateFilter },
-    } = this.props;
+    const { toggleFilter } = this.props;
 
     return (
       <div className="recipe-filter">
-        <Title
-          text="Filter"
-          size="5"
-          modifiers="background-primary without-underline white padding light"
-        />
+        <div className="recipe-filter__header">
+          <div className="recipe-filter__header-inner">
+            <Title
+              text="Filter"
+              size="4"
+              modifiers={`without-underline white light inline-block
+                without-bottom-margin low-top-margin`}
+            />
+
+            <Button
+              icon="keyboard_arrow_up"
+              modifiers="right flat color-primary without-margin"
+              onClick={toggleFilter}
+              text="Hide filter"
+            />
+          </div>
+        </div>
 
         <Container
           flex

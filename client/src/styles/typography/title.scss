@@ -31,6 +31,18 @@
     margin-bottom: $space-small;
   }
 
+  &--without-margin {
+    margin: 0;
+  }
+
+  &--without-bottom-margin {
+    margin-bottom: 0;
+  }
+
+  &--low-top-margin {
+    margin-top: $space-small / 2;
+  }
+
   &--inline-block {
     display: inline-block;
     vertical-align: top;

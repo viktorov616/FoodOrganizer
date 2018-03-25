@@ -1,6 +1,18 @@
 .recipe-filter {
   padding-bottom: $space-med;
 
+  &__header {
+    margin-bottom: $space-med;
+
+    background: $primary;
+  }
+
+  &__header-inner {
+    @include clearfix;
+
+    padding: $space-med;
+  }
+
   &__input {
     width: 30%;
   }

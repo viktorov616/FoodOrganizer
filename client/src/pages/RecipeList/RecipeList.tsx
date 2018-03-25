@@ -70,16 +70,18 @@ class RecipeList extends React.Component<RecipeListProps> {
             modifiers="inline-block"
           />
 
-          <Button
-            icon={(this.filterIsActive) ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}
-            modifiers="right raised mt10"
-            onClick={this.toggleFilter}
-            text={(this.filterIsActive) ? 'Hide filter' : 'Show filter'}
-          />
+          { (this.filterIsActive)
+            ? null
+            : (<Button
+              icon="keyboard_arrow_down"
+              modifiers="right raised mt10"
+              onClick={this.toggleFilter}
+              text="Show filter"
+            />) }
         </Container>
 
         { (this.filterIsActive)
-          ? <RecipesFilter />
+          ? <RecipesFilter toggleFilter={this.toggleFilter} />
           : null }
 
         <div className="recipe-list__list">

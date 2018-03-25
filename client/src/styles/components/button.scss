@@ -56,4 +56,12 @@
 
     margin-left: $space-small;
   }
+
+  &--color-primary {
+    color: $primary;
+
+    &:hover {
+      color: lighten($primary, 15%)
+    }
+  }
 }
