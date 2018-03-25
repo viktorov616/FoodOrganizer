@@ -8,6 +8,7 @@ import Tag                   from 'components/Tag';
 import { getClass }          from 'utils/getClass';
 
 interface TagInputProps {
+  addTagOnBlur?: boolean;
   additionalClass?: string;
   btn?: string;
   inputs: InputProps[];
@@ -61,6 +62,9 @@ class TagInput extends React.Component<TagInputProps, TagInputState> {
       _id: this.generateTagId(),
       ...inputsValues,
     };
+
+    if (!tag._text) return;
+
     const updatedTags = [...tags, tag];
 
     this.setState({ inputsValues: this.getInitialInputsValues(), tags: updatedTags });
@@ -89,7 +93,13 @@ class TagInput extends React.Component<TagInputProps, TagInputState> {
   }
 
   handleFocus = (e) => {
+    const { addTagOnBlur } = this.props;
+
     this.setState({ focused: e.type === 'focus' });
+
+    if (e.type === 'blur' && addTagOnBlur) {
+      this.addTag();
+    }
   }
 
   handleInputChange = (name: string, value: string) => {

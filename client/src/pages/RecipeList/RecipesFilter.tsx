@@ -63,6 +63,7 @@ class RecipesFilter extends React.Component<RecipesFilterProps> {
         >
           { FILTER_INPUTS.map(input => (
             <TagInput
+              addTagOnBlur
               additionalClass="recipe-filter__input"
               key={input}
               label={input.replace(/^.{1}/, symbol => symbol.toUpperCase())}
