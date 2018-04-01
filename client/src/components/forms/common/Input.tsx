@@ -1,6 +1,9 @@
-import * as React   from 'react';
+import * as React              from 'react';
 
-import { getClass } from 'utils/getClass';
+import ValidateOnBlur          from 'components/forms/validation/ValidateOnBlur';
+
+import { ValidateFormContext } from 'components/forms/validation/ValidateForm';
+import { getClass }            from 'utils/getClass';
 
 export interface InputProps {
   autofocus?: boolean;
@@ -17,6 +20,8 @@ export interface InputProps {
   tagModifiers?: string;
   type?: string;
   value?: string;
+  validationRules?: any;
+  validationErrors?: any;
 }
 
 class Input extends React.Component<InputProps> {
@@ -35,6 +40,19 @@ class Input extends React.Component<InputProps> {
     onChange(name, e.target.value);
   }
 
+  renderInput = (props) => {
+    // to avoid passing renderProp and validationProps to input tag
+    const {
+      renderProp,
+      validationProps,
+      ...inputProps,
+    } = props;
+
+    return (
+      <input { ...inputProps } />
+    );
+  }
+
   render() {
     const {
       autofocus,
@@ -50,11 +68,34 @@ class Input extends React.Component<InputProps> {
       tagModifiers,
       type,
       value,
+      validationRules,
+      validationErrors,
     } = this.props;
 
     return (
       <div className={getClass('input', modifiers)}>
-        <input
+        <ValidateFormContext.Consumer>
+          { validationProps => (
+            <ValidateOnBlur
+              autoFocus={autofocus}
+              className={getClass('input__tag', tagModifiers)}
+              id={id}
+              name={name}
+              onBlur={onBlur}
+              onChange={this.handleChange}
+              onFocus={onFocus}
+              onKeyDown={onKeyDown}
+              onKeyUp={onKeyUp}
+              renderProp={this.renderInput}
+              type={type}
+              validationProps={validationProps}
+              value={value}
+              validationRules={validationRules}
+              validationErrors={validationErrors}
+            />
+          ) }
+        </ValidateFormContext.Consumer>
+        {/* <input
           autoFocus={autofocus}
           className={getClass('input__tag', tagModifiers)}
           id={id}
@@ -66,7 +107,7 @@ class Input extends React.Component<InputProps> {
           onKeyUp={onKeyUp}
           type={type}
           value={value}
-        />
+        /> */}
 
         { (label)
           ? (<label

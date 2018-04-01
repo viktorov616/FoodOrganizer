@@ -8,6 +8,7 @@ import Select              from 'components/forms/common/Select';
 import StepByStepFragment  from './StepByStepFragment';
 import TagInput            from 'components/forms/common/TagInput';
 import Textarea            from 'components/forms/common/Textarea';
+import ValidateForm        from 'components/forms/validation/ValidateForm';
 
 import { RATING_LIST }     from 'constants/general';
 import { getClass }        from 'utils/getClass';
@@ -130,7 +131,8 @@ class RecipeForm extends React.Component<RecipeFormProps> {
 
     return (
       <div className="g--6">
-        <form onSubmit={this.handleSubmit}>
+        <ValidateForm>
+        {/* <form onSubmit={this.handleSubmit}> */}
           <Input
             autofocus
             id="name"
@@ -138,6 +140,12 @@ class RecipeForm extends React.Component<RecipeFormProps> {
             name="name"
             onChange={this.handleFormDataChange}
             value={this.data.name}
+            validationRules={[
+              { name: 'notEmpty' }
+            ]}
+            validationErrors={{
+              notEmpty: 'This field shoud be fied up'
+            }}
           />
 
           <TagInput
@@ -209,7 +217,8 @@ class RecipeForm extends React.Component<RecipeFormProps> {
             onClick={this.handleSubmit}
             text={(type === 'add') ? 'Submit' : 'Save'}
           />
-        </form>
+        {/* </form> */}
+        </ValidateForm>
       </div>
     );
   }
