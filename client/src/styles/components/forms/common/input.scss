@@ -1,10 +1,25 @@
 // modify surface input
 
+input.input__tag {
+  margin-bottom: 0;
+}
+
 .input {
+  position: relative;
+
   display: flex;
   flex-wrap: wrap;
 
   width: 100%;
+
+  margin-bottom: $space-big;
+
+  &--with-validation-message {
+    & .input__tag {
+      border-bottom-color: $pomegranate;
+    }
+  }
+
 
   &--tag-input {
     & + .input--tag-input {
@@ -20,7 +35,20 @@
     }
   }
 
-  // redefine surface selector
+  &__validation-message {
+    position: absolute;
+    left: 0;
+    bottom: -35px;
+
+    width: 100%;
+    height: 35px;
+
+    padding: 5px 0;
+
+    font-size: $font-regular;
+    color: $pomegranate;
+  }
+
   .input__tag.input__tag--tag-input {
     margin-bottom: $space-med;
   }

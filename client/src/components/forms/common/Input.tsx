@@ -45,11 +45,20 @@ class Input extends React.Component<InputProps> {
     const {
       renderProp,
       validationProps,
+      validationErrors,
+      validationRules,
+      validationError,
       ...inputProps,
     } = props;
 
     return (
-      <input { ...inputProps } />
+      <React.Fragment>
+        <input { ...inputProps } />
+
+        { (validationError)
+          ? <div className="input__validation-message">{ validationError }</div>
+          : null }
+      </React.Fragment>
     );
   }
 

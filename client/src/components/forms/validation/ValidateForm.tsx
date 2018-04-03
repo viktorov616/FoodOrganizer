@@ -22,6 +22,8 @@ class ValidateForm extends React.Component<ValidateFormProps> {
     if (this.inputs.indexOf(component) === -1) {
       this.inputs.push(component);
     }
+
+    this.validate(component);
     // console.log(this.inputs.indexOf(component));
     // console.log(this.inputs[0] === component);
     console.log(this.inputs);
@@ -51,7 +53,7 @@ class ValidateForm extends React.Component<ValidateFormProps> {
       validationError: null,
     };
 
-    if (componentRules.length) {
+    if (componentRules && componentRules.length) {
       componentRules.some(({ name, additionalValue }) => {
         const isValid = validationRules[name]([], component.state.value, additionalValue);
         const validationError = isValid ? null : validationErrors[name] || null;

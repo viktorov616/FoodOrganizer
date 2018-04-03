@@ -14,6 +14,7 @@ class ValidateOnBlur extends React.Component<ValidateOnBlurProps> {
   state = {
     isValid: true,
     value: this.props.value,
+    validationError: null,
   };
 
   componentDidMount() {
@@ -43,12 +44,14 @@ class ValidateOnBlur extends React.Component<ValidateOnBlurProps> {
   }
 
   render() {
+    const { validationError } = this.state;
     const { renderProp } = this.props;
     // console.log(this.props.validationProps);
 
     return (
       renderProp({
         ...this.props,
+        validationError,
         onBlur: this.handleBlur,
         onFocus: this.handleBlur,
         onChange: this.handleChange,
