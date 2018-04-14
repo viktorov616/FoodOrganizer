@@ -26,7 +26,7 @@ class ValidateForm extends React.Component<ValidateFormProps> {
     this.validate(component);
     // console.log(this.inputs.indexOf(component));
     // console.log(this.inputs[0] === component);
-    console.log(this.inputs);
+    // console.log(this.inputs);
     // console.log({ key: 1} === { key: 1 });
   }
 
@@ -40,7 +40,7 @@ class ValidateForm extends React.Component<ValidateFormProps> {
       ];
     }
 
-    console.log(this.inputs);
+    // console.log(this.inputs);
   }
 
   validate = (component) => {
@@ -65,9 +65,9 @@ class ValidateForm extends React.Component<ValidateFormProps> {
         return !isValid;
       });
     }
-    console.log(validationResult);
+    // console.log(validationResult);
     component.setState({ ...component.state, ...validationResult }, this.validateForm);
-    console.log(this.state.isValid);
+    // console.log(this.state.isValid);
     return validationResult;
   }
 

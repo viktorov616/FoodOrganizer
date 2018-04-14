@@ -93,7 +93,6 @@ class TagInput extends React.Component<TagInputProps, TagInputState> {
   }
 
   handleFocus = (e) => {
-    console.log(2);
     const { addTagOnBlur } = this.props;
 
     this.setState({ focused: e.type === 'focus' });

@@ -10,27 +10,38 @@ interface ValidateOnBlurProps extends InputProps {
   validationProps: any;
 }
 
-class ValidateOnBlur extends React.Component<ValidateOnBlurProps> {
+interface ValidateOnBlurState {
+  isPristine: boolean;
+  isValid: boolean;
+  validationError: string;
+  value: string;
+}
+
+class ValidateOnBlur extends React.Component<ValidateOnBlurProps, ValidateOnBlurState> {
   state = {
+    isPristine: true,
     isValid: true,
-    value: this.props.value,
     validationError: null,
+    value: this.props.value,
   };
 
   componentDidMount() {
     this.props.validationProps.registerComponent(this);
   }
 
-  componentWillMount() {
+  componentWillUnmount() {
     this.props.validationProps.unregisterComponent(this);
   }
 
   handleChange = (e) => {
-    const { onChange } = this.props;
+    const {
+      onChange,
+      name,
+    } = this.props;
 
     this.setState({ value: e.target.value });
 
-    if (onChange) onChange(e);
+    if (onChange) onChange(name, e.target.value);
   }
 
   handleBlur = (e) => {
@@ -38,23 +49,29 @@ class ValidateOnBlur extends React.Component<ValidateOnBlurProps> {
       onBlur,
       validationProps,
     } = this.props;
-    validationProps.validate(this);
+    this.setState(
+      { isPristine: false },
+      () => validationProps.validate(this)
+    );
 
     if (onBlur) onBlur(e);
   }
 
   render() {
-    const { validationError } = this.state;
+    const {
+      isPristine,
+      validationError,
+    } = this.state;
     const { renderProp } = this.props;
-    // console.log(this.props.validationProps);
 
     return (
       renderProp({
         ...this.props,
+        isPristine,
         validationError,
         onBlur: this.handleBlur,
-        onFocus: this.handleBlur,
         onChange: this.handleChange,
+        onFocus: this.handleBlur,
       })
     );
   }
