@@ -2,11 +2,27 @@ import * as React              from 'react';
 
 import { InputProps }          from 'components/forms/common/Input';
 
-interface ValidateOnBlurProps extends InputProps {
+interface ValidateOnBlurProps {
   autoFocus?: boolean;
   className?: string;
+  id: string;
+  isPristine?: boolean;
+  label?: string;
+  labelModifiers?: string;
+  modifiers?: string;
+  name: string;
+  onBlur?: (e: React.FormEvent<HTMLInputElement>) => void;
+  onChange?: (e: React.FormEvent<HTMLInputElement>|React.FormEvent<HTMLTextAreaElement>) => any;
+  onFocus?: (e: React.FormEvent<HTMLInputElement>) => void;
+  onKeyDown?: (e: React.FormEvent<HTMLInputElement>) => void;
+  onKeyUp?: (e: React.FormEvent<HTMLInputElement>) => void;
   renderProp: (props: any) => JSX.Element;
+  tagModifiers?: string;
+  type?: string;
+  validationErrors?: any;
   validationProps: any;
+  validationRules?: any;
+  value?: string;
 }
 
 interface ValidateOnBlurState {
@@ -25,11 +41,15 @@ class ValidateOnBlur extends React.Component<ValidateOnBlurProps, ValidateOnBlur
   };
 
   componentDidMount() {
-    this.props.validationProps.registerComponent(this);
+    const { validationProps } = this.props;
+
+    if (validationProps) validationProps.registerComponent(this);
   }
 
   componentWillUnmount() {
-    this.props.validationProps.unregisterComponent(this);
+    const { validationProps } = this.props;
+
+    if (validationProps) this.props.validationProps.unregisterComponent(this);
   }
 
   handleChange = (e) => {
@@ -40,7 +60,7 @@ class ValidateOnBlur extends React.Component<ValidateOnBlurProps, ValidateOnBlur
 
     this.setState({ value: e.target.value });
 
-    if (onChange) onChange(name, e.target.value);
+    if (onChange) onChange(e);
   }
 
   handleBlur = (e) => {
@@ -50,7 +70,7 @@ class ValidateOnBlur extends React.Component<ValidateOnBlurProps, ValidateOnBlur
     } = this.props;
     this.setState(
       { isPristine: false },
-      () => validationProps.validate(this),
+      () => validationProps && validationProps.validate(this),
     );
 
     if (onBlur) onBlur(e);

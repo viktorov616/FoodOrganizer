@@ -51,7 +51,6 @@ class Input extends React.Component<InputProps> {
       onBlur,
     } = this.props;
     const focused = e.type === 'focus';
-    console.log(e.type);
 
     this.setState({ focused });
 
@@ -71,7 +70,6 @@ class Input extends React.Component<InputProps> {
       ...inputProps,
     } = props;
     const { focused } = this.state;
-    console.log(focused);
 
     return (
       <React.Fragment>

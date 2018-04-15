@@ -2,21 +2,20 @@ import { addRecipe,
          getRecipe,
          getRecipes,
   // @ts-ignore
-         updateRecipe }       from 'api';
+         updateRecipe }      from 'api';
 import { action,
          observable,
          toJS,
-         createTransformer,
          computed,
-         runInAction,
-         ObservableMap      } from 'mobx';
-import notificationsStore     from './notifications';
+         runInAction }       from 'mobx';
+import { createTransformer } from 'mobx-utils';
 import { clearEmptySteps,
-         checkFilterParam }   from 'utils/recipeUtils';
+         checkFilterParam }  from 'utils/recipeUtils';
+import notificationsStore    from './notifications';
 
 export interface recipesStore {
   addRecipe: (data: recipeFromForm) => any;
-  detailedRecipes: ObservableMap<recipeFromDb>;
+  detailedRecipes: Map<string, recipeFromDb>;
   getRecipe: (slug: string) => any;
   getRecipes: () => any;
   isSendingRequest: boolean;
@@ -61,7 +60,7 @@ export interface recipeFromDb extends recipeBase {
 class RecipesStore<recipesStore>  {
   @observable isSendingRequest = false;
   @observable recipes = [];
-  @observable detailedRecipes = new ObservableMap();
+  @observable detailedRecipes = observable.map();
   @observable filter = {
     ingredient: [],
     name: [],

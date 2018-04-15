@@ -12,11 +12,11 @@ import { Provider }             from 'mobx-react';
 import { BrowserRouter,
          Route }                from 'react-router-dom';
 import { enableLogging }        from 'mobx-logger';
-import { useStrict }            from 'mobx';
+import { configure }            from 'mobx';
 
 import './styles/style.scss';
 
-useStrict(true);
+configure({ enforceActions: true });
 
 const routingStore = new RouterStore();
 
