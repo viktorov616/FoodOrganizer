@@ -15,7 +15,9 @@
     "strict-boolean-expressions": [
       true,
       "allow-undefined-union",
-      "allow-string"
+      "allow-string",
+      "allow-number",
+      "allow-mix"
     ],
     "variable-name": [true, "ban-keywords", "check-format", "allow-pascal-case"]
   }

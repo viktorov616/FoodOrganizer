@@ -4,6 +4,7 @@ import * as cx          from 'classnames';
 import RecipeForm       from 'components/forms/RecipeForm';
 import Container        from 'components/layout/Container';
 import Loader           from 'components/Loader';
+// @ts-ignore
 import Notifications    from 'components/notifications';
 import Title            from 'components/typography/Title';
 

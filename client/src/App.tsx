@@ -1,10 +1,16 @@
 import * as React   from 'react';
 
+// @ts-ignore
 import AddRecipe    from 'pages/AddRecipe';
+// @ts-ignore
 import EditRecipe    from 'pages/EditRecipe';
+// @ts-ignore
 import Header       from './Header';
+// @ts-ignore
 import RandomRecipe from 'pages/RandomRecipe';
+// @ts-ignore
 import Recipe       from 'pages/Recipe';
+// @ts-ignore
 import RecipeList   from 'pages/RecipeList';
 
 import { Route }    from 'react-router-dom';

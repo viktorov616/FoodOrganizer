@@ -5,6 +5,7 @@ import FileInput           from 'components/forms/common/FileInput';
 import Input               from 'components/forms/common/Input';
 import RatingPicker        from 'components/RatingPicker';
 import Select              from 'components/forms/common/Select';
+// @ts-ignore
 import StepByStepFragment  from './StepByStepFragment';
 import TagInput            from 'components/forms/common/TagInput';
 import Textarea            from 'components/forms/common/Textarea';
@@ -141,10 +142,10 @@ class RecipeForm extends React.Component<RecipeFormProps> {
             onChange={this.handleFormDataChange}
             value={this.data.name}
             validationRules={[
-              { name: 'notEmpty' }
+              { name: 'notEmpty' },
             ]}
             validationErrors={{
-              notEmpty: 'This field shoud be fied up'
+              notEmpty: 'This field shoud be filed up',
             }}
           />
 

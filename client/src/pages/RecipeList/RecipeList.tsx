@@ -3,6 +3,7 @@ import * as React                  from 'react';
 import Button                      from 'components/Button';
 import Container                   from 'components/layout/Container';
 import Loader                      from 'components/Loader';
+// @ts-ignore
 import Pagination                  from 'components/pagination';
 import RecipeItem                  from './RecipeItem';
 import Title                       from 'components/typography/Title';

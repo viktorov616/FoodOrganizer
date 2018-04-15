@@ -1,7 +1,6 @@
 import * as React              from 'react';
 
 import { InputProps }          from 'components/forms/common/Input';
-import { ValidateFormContext } from './ValidateForm';
 
 interface ValidateOnBlurProps extends InputProps {
   autoFocus?: boolean;
@@ -51,7 +50,7 @@ class ValidateOnBlur extends React.Component<ValidateOnBlurProps, ValidateOnBlur
     } = this.props;
     this.setState(
       { isPristine: false },
-      () => validationProps.validate(this)
+      () => validationProps.validate(this),
     );
 
     if (onBlur) onBlur(e);

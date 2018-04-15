@@ -2,6 +2,7 @@ import * as React      from 'react';
 
 import validationRules from 'utils/validationRules';
 
+// @ts-ignore
 export const ValidateFormContext = React.createContext();
 
 interface ValidateFormProps {
@@ -13,21 +14,12 @@ class ValidateForm extends React.Component<ValidateFormProps> {
   };
   inputs = [];
 
-  componentDidMount() {
-    // console.log(this.inputs);
-  }
-
   registerComponent = (component) => {
-    // console.log(component);
     if (this.inputs.indexOf(component) === -1) {
       this.inputs.push(component);
     }
 
     this.validate(component);
-    // console.log(this.inputs.indexOf(component));
-    // console.log(this.inputs[0] === component);
-    // console.log(this.inputs);
-    // console.log({ key: 1} === { key: 1 });
   }
 
   unregisterComponent = (component) => {
@@ -39,8 +31,6 @@ class ValidateForm extends React.Component<ValidateFormProps> {
         ...this.inputs.slice(componentIndex + 1),
       ];
     }
-
-    // console.log(this.inputs);
   }
 
   validate = (component) => {
@@ -56,7 +46,7 @@ class ValidateForm extends React.Component<ValidateFormProps> {
     if (componentRules && componentRules.length) {
       componentRules.some(({ name, additionalValue }) => {
         const isValid = validationRules[name]([], component.state.value, additionalValue);
-        const validationError = isValid ? null : validationErrors[name] || null;
+        const validationError = isValid ? null : validationErrors[name];
 
         validationResult.isValid = isValid;
         validationResult.validationError = validationError;
@@ -65,9 +55,8 @@ class ValidateForm extends React.Component<ValidateFormProps> {
         return !isValid;
       });
     }
-    // console.log(validationResult);
     component.setState({ ...component.state, ...validationResult }, this.validateForm);
-    // console.log(this.state.isValid);
+
     return validationResult;
   }
 
