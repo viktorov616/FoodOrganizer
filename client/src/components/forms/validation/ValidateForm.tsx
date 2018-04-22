@@ -45,17 +45,34 @@ class ValidateForm extends React.Component<ValidateFormProps> {
 
     if (componentRules && componentRules.length) {
       componentRules.some(({ name, additionalValue }) => {
-        const isValid = validationRules[name]([], component.state.value, additionalValue);
-        const validationError = isValid ? null : validationErrors[name];
+        try {
+          const values = this.inputs.map(input => input.state.value);
+          const isValid = validationRules[name](values, component.state.value, additionalValue);
+          const validationError = isValid ? null : validationErrors[name];
 
-        validationResult.isValid = isValid;
-        validationResult.validationError = validationError;
+          validationResult.isValid = isValid;
+          validationResult.validationError = validationError;
 
-        // to break Array.some
-        return !isValid;
+          // to break Array.some
+          return !isValid;
+        } catch (e) {
+          console.error(
+            e.message
+            + `\nMaybe you misspeled validationRule, or forgot to add one with name ${name}?`,
+          );
+        }
       });
     }
-    component.setState({ ...component.state, ...validationResult }, this.validateForm);
+
+    component.setState(
+      validationResult,
+      () => {
+        this.validateForm();
+        if (component.props.afterValidationCallback) {
+          component.props.afterValidationCallback(name, validationResult.isValid);
+        }
+      },
+    );
 
     return validationResult;
   }

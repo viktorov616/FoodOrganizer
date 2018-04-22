@@ -1,6 +1,6 @@
 const validationRules = {
-  notEmpty: (values, value, additionalParam) => !!value,
-  allNotEmpty: (values, value, additionalParam) => !values.some(value => !!value),
+  notEmpty: (values, value, additionalValue) => !!value,
+  providedNotEmpty: (values, value, additionalValue) => !additionalValue.some(value => !value),
 };
 
 export default validationRules;

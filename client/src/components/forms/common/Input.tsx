@@ -6,6 +6,7 @@ import { ValidateFormContext } from 'components/forms/validation/ValidateForm';
 import { getClass }            from 'utils/getClass';
 
 export interface InputProps {
+  afterValidationCallback?: (name: string, result: boolean) => void;
   autofocus?: boolean;
   id: string;
   label?: string;
@@ -30,11 +31,19 @@ class Input extends React.Component<InputProps> {
     focused: false,
   };
 
+  public validationComponent: JSX.ElementClass;
+
   static defaultProps = {
     labelModifiers: '',
     type: 'text',
     modifiers: '',
   };
+
+  isValid() {
+    // TO DO: fix ts warning
+    // @ts-ignore
+    return this.validationComponent && this.validationComponent.state.isValid;
+  }
 
   handleChange = (e) => {
     const {
@@ -61,6 +70,7 @@ class Input extends React.Component<InputProps> {
   renderInput = (props) => {
     // to avoid passing redundant props to input tag
     const {
+      afterValidationCallback,
       isPristine,
       renderProp,
       validationError,
@@ -84,6 +94,7 @@ class Input extends React.Component<InputProps> {
 
   render() {
     const {
+      afterValidationCallback,
       autofocus,
       id,
       label,
@@ -105,6 +116,8 @@ class Input extends React.Component<InputProps> {
         <ValidateFormContext.Consumer>
           { validationProps => (
             <ValidateOnBlur
+              afterValidationCallback={afterValidationCallback}
+              ref={ref => this.validationComponent = ref}
               autoFocus={autofocus}
               className={getClass('input__tag', tagModifiers)}
               id={id}

@@ -24,6 +24,7 @@ interface TagInputProps {
 interface TagInputState {
   focused: boolean;
   inputsValues: { [key: string]: string };
+  inputsValidationResult: { [key: string]: boolean };
   tags: Tag[];
 }
 
@@ -41,12 +42,20 @@ class TagInput extends React.Component<TagInputProps, TagInputState> {
   state = {
     focused: false,
     inputsValues: this.getInitialInputsValues(),
+    inputsValidationResult: this.getInitialInputsValidationResult(),
     tags: this.props.tags,
   };
 
   getInitialInputsValues() {
     const { inputs } = this.props;
     const values = inputs.reduce((result, input) => ({ ...result, [input.name]: '' }), {});
+
+    return values;
+  }
+
+  getInitialInputsValidationResult() {
+    const { inputs } = this.props;
+    const values = inputs.reduce((result, input) => ({ ...result, [input.name]: false }), {});
 
     return values;
   }
@@ -72,6 +81,12 @@ class TagInput extends React.Component<TagInputProps, TagInputState> {
     if (onTagsUpdate) {
       this.handleTagUpdate(updatedTags);
     }
+  }
+
+  checkInputsValidation() {
+    const { inputsValidationResult } = this.state;
+
+    return Object.values(inputsValidationResult).some((valid: boolean) => valid);
   }
 
   deleteTag = (tagId: number) => {
@@ -136,6 +151,12 @@ class TagInput extends React.Component<TagInputProps, TagInputState> {
     onTagsUpdate(name, tagsToExport);
   }
 
+  setValidationResult = (name, result) => {
+    const { inputsValidationResult } = this.state;
+
+    this.setState({ inputsValidationResult: { ...inputsValidationResult, name: result } });
+  }
+
   render() {
     const {
       focused,
@@ -187,6 +208,16 @@ class TagInput extends React.Component<TagInputProps, TagInputState> {
                 onKeyDown={keyDownHandler}
                 tagModifiers={cx(input.tagModifiers, 'tag-input')}
                 value={inputValue}
+                validationRules={[
+                  {
+                    name: 'providedNotEmpty',
+                    additionalValue: Object.values(inputsValues),
+                  },
+                ]}
+                validationErrors={{
+                  providedNotEmpty: 'All fields shoud be filed up',
+                }}
+                afterValidationCallback={this.setValidationResult}
               />
             );
           }) }
@@ -195,6 +226,7 @@ class TagInput extends React.Component<TagInputProps, TagInputState> {
         { (btn)
           ? (<Button
             modifiers="raised without-margin"
+            disabled={!this.checkInputsValidation()}
             onClick={this.addTag}
             text={btn}
             type="button"
