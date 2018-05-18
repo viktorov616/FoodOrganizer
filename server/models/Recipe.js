@@ -25,6 +25,7 @@ const recipeSchema = new mongoose.Schema({
   slug: String,
   steps: [String],
   tags: [String],
+  type: String,
 });
 
 // create slug before saving recipe

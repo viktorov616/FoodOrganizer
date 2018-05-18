@@ -66,7 +66,10 @@ const RecipeCard: React.SFC<RecipeCardProps> = ({
         : null }
 
       { (description)
-        ? <RecipeDescription description={description} />
+        ? (<RecipeDescription
+          description={description}
+          modifiers={(steps && steps.length) ? 'm--1' : ''}
+        />)
         : null }
     </div>
   </div>

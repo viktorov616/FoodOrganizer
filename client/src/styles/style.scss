@@ -27,6 +27,8 @@
 @import './components/tag';
 
 // Form components
+@import './components/forms/common/checkbox';
+@import './components/forms/common/fieldset';
 @import './components/forms/common/file-input';
 @import './components/forms/common/input';
 @import './components/forms/common/select';

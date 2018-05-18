@@ -19,14 +19,14 @@ const FILTER_INPUTS = [
   'tag',
 ];
 
-interface RecipesFilterProps {
+interface RandomRecipeProps {
   recipesStore?: recipesStore;
   toggleFilter: () => void;
 }
 
 @inject('recipesStore')
 @observer
-class RecipesFilter extends React.Component<RecipesFilterProps> {
+class RandomRecipeFilter extends React.Component<RandomRecipeProps> {
   handleUpdateFilter = (key, value) => {
     const {
       recipesStore: { updateFilter },
@@ -60,9 +60,20 @@ class RecipesFilter extends React.Component<RecipesFilterProps> {
             />
           )) }
         </Container>
+
+        <Container
+          flex
+          flexModifiers="jc-fe"
+        >
+          <Button
+            modifiers="raised"
+            onClick={() => {}}
+            text="Apply filter"
+          />
+        </Container>
       </Filter>
     );
   }
 }
 
-export default RecipesFilter;
+export default RandomRecipeFilter;

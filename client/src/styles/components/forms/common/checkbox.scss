@@ -1,0 +1,62 @@
+.checkbox {
+  display: inline-block;
+  font-weight: 500;
+  cursor: pointer;
+  user-select: none;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &__input {
+    display: none;
+
+    &:checked + .checkbox__icon {
+      border: 2px solid $primary;
+      background: $primary;
+    }
+
+    &:checked + .checkbox__icon .checkbox__icon-done {
+      position: absolute;
+      left: -2px;
+      top: -2px;
+
+      display: block;
+
+      color: white;
+    }
+  }
+
+  &__text {
+    display: inline-block;
+    margin-left: 9px;
+    font-weight: 400;
+  }
+
+  &__icon {
+    position: relative;
+    top: 2px;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    vertical-align: top;
+    border: 2px solid $grey;
+  }
+
+  &__icon-done {
+    display: none;
+  }
+
+  &--disabled {
+    & .checkbox__icon {
+      cursor: default;
+      background: lighten($silver, 9);
+    }
+
+    & .checkbox__input:checked + .checkbox__icon {
+      cursor: default;
+      border: 2px solid $silver;
+      background: lighten($silver, 8);
+    }
+  }
+}

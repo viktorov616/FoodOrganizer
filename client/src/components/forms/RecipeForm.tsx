@@ -1,6 +1,8 @@
 import * as React          from 'react';
 
 import Button              from 'components/Button';
+import Checkbox            from 'components/forms/common/Checkbox';
+import Fieldset            from 'components/forms/common/Fieldset';
 import FileInput           from 'components/forms/common/FileInput';
 import Input               from 'components/forms/common/Input';
 import RatingPicker        from 'components/RatingPicker';
@@ -133,7 +135,6 @@ class RecipeForm extends React.Component<RecipeFormProps> {
     return (
       <div className="g--6">
         <ValidateForm>
-        {/* <form onSubmit={this.handleSubmit}> */}
           <Input
             autofocus
             id="name"
@@ -148,6 +149,10 @@ class RecipeForm extends React.Component<RecipeFormProps> {
               notEmpty: 'This field shoud be filed up',
             }}
           />
+
+          <Fieldset legend="type">
+            <Checkbox text="хоббит" />
+          </Fieldset>
 
           <TagInput
             btn="Add ingredient"
@@ -218,7 +223,6 @@ class RecipeForm extends React.Component<RecipeFormProps> {
             onClick={this.handleSubmit}
             text={(type === 'add') ? 'Submit' : 'Save'}
           />
-        {/* </form> */}
         </ValidateForm>
       </div>
     );
