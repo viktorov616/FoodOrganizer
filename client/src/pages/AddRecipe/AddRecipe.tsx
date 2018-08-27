@@ -10,11 +10,11 @@ import Notifications from 'components/notifications';
 import { action,
          observable } from 'mobx';
 
-interface AddRecepieProps {
+interface AddRecipeProps {
 
 }
 
-class AddRecipe extends React.Component<AddRecepieProps> {
+class AddRecipe extends React.Component<AddRecipeProps> {
   render() {
     return (
       <Container>

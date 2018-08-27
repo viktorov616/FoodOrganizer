@@ -1,22 +1,22 @@
 import * as React     from 'react';
 
-import LoginForm      from './LoginForm';
+import RegisterForm      from './RegisterForm';
 import Container      from 'components/layout/Container';
 import Title          from 'components/typography/Title';
 
-interface LoginProps {
+interface RegisterProps {
 
 }
 
-class Login extends React.Component<LoginProps> {
+class Register extends React.Component<RegisterProps> {
   render() {
     return (
       <Container>
-        <Title text="Login" />
-        <LoginForm />
+        <Title text="Register" />
+        <RegisterForm />
       </Container>
     );
   }
 }
 
-export default Login;
+export default Register;

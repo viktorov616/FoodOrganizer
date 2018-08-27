@@ -11,23 +11,27 @@ import { observer,
 // @ts-ignore
 import { userStore     } from 'stores/recipes';
 
-interface LoginFormProps {
+interface RegisterFormProps {
   userStore?: userStore;
 }
 
-interface LoginFormState {
+interface RegisterFormState {
   data: {
-    login: string;
+    name: string;
+    email: string;
     password: string;
+    confirmPassword: string;
   };
 }
 
 @inject('userStore')
 @observer
-class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
+class RegisterForm extends React.Component<RegisterFormProps, RegisterFormState> {
   @observable data = {
-    login: '',
+    name: '',
+    email: '', // login
     password: '',
+    confirmPassword: '',
   };
 
   @action.bound
@@ -49,11 +53,26 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
         <ValidateForm>
           <Input
             autofocus
-            id="login"
-            label="Email"
-            name="login"
+            id="name"
+            label="Name"
+            name="name"
             onChange={this.handleFormDataChange}
-            value={this.data.login}
+            value={this.data.name}
+            validationRules={[
+              { name: 'notEmpty' },
+            ]}
+            validationErrors={{
+              notEmpty: 'This field shoud be filled up',
+            }}
+          />
+
+          <Input
+            autofocus
+            id="email"
+            label="Email"
+            name="email"
+            onChange={this.handleFormDataChange}
+            value={this.data.email}
             validationRules={[
               { name: 'notEmpty' },
             ]}
@@ -78,11 +97,27 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
             }}
           />
 
+          <Input
+            autofocus
+            id="confirmPassword"
+            label="Confirm Password"
+            name="confirmPassword"
+            type="password"
+            onChange={this.handleFormDataChange}
+            value={this.data.password}
+            validationRules={[
+              { name: 'notEmpty' },
+            ]}
+            validationErrors={{
+              notEmpty: 'This field shoud be filled up',
+            }}
+          />
+
           <Button
             icon="send"
             isLoading={isSendingRequest}
             onClick={this.handleSubmit}
-            text="Login"
+            text="Register"
           />
         </ValidateForm>
       </div>
@@ -90,4 +125,4 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
   }
 }
 
-export default LoginForm;
+export default RegisterForm;

@@ -14,6 +14,8 @@ import Recipe       from 'pages/Recipe';
 import RecipeList   from 'pages/RecipeList';
 // @ts-ignore
 import Login        from 'pages/Login';
+// @ts-ignore
+import Register     from 'pages/Register';
 
 import { Route }    from 'react-router-dom';
 import { hot }      from 'react-hot-loader';
@@ -27,6 +29,7 @@ const App: React.SFC = () => (
     <Route path="/random" component={RandomRecipe} />
     <Route path="/add" component={AddRecipe} />
     <Route path="/login" component={Login} />
+    <Route path="/register" component={Register} />
   </React.Fragment>
 );
 
