@@ -51,7 +51,7 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
           <Input
             autofocus
             id="login"
-            label="Username"
+            label="Email"
             name="login"
             onChange={this.handleFormDataChange}
             value={this.data.login}
