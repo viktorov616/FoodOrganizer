@@ -215,7 +215,7 @@ class TagInput extends React.Component<TagInputProps, TagInputState> {
                   },
                 ]}
                 validationErrors={{
-                  providedNotEmpty: 'All fields shoud be filed up',
+                  providedNotEmpty: 'All fields shoud be filled up',
                 }}
                 afterValidationCallback={this.setValidationResult}
               />

@@ -37,7 +37,7 @@ interface AddRecipeFormState {
 
 @inject('recipesStore')
 @observer
-class RecipeForm extends React.Component<RecipeFormProps> {
+class RecipeForm extends React.Component<RecipeFormProps, AddRecipeFormState> {
   static defaultProps = {
     type: 'add',
   };
@@ -94,7 +94,6 @@ class RecipeForm extends React.Component<RecipeFormProps> {
       type,
       recipe,
     } = this.props;
-
     e.preventDefault();
 
     (type === 'add') ? addRecipe(this.data) : updateRecipe(this.data, recipe.slug);
@@ -146,7 +145,7 @@ class RecipeForm extends React.Component<RecipeFormProps> {
               { name: 'notEmpty' },
             ]}
             validationErrors={{
-              notEmpty: 'This field shoud be filed up',
+              notEmpty: 'This field shoud be filled up',
             }}
           />
 

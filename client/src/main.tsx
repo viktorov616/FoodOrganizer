@@ -1,18 +1,17 @@
-import * as React               from 'react';
-import * as ReactDOM            from 'react-dom';
+import * as React         from 'react';
+import * as ReactDOM      from 'react-dom';
 
-import App                      from 'src/App';
-import recipesStore             from 'stores/recipes';
-import notificationsStore       from 'stores/notifications';
+import App                from 'src/App';
+import recipesStore       from 'stores/recipes';
+import notificationsStore from 'stores/notifications';
+import userStore          from 'stores/user';
 
-import { AppContainer }         from 'react-hot-loader';
-import { RouterStore,
-         syncHistoryWithStore } from 'mobx-react-router';
-import { Provider }             from 'mobx-react';
-import { BrowserRouter,
-         Route }                from 'react-router-dom';
-import { enableLogging }        from 'mobx-logger';
-import { configure }            from 'mobx';
+import { AppContainer }   from 'react-hot-loader';
+import { RouterStore }    from 'mobx-react-router';
+import { Provider }       from 'mobx-react';
+import { BrowserRouter }  from 'react-router-dom';
+import { enableLogging }  from 'mobx-logger';
+import { configure }      from 'mobx';
 
 import './styles/style.scss';
 
@@ -25,6 +24,7 @@ ReactDOM.render(
     <Provider
       notificationsStore={notificationsStore}
       recipesStore={recipesStore}
+      userStore={userStore}
       routing={routingStore}
     >
       <BrowserRouter>

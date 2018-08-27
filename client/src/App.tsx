@@ -3,7 +3,7 @@ import * as React   from 'react';
 // @ts-ignore
 import AddRecipe    from 'pages/AddRecipe';
 // @ts-ignore
-import EditRecipe    from 'pages/EditRecipe';
+import EditRecipe   from 'pages/EditRecipe';
 // @ts-ignore
 import Header       from './Header';
 // @ts-ignore
@@ -12,6 +12,8 @@ import RandomRecipe from 'pages/RandomRecipe';
 import Recipe       from 'pages/Recipe';
 // @ts-ignore
 import RecipeList   from 'pages/RecipeList';
+// @ts-ignore
+import Login        from 'pages/Login';
 
 import { Route }    from 'react-router-dom';
 import { hot }      from 'react-hot-loader';
@@ -24,6 +26,7 @@ const App: React.SFC = () => (
     <Route path="/recipes/:slug/edit" component={EditRecipe} />
     <Route path="/random" component={RandomRecipe} />
     <Route path="/add" component={AddRecipe} />
+    <Route path="/login" component={Login} />
   </React.Fragment>
 );
 
