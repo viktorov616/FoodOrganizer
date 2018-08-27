@@ -1,8 +1,9 @@
 import { addRecipe,
          getRecipe,
          getRecipes,
-  // @ts-ignore
-         updateRecipe }      from 'api';
+         updateRecipe,
+         // @ts-ignore
+         getRandomRecipe }      from 'api';
 import { action,
          observable,
          toJS,
@@ -16,9 +17,11 @@ import notificationsStore    from './notifications';
 export interface recipesStore {
   addRecipe: (data: recipeFromForm) => any;
   detailedRecipes: Map<string, recipeFromDb>;
+  getRandomRecipe: () => any;
   getRecipe: (slug: string) => any;
   getRecipes: () => any;
   isSendingRequest: boolean;
+  randomRecipe: recipeFromDb;
   recipes: recipeFromDb[];
   updateFilter: (key: string, value: string[]) => any;
   updateRecipe: (data: recipeFromForm, slug: string) => any;
@@ -59,6 +62,7 @@ export interface recipeFromDb extends recipeBase {
 
 class RecipesStore<recipesStore>  {
   @observable isSendingRequest = false;
+  @observable randomRecipe = null;
   @observable recipes = [];
   @observable detailedRecipes = observable.map();
   @observable filter = {
@@ -130,6 +134,20 @@ class RecipesStore<recipesStore>  {
 
     runInAction(() => {
       this.isSendingRequest = false;
+      notificationsStore.handleErrors(response);
+    });
+  }
+
+  @action.bound
+  async getRandomRecipe() {
+    this.isSendingRequest = true;
+
+    const response = await getRandomRecipe(this.filter);
+
+    runInAction(() => {
+      this.isSendingRequest = false;
+      console.log(response);
+      this.randomRecipe = response.data;
       notificationsStore.handleErrors(response);
     });
   }

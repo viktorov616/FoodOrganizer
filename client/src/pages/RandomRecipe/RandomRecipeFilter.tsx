@@ -29,14 +29,21 @@ interface RandomRecipeProps {
 class RandomRecipeFilter extends React.Component<RandomRecipeProps> {
   handleUpdateFilter = (key, value) => {
     const {
-      recipesStore: { updateFilter },
+      recipesStore: {
+        updateFilter,
+      },
     } = this.props;
 
     updateFilter(key, value.map(item => item[key]));
   }
 
   render() {
-    const { toggleFilter } = this.props;
+    const {
+      recipesStore: {
+        getRandomRecipe,
+      },
+      toggleFilter,
+    } = this.props;
 
     return (
       <Filter toggleFilter={toggleFilter}>
@@ -67,7 +74,7 @@ class RandomRecipeFilter extends React.Component<RandomRecipeProps> {
         >
           <Button
             modifiers="raised"
-            onClick={() => {}}
+            onClick={getRandomRecipe}
             text="Apply filter"
           />
         </Container>

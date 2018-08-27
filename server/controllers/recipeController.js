@@ -1,7 +1,10 @@
-const jimp     = require('jimp');
-const mongoose = require('mongoose');
-const multer   = require('multer');
-const uuid     = require('uuid');
+const jimp       = require('jimp');
+const mongoose   = require('mongoose');
+const multer     = require('multer');
+const uuid       = require('uuid');
+const qs         = require('query-string');
+
+const { random } = require('lodash');
 
 const Recipe = mongoose.model('Recipe');
 
@@ -72,4 +75,24 @@ exports.getRecipe = async (req, res) => {
   const store = await Recipe.findOne({ slug });
 
   res.json(store);
+};
+
+exports.getRandomRecipe = async (req, res) => {
+  const { filter } = req.params;
+  const parsedFilter = qs.parse(filter);
+  const preparedFilter = Object.entries(parsedFilter).reduce((result, [key, value]) => (
+    value
+      ? {
+        ...result,
+        [key]: {
+          $regex: `.*${value}.*`,
+          $options: 'i',
+        },
+      }
+      : result
+  ), {});
+  const filtredRecipes = await Recipe.find(preparedFilter);
+  const randomRecipe = filtredRecipes[random(filtredRecipes.length - 1)];
+
+  res.json(randomRecipe);
 };

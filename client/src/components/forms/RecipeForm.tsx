@@ -150,9 +150,9 @@ class RecipeForm extends React.Component<RecipeFormProps> {
             }}
           />
 
-          <Fieldset legend="type">
+          {/* <Fieldset legend="type">
             <Checkbox text="хоббит" />
-          </Fieldset>
+          </Fieldset> */}
 
           <TagInput
             btn="Add ingredient"

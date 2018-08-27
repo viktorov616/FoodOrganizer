@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.get('/api/recipes', catchErrors(recipeController.getRecipes));
 router.get('/api/recipe/:slug', catchErrors(recipeController.getRecipe));
+router.get('/api/random/:filter', catchErrors(recipeController.getRandomRecipe));
 
 router.post(
   '/api/recipe',
