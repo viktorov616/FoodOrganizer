@@ -39,8 +39,13 @@ class RegisterForm extends React.Component<RegisterFormProps, RegisterFormState>
     this.data[name] = value;
   }
 
-  handleSubmit = () => {
+  handleSubmit = (e) => {
+    const {
+      userStore: { register },
+    } = this.props;
+    e.preventDefault();
     console.log('submitted');
+    register(this.data);
   }
 
   render() {

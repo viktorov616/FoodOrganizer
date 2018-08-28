@@ -19,6 +19,7 @@ class NotificationsStore<notificationsStore> {
 
   @action.bound
   handleErrors(response) {
+    console.log(response);
     if (!response || !response.data || !response.data.errors) return false;
 
     this.errors = response.data.errors;

@@ -1,9 +1,11 @@
+import notificationsStore    from './notifications';
+
 import { addRecipe,
          getRecipe,
          getRecipes,
          updateRecipe,
          // @ts-ignore
-         getRandomRecipe }      from 'api';
+         getRandomRecipe }   from 'api';
 import { action,
          observable,
          toJS,
@@ -12,7 +14,6 @@ import { action,
 import { createTransformer } from 'mobx-utils';
 import { clearEmptySteps,
          checkFilterParam }  from 'utils/recipeUtils';
-import notificationsStore    from './notifications';
 
 export interface recipesStore {
   addRecipe: (data: recipeFromForm) => any;

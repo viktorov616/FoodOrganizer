@@ -1,5 +1,7 @@
 const express          = require('express');
 const recipeController = require('../controllers/recipeController');
+const userController   = require('../controllers/userController');
+
 const { catchErrors }  = require('../handlers/errorHandlers');
 
 const router = express.Router();
@@ -23,5 +25,7 @@ router.post(
   catchErrors(recipeController.resize),
   catchErrors(recipeController.updateRecipe),
 );
+
+router.post('/api/register', userController.validateRegister);
 
 module.exports = router;
