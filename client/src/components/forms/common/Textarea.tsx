@@ -44,7 +44,6 @@ class Textarea extends React.Component<TextareaProps> {
     onChange(name, e.target.value);
   }
 
-
   render() {
     const { focused } = this.state;
     const {

@@ -5,10 +5,11 @@ const MongoStore       = require('connect-mongo')(session);
 const cookieParser     = require('cookie-parser');
 const bodyParser       = require('body-parser');
 const passport         = require('passport');
-const promisify        = require('es6-promisify');
 const expressValidator = require('express-validator');
 const routes           = require('./routes');
 const errorHandlers    = require('./handlers/errorHandlers');
+
+const { promisify }    = require('es6-promisify');
 
 const app = express();
 

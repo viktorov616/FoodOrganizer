@@ -94,7 +94,7 @@ class TagInput extends React.Component<TagInputProps, TagInputState> {
     const { onTagsUpdate } = this.props;
     const updatedTags = tags.filter(({ _id }) => _id !== tagId);
 
-    this.setState ({ tags: updatedTags });
+    this.setState({ tags: updatedTags });
 
     if (onTagsUpdate) {
       this.handleTagUpdate(updatedTags);
@@ -169,7 +169,6 @@ class TagInput extends React.Component<TagInputProps, TagInputState> {
       inputs,
       label,
       modifiers,
-      onChange,
       withoutTags,
     } = this.props;
 

@@ -77,7 +77,7 @@ class Input extends React.Component<InputProps> {
       validationErrors,
       validationProps,
       validationRules,
-      ...inputProps,
+      ...inputProps
     } = props;
     const { focused } = this.state;
 
@@ -101,7 +101,6 @@ class Input extends React.Component<InputProps> {
       labelModifiers,
       modifiers,
       name,
-      onBlur,
       onKeyDown,
       onKeyUp,
       tagModifiers,

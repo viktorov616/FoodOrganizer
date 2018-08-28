@@ -1,7 +1,5 @@
 import * as React   from 'react';
 
-import * as cx      from 'classnames';
-
 import { getClass } from 'utils/getClass';
 
 interface OrderedListProps {

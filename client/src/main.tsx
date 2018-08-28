@@ -15,7 +15,7 @@ import { configure }      from 'mobx';
 
 import './styles/style.scss';
 
-configure({ enforceActions: true });
+configure({ enforceActions: 'observed' });
 
 const routingStore = new RouterStore();
 
@@ -41,4 +41,3 @@ enableLogging({
   transaction: true,
   compute: true,
 });
-

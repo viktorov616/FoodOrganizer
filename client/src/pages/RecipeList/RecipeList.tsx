@@ -16,7 +16,6 @@ import { inject,
          observer }                from 'mobx-react';
 import { recipesStore }            from 'stores/recipes';
 import { action,
-         toJS,
          observable }              from 'mobx';
 
 interface RecipeListProps {

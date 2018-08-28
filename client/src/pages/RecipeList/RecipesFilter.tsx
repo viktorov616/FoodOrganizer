@@ -1,17 +1,12 @@
-import * as React     from 'react';
+import * as React       from 'react';
 
-import Button         from 'components/Button';
-import Container      from 'components/layout/Container';
-import Input          from 'components/forms/common/Input';
-import TagInput       from 'components/forms/common/TagInput';
-import Title          from 'components/typography/Title';
-import Filter         from 'components/Filter';
+import Container        from 'components/layout/Container';
+import TagInput         from 'components/forms/common/TagInput';
+import Filter           from 'components/Filter';
 
 import { recipesStore } from 'stores/recipes';
 import { observer,
-         inject     } from 'mobx-react';
-import { action,
-         observable } from 'mobx';
+         inject     }   from 'mobx-react';
 
 const FILTER_INPUTS = [
   'name',

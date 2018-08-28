@@ -1,9 +1,7 @@
 import * as React       from 'react';
 
-import * as cx          from 'classnames';
 import RecipeForm       from 'components/forms/RecipeForm';
 import Container        from 'components/layout/Container';
-import Loader           from 'components/Loader';
 // @ts-ignore
 import Notifications    from 'components/notifications';
 import Title            from 'components/typography/Title';
@@ -13,7 +11,6 @@ import { inject,
 import { match }        from 'react-router';
 import { recipeParams } from 'interfaces/recipeParams';
 import { recipesStore } from 'stores/recipes';
-
 
 interface EditRecipeProps {
   recipesStore?: recipesStore;
@@ -40,7 +37,6 @@ class EditRecipe extends React.Component<EditRecipeProps> {
     const {
       recipesStore: {
         detailedRecipes,
-        isSendingRequest,
       },
       match: { params },
     } = this.props;

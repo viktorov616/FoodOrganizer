@@ -8,10 +8,8 @@ import { addRecipe,
          getRandomRecipe }   from 'api';
 import { action,
          observable,
-         toJS,
          computed,
          runInAction }       from 'mobx';
-import { createTransformer } from 'mobx-utils';
 import { clearEmptySteps,
          checkFilterParam }  from 'utils/recipeUtils';
 
@@ -142,7 +140,7 @@ class RecipesStore<recipesStore>  {
   @action.bound
   async getRandomRecipe() {
     this.isSendingRequest = true;
-
+    console.log('recipes', this.filter);
     const response = await getRandomRecipe(this.filter);
 
     runInAction(() => {

@@ -1,12 +1,9 @@
 import * as React          from 'react';
 
 import Button              from 'components/Button';
-import Checkbox            from 'components/forms/common/Checkbox';
-import Fieldset            from 'components/forms/common/Fieldset';
 import FileInput           from 'components/forms/common/FileInput';
 import Input               from 'components/forms/common/Input';
 import RatingPicker        from 'components/RatingPicker';
-import Select              from 'components/forms/common/Select';
 // @ts-ignore
 import StepByStepFragment  from './StepByStepFragment';
 import TagInput            from 'components/forms/common/TagInput';
@@ -14,16 +11,13 @@ import Textarea            from 'components/forms/common/Textarea';
 import ValidateForm        from 'components/forms/validation/ValidateForm';
 
 import { RATING_LIST }     from 'constants/general';
-import { getClass }        from 'utils/getClass';
 import { action,
-         observable,
-         toJS  }           from 'mobx';
+         observable }      from 'mobx';
 import { observer,
          inject }          from 'mobx-react';
 import { recipeFromForm,
          recipeFromDb,
-         recipesStore,
-         ingredient      } from 'stores/recipes';
+         recipesStore    } from 'stores/recipes';
 
 interface RecipeFormProps {
   recipe?: recipeFromDb;

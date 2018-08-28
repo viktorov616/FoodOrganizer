@@ -1,10 +1,9 @@
-import * as React             from 'react';
+import * as React   from 'react';
 
-import Notification           from 'components/notifications/Notification';
+import Notification from 'components/notifications/Notification';
 
-import { notificationsStore } from 'stores/notifications';
 import { inject,
-         observer }           from 'mobx-react';
+         observer } from 'mobx-react';
 
 interface NotificationsProps {
   notificationsStore;

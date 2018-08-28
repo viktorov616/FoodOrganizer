@@ -1,6 +1,5 @@
 import * as React          from 'react';
 
-import Container           from 'components/layout/Container';
 import NavigationLink      from './NavigationLink';
 
 import { NAVIGATION_LIST } from 'constants/navigation';

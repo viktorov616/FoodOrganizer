@@ -6,7 +6,6 @@ import { action,
          observable,
          runInAction }    from 'mobx';
 
-
 export interface userStore {
   isSendingRequest: boolean;
 }

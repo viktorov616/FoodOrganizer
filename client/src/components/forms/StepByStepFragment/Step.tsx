@@ -39,7 +39,6 @@ class Step extends React.Component<StepProps> {
     const {
       id,
       label,
-      name,
       num,
       text,
     } = this.props;

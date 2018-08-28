@@ -4,7 +4,6 @@ import BrandLogo         from './BrandLogo';
 import Navigation        from './Navigation';
 import * as cx           from 'classnames';
 
-import { PRIMARY_COLOR } from 'constants/colorTheme';
 import { getTextColor }  from 'utils/classNames';
 
 const Header: React.SFC = () => (

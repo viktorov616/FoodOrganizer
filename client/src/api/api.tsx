@@ -29,6 +29,7 @@ export function updateRecipe(data: recipeFromForm, slug: string) {
 export const getRecipe = (slug: string) => axios(`/api/recipe/${slug}`).catch(e => e.response);
 export const getRecipes = () => axios('/api/recipes').catch(e => e.response);
 export const getRandomRecipe = filter => (
+  console.log(filter, qs.stringify(filter)),
   axios(`/api/random/${qs.stringify(filter)}`)
 ).catch(e => e.response);
 

@@ -1,7 +1,5 @@
 import * as React              from 'react';
 
-import { InputProps }          from 'components/forms/common/Input';
-
 interface ValidateOnBlurProps {
   afterValidationCallback?: (name: string, result: boolean) => void;
   autoFocus?: boolean;
@@ -56,7 +54,6 @@ class ValidateOnBlur extends React.Component<ValidateOnBlurProps, ValidateOnBlur
   handleChange = (e) => {
     const {
       onChange,
-      name,
     } = this.props;
 
     this.setState({ value: e.target.value });
