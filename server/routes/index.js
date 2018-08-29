@@ -1,6 +1,7 @@
 const express          = require('express');
 const recipeController = require('../controllers/recipeController');
 const userController   = require('../controllers/userController');
+const authController   = require('../controllers/authController');
 
 const { catchErrors }  = require('../handlers/errorHandlers');
 
@@ -25,7 +26,17 @@ router.post(
   catchErrors(recipeController.resize),
   catchErrors(recipeController.updateRecipe),
 );
+console.log(authController.login);
+router.post(
+  '/api/register',
+  userController.validateRegister,
+  userController.register,
+  authController.login,
+  (req, res) => {
+    console.log(req.user);
 
-router.post('/api/register', userController.validateRegister);
+    res.json(req.user);
+  },
+);
 
 module.exports = router;

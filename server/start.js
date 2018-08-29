@@ -14,6 +14,7 @@ mongoose.connection.on('connecting', () => {
 
 // models
 require('./models/Recipe');
+require('./models/User');
 
 const app = require('./server');
 

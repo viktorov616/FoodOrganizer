@@ -1,7 +1,8 @@
-// const mongoose = require('mongoose');
+const mongoose = require('mongoose');
+
+const User = mongoose.model('User');
 
 exports.validateRegister = (req, res, next) => {
-  console.log('CONTROLLER');
   req.sanitizeBody('name');
   req.checkBody('name', 'You must supply a name!').notEmpty();
   req.checkBody('email', 'That Email is not valid!').isEmail();
@@ -17,6 +18,24 @@ exports.validateRegister = (req, res, next) => {
   const errors = req.validationErrors();
 
   if (errors) res.status(400).json({ errors: errors.map(({ msg }) => msg) });
+
+  return next();
+};
+
+exports.register = async (req, res, next) => {
+  console.log('CONTROLLER');
+
+  const {
+    email,
+    name,
+    password,
+  } = req.body;
+  const user = new User({
+    email,
+    name,
+  });
+
+  await User.register(user, password);
 
   return next();
 };

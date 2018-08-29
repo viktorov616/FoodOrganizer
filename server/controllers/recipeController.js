@@ -66,7 +66,8 @@ exports.updateRecipe = async (req, res) => {
 
 exports.getRecipes = async (req, res) => {
   const stores = await Recipe.find();
-
+  console.log(req.user);
+  console.log(req.isAuthenticated());
   res.json(stores);
 };
 

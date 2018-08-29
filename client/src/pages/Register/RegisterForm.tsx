@@ -31,7 +31,7 @@ class RegisterForm extends React.Component<RegisterFormProps, RegisterFormState>
     name: '',
     email: '', // login
     password: '',
-    confirmPassword: '',
+    'password-confirm': '',
   };
 
   @action.bound
@@ -104,12 +104,12 @@ class RegisterForm extends React.Component<RegisterFormProps, RegisterFormState>
 
           <Input
             autofocus
-            id="confirmPassword"
+            id="password-confirm"
             label="Confirm Password"
-            name="confirmPassword"
+            name="password-confirm"
             type="password"
             onChange={this.handleFormDataChange}
-            value={this.data.password}
+            value={this.data['password-confirm']}
             validationRules={[
               { name: 'notEmpty' },
             ]}

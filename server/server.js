@@ -8,8 +8,7 @@ const passport         = require('passport');
 const expressValidator = require('express-validator');
 const routes           = require('./routes');
 const errorHandlers    = require('./handlers/errorHandlers');
-
-const { promisify }    = require('es6-promisify');
+require('./handlers/passport');
 
 const app = express();
 
@@ -18,29 +17,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(expressValidator());
 
-app.use(cookieParser());
+app.use(cookieParser(process.env.SECRET));
 
 app.use(session({
   secret: process.env.SECRET,
   key: process.env.KEY,
-  resave: false,
+  resave: true,
   saveUninitialized: false,
   store: new MongoStore({ mongooseConnection: mongoose.connection }),
 }));
 
 app.use(passport.initialize());
 app.use(passport.session());
-
-app.use((req, res, next) => {
-  res.locals.user = req.user || null;
-  res.locals.currentPath = req.path;
-  next();
-});
-
-app.use((req, res, next) => {
-  req.login = promisify(req.login, req);
-  next();
-});
 
 app.use('/', routes);
 
