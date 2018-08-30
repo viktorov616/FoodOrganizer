@@ -26,7 +26,7 @@ router.post(
   catchErrors(recipeController.resize),
   catchErrors(recipeController.updateRecipe),
 );
-console.log(authController.login);
+
 router.post(
   '/api/register',
   userController.validateRegister,
@@ -38,5 +38,9 @@ router.post(
     res.json(req.user);
   },
 );
+
+router.post('/api/logout', authController.logout);
+
+router.get('/api/user', authController.getUser);
 
 module.exports = router;
