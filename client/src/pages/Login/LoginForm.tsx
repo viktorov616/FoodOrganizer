@@ -63,7 +63,6 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
           />
 
           <Input
-            autofocus
             id="password"
             label="Password"
             name="password"

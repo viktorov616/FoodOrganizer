@@ -1,18 +1,26 @@
 import * as React       from 'react';
+import * as cx          from 'classnames';
 
 import BrandLogo        from './BrandLogo';
 import Navigation       from './Navigation';
 import Account          from './Account';
-import * as cx          from 'classnames';
 
 import { getTextColor } from 'utils/classNames';
+import { userStore }    from 'stores/user';
+import { inject }       from 'mobx-react';
 
-const Header: React.SFC = () => (
+interface HeaderProps {
+  userStore?: userStore;
+}
+
+const Header: React.SFC<HeaderProps> = inject('userStore')(({
+  userStore: { user }
+}) => (
   <header className="header container--baseline p020">
     <BrandLogo modifiers={cx('g--3', getTextColor('paper'))} />
-    <Navigation />
-    <Account />
+    <Navigation user={user} />
+    { user ? <Account /> : null }
   </header>
-);
+));
 
 export default Header;

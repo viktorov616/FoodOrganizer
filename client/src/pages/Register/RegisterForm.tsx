@@ -72,7 +72,6 @@ class RegisterForm extends React.Component<RegisterFormProps, RegisterFormState>
           />
 
           <Input
-            autofocus
             id="email"
             label="Email"
             name="email"
@@ -87,7 +86,6 @@ class RegisterForm extends React.Component<RegisterFormProps, RegisterFormState>
           />
 
           <Input
-            autofocus
             id="password"
             label="Password"
             name="password"
@@ -103,7 +101,6 @@ class RegisterForm extends React.Component<RegisterFormProps, RegisterFormState>
           />
 
           <Input
-            autofocus
             id="password-confirm"
             label="Confirm Password"
             name="password-confirm"
