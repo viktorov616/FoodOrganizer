@@ -52,8 +52,6 @@ class App extends React.Component<AppProps> {
             <Route path="/recipes/:slug/edit" component={EditRecipe} />
             <Route path="/random" component={RandomRecipe} />
             <Route path="/add" component={AddRecipe} />
-            <Route path="/login" component={Login} />
-            <Route path="/register" component={Register} />
           </React.Fragment>)
           : (<React.Fragment>
             <Route path="/login" component={Login} />

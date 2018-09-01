@@ -5,11 +5,12 @@ import App                from 'src/App';
 import recipesStore       from 'stores/recipes';
 import notificationsStore from 'stores/notifications';
 import userStore          from 'stores/user';
+import history            from './history';
 
 import { AppContainer }   from 'react-hot-loader';
 import { RouterStore }    from 'mobx-react-router';
 import { Provider }       from 'mobx-react';
-import { BrowserRouter }  from 'react-router-dom';
+import { Router }         from 'react-router-dom';
 import { enableLogging }  from 'mobx-logger';
 import { configure }      from 'mobx';
 
@@ -27,9 +28,9 @@ ReactDOM.render(
       userStore={userStore}
       routing={routingStore}
     >
-      <BrowserRouter>
+      <Router history={history}>
         <App />
-      </BrowserRouter>
+      </Router>
     </Provider>
   </AppContainer>,
   document.getElementById('root'),

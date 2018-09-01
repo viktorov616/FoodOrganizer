@@ -32,14 +32,15 @@ router.post(
   userController.validateRegister,
   userController.register,
   authController.login,
-  (req, res) => {
-    console.log(req.user);
-
-    res.json(req.user);
-  },
+  authController.getUser,
 );
 
 router.post('/api/logout', authController.logout);
+router.post(
+  '/api/login',
+  authController.login,
+  authController.getUser,
+);
 
 router.get('/api/user', authController.getUser);
 

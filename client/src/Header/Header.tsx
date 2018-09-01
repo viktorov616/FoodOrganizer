@@ -7,20 +7,29 @@ import Account          from './Account';
 
 import { getTextColor } from 'utils/classNames';
 import { userStore }    from 'stores/user';
-import { inject }       from 'mobx-react';
+import { inject,
+         observer }     from 'mobx-react';
 
 interface HeaderProps {
   userStore?: userStore;
 }
 
-const Header: React.SFC<HeaderProps> = inject('userStore')(({
-  userStore: { user }
-}) => (
-  <header className="header container--baseline p020">
-    <BrandLogo modifiers={cx('g--3', getTextColor('paper'))} />
-    <Navigation user={user} />
-    { user ? <Account /> : null }
-  </header>
-));
+@inject('userStore')
+@observer
+class Header extends React.Component<HeaderProps> {
+  render() {
+    const {
+      userStore: { user }
+    } = this.props;
+
+    return (
+      <header className="header container--baseline p020">
+        <BrandLogo modifiers={cx('g--3', getTextColor('paper'))} />
+        <Navigation user={user} />
+        { user ? <Account /> : null }
+      </header>
+    )
+  }
+};
 
 export default Header;

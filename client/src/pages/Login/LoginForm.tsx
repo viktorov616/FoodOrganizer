@@ -17,7 +17,7 @@ interface LoginFormProps {
 
 interface LoginFormState {
   data: {
-    login: string;
+    email: string;
     password: string;
   };
 }
@@ -26,7 +26,7 @@ interface LoginFormState {
 @observer
 class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
   @observable data = {
-    login: '',
+    email: '',
     password: '',
   };
 
@@ -35,8 +35,13 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
     this.data[name] = value;
   }
 
-  handleSubmit = () => {
-    console.log('submitted');
+  handleSubmit = (e) => {
+    const {
+      userStore: { login },
+    } = this.props;
+    e.preventDefault();
+
+    login(this.data);
   }
 
   render() {
@@ -49,11 +54,11 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
         <ValidateForm>
           <Input
             autofocus
-            id="login"
-            label="Email"
-            name="login"
+            id="email"
+            label="email"
+            name="email"
             onChange={this.handleFormDataChange}
-            value={this.data.login}
+            value={this.data.email}
             validationRules={[
               { name: 'notEmpty' },
             ]}

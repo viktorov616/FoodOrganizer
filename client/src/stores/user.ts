@@ -2,11 +2,13 @@ import notificationsStore from './notifications';
 
 import { register,
          getUser,
+         login,
          // @ts-ignore
          logout    }      from 'api';
 import { action,
          observable,
          runInAction }    from 'mobx';
+import history            from 'src/history'
 
 export interface user {
   _id: string;
@@ -16,6 +18,7 @@ export interface user {
 
 export interface userStore {
   isSendingRequest: boolean;
+  login: () => any;
   logout: () => any;
   register: () => any;
   getUser: () => any;
@@ -27,6 +30,23 @@ class UserStore<userStore>  {
   @observable user = null;
 
   @action.bound
+  async login(data) {
+    this.isSendingRequest = true;
+
+    const response = await login(data);
+
+    runInAction(() => {
+      this.isSendingRequest = false;
+      if (response.status === 200) {
+        this.user = response.data;
+        history.push('/');
+      }
+
+      notificationsStore.handleErrors(response);
+    });
+  }
+
+  @action.bound
   async logout() {
     this.isSendingRequest = true;
 
@@ -34,6 +54,7 @@ class UserStore<userStore>  {
 
     runInAction(() => {
       this.isSendingRequest = false;
+      if (response.status === 200) this.user = null;
 
       notificationsStore.handleErrors(response);
     });
@@ -47,6 +68,10 @@ class UserStore<userStore>  {
 
     runInAction(() => {
       this.isSendingRequest = false;
+      if (response.status === 200) {
+        this.user = response.data;
+
+      }
 
       notificationsStore.handleErrors(response);
     });

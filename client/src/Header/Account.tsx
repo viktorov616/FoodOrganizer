@@ -13,17 +13,9 @@ interface AccountProps {
 
 @inject('userStore')
 class Account extends React.Component<AccountProps> {
-  componentDidMount = () => {
-    const {
-      userStore: { logout, getUser },
-    } = this.props;
-
-    getUser();
-  }
-
   render() {
     const {
-      userStore: { logout, getUser },
+      userStore: { logout },
     } = this.props;
 
     return (
