@@ -7,7 +7,7 @@ export const NAVIGATION_LIST = [
 export const UNLOGGED_NAVIGATION_LIST = [
   { name: 'Register', path: '/register' },
   { name: 'Login', path: '/login' },
-]
+];
 
 export const HOME_PAGE = 'Recipes';
 export const UNLOGGED_HOME_PAGE = 'Login';

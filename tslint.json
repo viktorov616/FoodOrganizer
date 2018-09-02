@@ -19,6 +19,7 @@
       "allow-number",
       "allow-mix"
     ],
-    "variable-name": [true, "ban-keywords", "check-format", "allow-pascal-case"]
+    "variable-name": [true, "ban-keywords", "check-format", "allow-pascal-case"],
+    "jsx-no-lambda": false
   }
 }

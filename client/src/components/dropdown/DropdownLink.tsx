@@ -12,6 +12,6 @@ const DropdownLink: React.SFC<DropdownLinkProps> = ({
   <li>
     <a href={link}>{ text }</a>
   </li>
-)
+);
 
 export default DropdownLink;

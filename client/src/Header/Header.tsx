@@ -19,7 +19,7 @@ interface HeaderProps {
 class Header extends React.Component<HeaderProps> {
   render() {
     const {
-      userStore: { user }
+      userStore: { user },
     } = this.props;
 
     return (
@@ -28,8 +28,8 @@ class Header extends React.Component<HeaderProps> {
         <Navigation user={user} />
         { user ? <Account /> : null }
       </header>
-    )
+    );
   }
-};
+}
 
 export default Header;

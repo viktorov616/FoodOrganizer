@@ -6,7 +6,6 @@ import NavigationLink               from './NavigationLink';
 import { NAVIGATION_LIST,
          UNLOGGED_NAVIGATION_LIST } from 'constants/navigation';
 import { user }                     from 'stores/user';
-import { getClass }                 from 'utils/getClass';
 
 interface NavigationProps {
   user: user;
@@ -18,9 +17,9 @@ const Navigation: React.SFC<NavigationProps> = ({
   const navigationList = user ? NAVIGATION_LIST : UNLOGGED_NAVIGATION_LIST;
   const navClassName = cx(
     'nav--horizontal',
-    user ? 'g--5 nudge--left': 'g--3 m--7',
-    { 'nav--justify-right': !user }
-  )
+    user ? 'g--5 nudge--left' : 'g--3 m--7',
+    { 'nav--justify-right': !user },
+  );
 
   return (
     <nav className={navClassName}>
@@ -33,7 +32,7 @@ const Navigation: React.SFC<NavigationProps> = ({
         )) }
       </ul>
     </nav>
-  )
+  );
 };
 
 export default Navigation;

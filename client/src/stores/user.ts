@@ -8,7 +8,6 @@ import { register,
 import { action,
          observable,
          runInAction }    from 'mobx';
-import history            from 'src/history'
 
 export interface user {
   _id: string;
@@ -18,6 +17,7 @@ export interface user {
 
 export interface userStore {
   isSendingRequest: boolean;
+  userWasFetched: boolean;
   login: () => any;
   logout: () => any;
   register: () => any;
@@ -28,6 +28,7 @@ export interface userStore {
 class UserStore<userStore>  {
   @observable isSendingRequest = false;
   @observable user = null;
+  @observable userWasFetched = false;
 
   @action.bound
   async login(data) {
@@ -39,7 +40,6 @@ class UserStore<userStore>  {
       this.isSendingRequest = false;
       if (response.status === 200) {
         this.user = response.data;
-        history.push('/');
       }
 
       notificationsStore.handleErrors(response);
@@ -85,9 +85,10 @@ class UserStore<userStore>  {
 
     runInAction(() => {
       this.isSendingRequest = false;
+      this.userWasFetched = true;
 
       this.user = response.data;
-    })
+    });
   }
 }
 

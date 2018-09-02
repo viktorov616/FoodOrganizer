@@ -20,7 +20,7 @@ class Account extends React.Component<AccountProps> {
 
     return (
       <div className="m--2 g--2">
-        <Dropdown text='Username'>
+        <Dropdown text="Username">
           <DropdownLink
             link="/profile"
             text="Profile"
@@ -34,6 +34,6 @@ class Account extends React.Component<AccountProps> {
       </div>
     );
   }
-};
+}
 
 export default Account;

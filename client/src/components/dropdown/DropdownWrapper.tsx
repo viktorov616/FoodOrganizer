@@ -18,7 +18,7 @@ class Dropdown extends React.Component<DropdownProps> {
           { children }
         </ul>
       </div>
-      )
+    );
   }
 }
 

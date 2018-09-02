@@ -17,6 +17,6 @@ const DropdownItem: React.SFC<DropdownItemProps> = ({
       text={text}
     />
   </li>
-)
+);
 
 export default DropdownItem;
