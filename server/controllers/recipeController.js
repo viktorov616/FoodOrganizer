@@ -49,6 +49,8 @@ exports.resize = async (req, res, next) => {
 };
 
 exports.createRecipe = async (req, res) => {
+  req.body.userId = req.user._id;
+
   const recipe = await (new Recipe(req.body)).save();
 
   res.json(recipe);
@@ -65,7 +67,7 @@ exports.updateRecipe = async (req, res) => {
 };
 
 exports.getRecipes = async (req, res) => {
-  const stores = await Recipe.find();
+  const stores = await Recipe.find({ userId: req.user._id });
   console.log(req.user);
   console.log(req.isAuthenticated());
   res.json(stores);
@@ -73,7 +75,7 @@ exports.getRecipes = async (req, res) => {
 
 exports.getRecipe = async (req, res) => {
   const { slug } = req.params;
-  const store = await Recipe.findOne({ slug });
+  const store = await Recipe.findOne({ slug, userId: req.user._id });
 
   res.json(store);
 };
@@ -91,7 +93,7 @@ exports.getRandomRecipe = async (req, res) => {
         },
       }
       : result
-  ), {});
+  ), { userId: req.user._id });
   const filtredRecipes = await Recipe.find(preparedFilter);
   const randomRecipe = filtredRecipes[random(filtredRecipes.length - 1)];
 
