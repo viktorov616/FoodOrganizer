@@ -1,6 +1,5 @@
 import * as React   from 'react';
 
-import * as cx      from 'classnames';
 import Loader       from 'components/Loader';
 import MaterialIcon from 'components/icons/MaterialIcon';
 

@@ -18,7 +18,7 @@ interface RatingPickerState {
   rating: number;
 }
 
-class RatingPicker extends React.Component<RatingPickerProps> {
+class RatingPicker extends React.Component<RatingPickerProps, RatingPickerState> {
   static defaultProps = {
     modifiers: '',
     name: 'rating',

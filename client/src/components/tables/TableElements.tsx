@@ -60,7 +60,6 @@ export const Tr: React.SFC<{ modifiers?: string, isHeader?: boolean }> = ({
   </tr>
 );
 
-
 export const Td: React.SFC<TableCellProps> = ({
   children,
   colSpan,

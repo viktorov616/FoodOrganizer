@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 require('dotenv').config({ path: 'variables.env' });
 
 // Connect to MongoDB
-mongoose.connect(process.env.DATABASE, { useMongoClient: true });
+mongoose.connect(process.env.DATABASE, { useNewUrlParser: true });
 mongoose.Promise = global.Promise;
 mongoose.connection.on('error', (err) => {
   console.error(err.message);
@@ -14,6 +14,7 @@ mongoose.connection.on('connecting', () => {
 
 // models
 require('./models/Recipe');
+require('./models/User');
 
 const app = require('./server');
 

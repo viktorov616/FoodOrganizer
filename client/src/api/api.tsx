@@ -31,3 +31,8 @@ export const getRecipes = () => axios('/api/recipes').catch(e => e.response);
 export const getRandomRecipe = filter => (
   axios(`/api/random/${qs.stringify(filter)}`)
 ).catch(e => e.response);
+
+export const register = data => axios.post('/api/register', data).catch(e => e.response);
+export const login = data => axios.post('/api/login', data).catch(e => e.response);
+export const logout = () => axios.post('/api/logout').catch(e => e.response);
+export const getUser = () => axios('/api/user').catch(e => e.response);

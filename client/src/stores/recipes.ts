@@ -1,18 +1,17 @@
+import notificationsStore    from './notifications';
+
 import { addRecipe,
          getRecipe,
          getRecipes,
          updateRecipe,
          // @ts-ignore
-         getRandomRecipe }      from 'api';
+         getRandomRecipe }   from 'api';
 import { action,
          observable,
-         toJS,
          computed,
          runInAction }       from 'mobx';
-import { createTransformer } from 'mobx-utils';
 import { clearEmptySteps,
          checkFilterParam }  from 'utils/recipeUtils';
-import notificationsStore    from './notifications';
 
 export interface recipesStore {
   addRecipe: (data: recipeFromForm) => any;
@@ -141,7 +140,7 @@ class RecipesStore<recipesStore>  {
   @action.bound
   async getRandomRecipe() {
     this.isSendingRequest = true;
-
+    console.log('recipes', this.filter);
     const response = await getRandomRecipe(this.filter);
 
     runInAction(() => {

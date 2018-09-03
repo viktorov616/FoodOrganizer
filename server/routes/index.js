@@ -1,12 +1,15 @@
 const express          = require('express');
 const recipeController = require('../controllers/recipeController');
+const userController   = require('../controllers/userController');
+const authController   = require('../controllers/authController');
+
 const { catchErrors }  = require('../handlers/errorHandlers');
 
 const router = express.Router();
 
 router.get('/api/recipes', catchErrors(recipeController.getRecipes));
 router.get('/api/recipe/:slug', catchErrors(recipeController.getRecipe));
-router.get('/api/random/:filter', catchErrors(recipeController.getRandomRecipe));
+router.get('/api/random/:filter*?', catchErrors(recipeController.getRandomRecipe));
 
 router.post(
   '/api/recipe',
@@ -23,5 +26,22 @@ router.post(
   catchErrors(recipeController.resize),
   catchErrors(recipeController.updateRecipe),
 );
+
+router.post(
+  '/api/register',
+  userController.validateRegister,
+  userController.register,
+  authController.login,
+  authController.getUser,
+);
+
+router.post('/api/logout', authController.logout);
+router.post(
+  '/api/login',
+  authController.login,
+  authController.getUser,
+);
+
+router.get('/api/user', authController.getUser);
 
 module.exports = router;

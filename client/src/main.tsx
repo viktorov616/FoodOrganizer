@@ -1,22 +1,22 @@
-import * as React               from 'react';
-import * as ReactDOM            from 'react-dom';
+import * as React         from 'react';
+import * as ReactDOM      from 'react-dom';
 
-import App                      from 'src/App';
-import recipesStore             from 'stores/recipes';
-import notificationsStore       from 'stores/notifications';
+import App                from 'src/App';
+import recipesStore       from 'stores/recipes';
+import notificationsStore from 'stores/notifications';
+import userStore          from 'stores/user';
+import history            from './history';
 
-import { AppContainer }         from 'react-hot-loader';
-import { RouterStore,
-         syncHistoryWithStore } from 'mobx-react-router';
-import { Provider }             from 'mobx-react';
-import { BrowserRouter,
-         Route }                from 'react-router-dom';
-import { enableLogging }        from 'mobx-logger';
-import { configure }            from 'mobx';
+import { AppContainer }   from 'react-hot-loader';
+import { RouterStore }    from 'mobx-react-router';
+import { Provider }       from 'mobx-react';
+import { Router }         from 'react-router-dom';
+import { enableLogging }  from 'mobx-logger';
+import { configure }      from 'mobx';
 
 import './styles/style.scss';
 
-configure({ enforceActions: true });
+configure({ enforceActions: 'observed' });
 
 const routingStore = new RouterStore();
 
@@ -25,11 +25,12 @@ ReactDOM.render(
     <Provider
       notificationsStore={notificationsStore}
       recipesStore={recipesStore}
+      userStore={userStore}
       routing={routingStore}
     >
-      <BrowserRouter>
+      <Router history={history}>
         <App />
-      </BrowserRouter>
+      </Router>
     </Provider>
   </AppContainer>,
   document.getElementById('root'),
@@ -41,4 +42,3 @@ enableLogging({
   transaction: true,
   compute: true,
 });
-

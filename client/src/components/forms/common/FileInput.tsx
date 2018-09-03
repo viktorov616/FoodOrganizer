@@ -51,7 +51,6 @@ class FileInput extends React.Component<FileInputProps, FileInputState> {
       labelModifiers,
       modifiers,
       name,
-      tagModifiers,
       text,
       photoToDisplay,
     } = this.props;

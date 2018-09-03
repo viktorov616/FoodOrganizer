@@ -101,7 +101,6 @@ class Input extends React.Component<InputProps> {
       labelModifiers,
       modifiers,
       name,
-      onBlur,
       onKeyDown,
       onKeyUp,
       tagModifiers,

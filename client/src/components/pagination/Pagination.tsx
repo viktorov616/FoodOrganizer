@@ -1,13 +1,10 @@
 import * as React             from 'react';
 
-import * as cx                from 'classnames';
 import Button                 from 'components/Button';
-import MaterialIcon           from 'components/icons/MaterialIcon';
 import PaginationPage         from './PaginationPage';
 
 import { PAGES_RANGE,
          MARGIN_PAGES_RANGE } from 'constants/pagination';
-import { getClass }           from 'utils/getClass';
 import { PreviousLabel,
          NextLabel      }     from './Labels';
 

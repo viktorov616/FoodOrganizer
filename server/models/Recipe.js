@@ -26,6 +26,11 @@ const recipeSchema = new mongoose.Schema({
   steps: [String],
   tags: [String],
   type: String,
+  userId: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'User',
+    required: 'You must supply an user id!',
+  },
 });
 
 // create slug before saving recipe

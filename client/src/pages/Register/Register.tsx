@@ -1,25 +1,25 @@
 import * as React    from 'react';
 
-import RecipeForm    from 'components/forms/RecipeForm';
+import RegisterForm  from './RegisterForm';
 import Container     from 'components/layout/Container';
 import Title         from 'components/typography/Title';
 // @ts-ignore
 import Notifications from 'components/notifications';
 
-interface AddRecipeProps {
+interface RegisterProps {
 
 }
 
-class AddRecipe extends React.Component<AddRecipeProps> {
+class Register extends React.Component<RegisterProps> {
   render() {
     return (
       <Container>
         <Notifications />
-        <Title text="Add recipe" />
-        <RecipeForm />
+        <Title text="Register" />
+        <RegisterForm />
       </Container>
     );
   }
 }
 
-export default AddRecipe;
+export default Register;

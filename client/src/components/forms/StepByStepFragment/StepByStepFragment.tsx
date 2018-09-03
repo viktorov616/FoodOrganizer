@@ -1,13 +1,11 @@
-import * as React      from 'react';
+import * as React     from 'react';
 
-import Button          from 'components/Button';
-import Textarea        from 'components/forms/common/Textarea';
-import Step            from './Step';
+import Button         from 'components/Button';
+import Step           from './Step';
 
 import { action,
-         observable,
-         toJS        } from 'mobx';
-import { observer }    from 'mobx-react';
+         observable } from 'mobx';
+import { observer }   from 'mobx-react';
 
 interface StepByStepFragmentProps {
   onStepsChange: (name: string, value: string[]) => void;

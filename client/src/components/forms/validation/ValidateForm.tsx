@@ -79,7 +79,8 @@ class ValidateForm extends React.Component<ValidateFormProps> {
 
   validateAll = () => {
     this.inputs.forEach((component) => {
-      const validationResult = this.validate(component);
+      // const validationResult = this.validate(component);
+      this.validate(component);
     });
   }
 
