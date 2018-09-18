@@ -1,0 +1,24 @@
+.user-block {
+  &--inline {
+    display: inline-block;
+  }
+
+  &__name {
+    display: inline-block;
+    vertical-align: middle;
+
+    margin-right: $space-med;
+    margin-bottom: 0;
+
+    font-size: 18px;
+    color: $paper;
+  }
+
+  &__user-icon {
+    display: inline-block;
+    vertical-align: middle;
+
+    font-size: 42px;
+    color: $paper;
+  }
+}

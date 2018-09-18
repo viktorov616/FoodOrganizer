@@ -3,7 +3,7 @@ import * as React       from 'react';
 import { Dropdown,
          DropdownItem,
          // @ts-ignore
-         DropdownLink } from 'components/dropdown';
+         DropdownLink } from 'components/dropdownHover/Dropdown';
 import { inject }       from 'mobx-react';
 import { userStore }    from 'stores/user';
 

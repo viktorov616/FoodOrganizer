@@ -25,6 +25,7 @@
 @import './components/loader';
 @import './components/rating-picker';
 @import './components/tag';
+@import './components/user-block';
 
 // Form components
 @import './components/forms/common/checkbox';
@@ -36,7 +37,7 @@
 @import './components/forms/common/textarea';
 @import './components/forms/step-by-step-fragment/step';
 
-// Lists components
+// List components
 @import './components/lists/params-list';
 @import './components/lists/ordered-list';
 
@@ -47,12 +48,15 @@
 // Pagination components
 @import './components/pagination/pagination';
 
-// Tables components
+// Table components
 @import './components/tables/basic-table';
 
 // Notification Components
 @import './components/notifications/notification';
 @import './components/notifications/notifications';
+
+// Dropdown Components
+@import './components/dropdowns/user-dropdown';
 
 // Pages
 @import './pages/recipe-list/recipe-filter';
