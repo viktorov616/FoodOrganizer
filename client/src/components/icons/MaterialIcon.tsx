@@ -13,7 +13,12 @@ const MaterialIcon: React.SFC<MaterialIconProps> = ({
   icon,
   iconModifiers,
 }) => (
-  <i className={cx('material-icons', baseClass, iconModifiers)}>{ icon }</i>
+  <i
+    aria-hidden="true"
+    className={cx('material-icons', baseClass, iconModifiers)}
+  >
+    { icon }
+  </i>
 );
 
 export default MaterialIcon;

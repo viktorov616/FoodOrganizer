@@ -1,16 +1,26 @@
-import * as React from 'react';
+import * as React   from 'react';
+
+import Button       from 'components/Button';
 
 interface DropdownProps {
   className: string;
-  items: any; // ! change to React component
+  items: JSX.Element;
 }
 
-class Dropdown extends React.Component<DropdownProps> {
+interface DropdownState {
+  active: boolean;
+}
+
+class Dropdown extends React.Component<DropdownProps, DropdownState> {
   state = { active: false };
 
-  toggleDropdown = () => {
-    const { active } = this.state;
+  hancleClick = () => this.toggleDropdown();
 
+  handleMouseLeave = () => {
+    this.toggleDropdown(true);
+  }
+
+  toggleDropdown(active = this.state.active) {
     this.setState({ active: !active })
   }
 
@@ -22,10 +32,30 @@ class Dropdown extends React.Component<DropdownProps> {
       items,
     } = this.props;
 
+    console.log(active)
+
     return (
-      <div className={className}>
-        { children }
-        { active ? items : null }
+      <div
+        className={className}
+        onMouseLeave={this.handleMouseLeave}
+      >
+        <Button
+          modifiers="dropdown"
+          ariaExpanded={active}
+          ariaHaspopup={true}
+          onClick={this.hancleClick}
+          text={children}
+          icon="keyboard_arrow_down"
+        />
+
+        { active
+          ? (<div
+              className={`${className}_items`}
+              role="menu"
+            >
+            { items }
+          </div>)
+          : null }
       </div>
     )
   }

@@ -95,4 +95,24 @@
       background-position: 0 100%;
     }
   }
+
+  &--dropdown {
+    background: none;
+    box-shadow: none;
+
+    will-change: opacity;
+    transition-duration: 0.2s;
+
+    &:hover {
+      opacity: 0.9;
+    }
+
+    &:active {
+      opacity: 0.8;
+    }
+
+    & .btn__icon {
+      color: $paper;
+    }
+  }
 }

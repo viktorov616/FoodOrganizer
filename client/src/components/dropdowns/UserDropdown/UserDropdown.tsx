@@ -2,8 +2,7 @@ import * as React          from 'react';
 
 import Dropdown            from '../Dropdown';
 import UserBlock           from './UserBlock';
-import MaterialIcon        from 'components/icons/MaterialIcon';
-
+import UserDropdownItems   from './UserDropdownItems';
 
 import { toJS }            from 'mobx'
 import { inject }          from 'mobx-react';
@@ -17,21 +16,22 @@ interface UserDropdownProps {
 class UserDropdown extends React.Component<UserDropdownProps> {
   render() {
     const {
-      userStore: { user },
+      userStore: {
+        user,
+        logout,
+      },
     } = this.props;
 
     console.log(toJS(user));
 
     return (
-      <Dropdown className="user-dropdown">
+      <Dropdown
+        className="user-dropdown"
+        items={<UserDropdownItems logout={logout} />}
+      >
         <UserBlock
           name={user.name}
           modifiers="inline"
-        />
-
-        <MaterialIcon
-          baseClass="user-dropdown__dropdown-icon"
-          icon="keyboard_arrow_down"
         />
       </Dropdown>
     )
