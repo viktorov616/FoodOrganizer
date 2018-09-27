@@ -1,5 +1,23 @@
 .user-dropdown {
+  position: relative;
+
   margin-left: auto;
 
   cursor: pointer;
+
+  &__items {
+    position: absolute;
+    left: 0;
+    top: 100%;
+
+    width: 100%;
+
+    background: white;
+
+    box-shadow: $box-shadow-card;
+
+    border-radius: $border-radius-extra-small;
+
+    z-index: 5;
+  }
 }

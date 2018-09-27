@@ -190,11 +190,10 @@ const serverConfig = {
     rules: [
       {
         test: /\.js$/,
-        use: [
-          {
+        use: {
             loader: 'babel-loader',
+            options: { cacheDirectory: true },
           },
-        ],
         exclude: [/node_modules/, /public/],
       },
     ],

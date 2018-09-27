@@ -103,6 +103,8 @@
     will-change: opacity;
     transition-duration: 0.2s;
 
+    margin-bottom: 0;
+
     &:hover {
       opacity: 0.9;
     }

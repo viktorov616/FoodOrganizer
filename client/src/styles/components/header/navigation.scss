@@ -1,6 +1,11 @@
 .nav {
-  display: flex;
-  &--justify-right {
-    justify-content: flex-end;
+  & li:first-child a {
+    border-top-left-radius: $border-radius-extra-small;
+    border-bottom-left-radius: $border-radius-extra-small;
+  }
+
+  & li:last-child a {
+    border-top-right-radius: $border-radius-extra-small;
+    border-bottom-right-radius: $border-radius-extra-small;
   }
 }

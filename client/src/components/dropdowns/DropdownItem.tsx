@@ -13,7 +13,12 @@ const DropdownItem: React.SFC<DropdownItemProps> = ({
   href,
 }) => (
   href
-    ? <a href={href}>{ text }</a>
+    ? (<a
+      className="btn btn--dropdown-item"
+      href={href}
+    >
+      { text }
+    </a>)
     : (<Button
       modifiers="dropdown-item"
       onClick={onClick}
