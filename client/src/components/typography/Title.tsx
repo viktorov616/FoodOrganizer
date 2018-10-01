@@ -1,14 +1,20 @@
-import * as React from 'react';
+import * as React   from 'react';
+
+import MaterialIcon from 'components/icons/MaterialIcon';
 
 import { getClass } from 'utils/getClass';
 
 interface TitleProps {
-  text: string;
+  icon?: string;
+  iconModifiers?: string;
   modifiers?: string;
   size?: number|string;
+  text: string;
 }
 
 const Title: React.SFC<TitleProps> = ({
+  icon,
+  iconModifiers,
   modifiers,
   size,
   text,
@@ -18,6 +24,14 @@ const Title: React.SFC<TitleProps> = ({
   return (
     <Heading className={getClass('title', modifiers)}>
       <span className="title__text">{ text }</span>
+
+      { icon
+        ? (<MaterialIcon
+          baseClass="title__icon"
+          icon={icon}
+          iconModifiers={iconModifiers}
+        />)
+        : null }
     </Heading>
   );
 };

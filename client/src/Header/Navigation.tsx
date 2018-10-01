@@ -5,7 +5,7 @@ import NavigationLink               from './NavigationLink';
 
 import { NAVIGATION_LIST,
          UNLOGGED_NAVIGATION_LIST } from 'constants/navigation';
-import { getClass } from 'utils/getClass';
+import { getClass }                 from 'utils/getClass';
 import { user }                     from 'stores/user';
 
 interface NavigationProps {

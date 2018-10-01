@@ -19,6 +19,10 @@
     }
   }
 
+  &__icon {
+    margin-left: $space-small;
+  }
+
   &--without-underline {
     padding-bottom: 0;
 

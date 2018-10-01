@@ -16,6 +16,8 @@ import RecipeList       from 'pages/RecipeList';
 import Login            from 'pages/Login';
 // @ts-ignore
 import Register         from 'pages/Register';
+// @ts-ignore
+import Profile          from 'pages/Profile';
 import ConditionalRoute from 'components/PrivateRoute';
 import Loader           from 'components/Loader';
 
@@ -82,8 +84,8 @@ class App extends React.Component<AppProps> {
           redirectTo="/login"
         />
         <ConditionalRoute
-          path="/add"
-          component={AddRecipe}
+          path="/profile"
+          component={Profile}
           condition={!!user}
           redirectTo="/login"
         />
