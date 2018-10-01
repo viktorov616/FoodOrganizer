@@ -17,6 +17,7 @@ interface ButtonProps {
   onClick: (e: React.FormEvent<HTMLButtonElement>) => void;
   onMouseEnter?: (e: React.FormEvent<HTMLButtonElement>) => void;
   onMouseLeave?: (e: React.FormEvent<HTMLButtonElement>) => void;
+  role?: string;
   text?: string|JSX.Element|React.ReactNode;
   type?: string;
 }
@@ -33,6 +34,7 @@ const Button: React.SFC<ButtonProps> = ({
   onClick,
   onMouseEnter,
   onMouseLeave,
+  role,
   text,
   type,
 }) => {
@@ -58,8 +60,9 @@ const Button: React.SFC<ButtonProps> = ({
       className={(className) ? className : getClass('btn', modifiers)}
       disabled={disabled}
       onClick={onClick}
-      onMouseLeave={onMouseLeave}
       onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      role={role}
       type={type}
     >
       { (text)

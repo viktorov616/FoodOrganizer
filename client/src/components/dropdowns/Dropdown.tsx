@@ -32,12 +32,10 @@ class Dropdown extends React.Component<DropdownProps, DropdownState> {
       items,
     } = this.props;
 
-    console.log(active)
-
     return (
       <div
         className={className}
-        // onMouseLeave={this.handleMouseLeave}
+        onMouseLeave={this.handleMouseLeave}
       >
         <Button
           modifiers="dropdown"

@@ -16,12 +16,14 @@ const DropdownItem: React.SFC<DropdownItemProps> = ({
     ? (<a
       className="btn btn--dropdown-item"
       href={href}
+      role="menuitem"
     >
       { text }
     </a>)
     : (<Button
       modifiers="dropdown-item"
       onClick={onClick}
+      role="menuitem"
       text={text}
     />)
 );
