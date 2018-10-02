@@ -11,6 +11,7 @@ interface ButtonProps {
   className?: string;
   disabled?: boolean;
   icon?: string;
+  iconAriaHidden?: boolean;
   iconModifiers?: string;
   isLoading?: boolean;
   modifiers?: string;
@@ -28,6 +29,7 @@ const Button: React.SFC<ButtonProps> = ({
   className,
   disabled,
   icon,
+  iconAriaHidden,
   iconModifiers,
   isLoading,
   modifiers,
@@ -47,6 +49,7 @@ const Button: React.SFC<ButtonProps> = ({
           modifiers="inline white"
         />)
         : (<MaterialIcon
+          ariaHidden={iconAriaHidden}
           baseClass="btn__icon"
           icon={icon}
           iconModifiers={iconModifiers}

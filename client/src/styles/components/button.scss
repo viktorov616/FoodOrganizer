@@ -45,6 +45,10 @@
     margin-top: 10px;
   }
 
+  &--mt15 {
+    margin-top: 15px;
+  }
+
   &__text {
     display: inline-block;
     vertical-align: middle;
@@ -115,6 +119,25 @@
 
     & .btn__icon {
       color: $paper;
+    }
+  }
+
+  &--only-icon {
+    background: none;
+    box-shadow: none;
+
+    will-change: opacity;
+    transition-duration: 0.2s;
+
+    margin-bottom: 0;
+    padding: 0;
+
+    &:hover .btn__icon {
+      color: $primary
+    }
+
+    &:active .btn__icon {
+      color: lighten($primary, 25%)
     }
   }
 }
