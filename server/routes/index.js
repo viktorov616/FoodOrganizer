@@ -43,5 +43,6 @@ router.post(
 );
 
 router.get('/api/user', authController.getUser);
+router.post('/api/updateAccount', catchErrors(userController.updateAccount));
 
 module.exports = router;

@@ -23,8 +23,6 @@ exports.validateRegister = (req, res, next) => {
 };
 
 exports.register = async (req, res, next) => {
-  console.log('CONTROLLER');
-
   const {
     email,
     name,
@@ -39,3 +37,17 @@ exports.register = async (req, res, next) => {
 
   return next();
 };
+
+exports.updateAccount = async (req, res) => {
+  const {
+    email,
+    name,
+  } = req.body;
+
+  const user = await User.findOne({ _id: req.user._id });
+  user.email = email;
+  user.name = name;
+
+  const updatedUser = await user.save();
+  res.json(updatedUser);
+}

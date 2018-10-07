@@ -1,15 +1,15 @@
-import * as React        from 'react';
+import * as React     from 'react';
 
-import Button            from 'components/Button';
-import Input             from 'components/forms/common/Input';
-import ValidateForm      from 'components/forms/validation/ValidateForm';
+import Button         from 'components/Button';
+import Input          from 'components/forms/common/Input';
+import ValidateForm   from 'components/forms/validation/ValidateForm';
 
 import { action,
-         observable }    from 'mobx';
+         observable } from 'mobx';
 import { observer,
-         inject }        from 'mobx-react';
+         inject }     from 'mobx-react';
 // @ts-ignore
-import { userStore     } from 'stores/recipes';
+import { userStore }  from 'stores/user';
 
 interface LoginFormProps {
   userStore?: userStore;

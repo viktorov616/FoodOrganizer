@@ -3,6 +3,7 @@ import notificationsStore from './notifications';
 import { register,
          getUser,
          login,
+         updateAccount,
          // @ts-ignore
          logout    }      from 'api';
 import { action,
@@ -18,14 +19,15 @@ export interface user {
 export interface userStore {
   isSendingRequest: boolean;
   userWasFetched: boolean;
-  login: () => any;
+  login: (data: {}) => any; // TODO вынести интерфейс из LoginForm
   logout: () => any;
   register: () => any;
   getUser: () => any;
+  updateAccount:( data: {}) => any; // TODO вынести интерфейс из формы
   user: user|null;
 }
 
-class UserStore<userStore>  {
+class UserStore<userStore> {
   @observable isSendingRequest = false;
   @observable user = null;
   @observable userWasFetched = false;
@@ -86,6 +88,19 @@ class UserStore<userStore>  {
     runInAction(() => {
       this.isSendingRequest = false;
       this.userWasFetched = true;
+
+      this.user = response.data;
+    });
+  }
+
+  @action.bound
+  async updateAccount(data) {
+    this.isSendingRequest = true;
+
+    const response = await updateAccount(data);
+
+    runInAction(() => {
+      this.isSendingRequest = false;
 
       this.user = response.data;
     });

@@ -14,18 +14,16 @@ const ProfilePageHeader:React.SFC<ProfilePageHeaderProps> = ({
 }) => (
   <div>
     <Title
-      text="Profile"
+      text={ editModeActive ? 'Profile editing' : 'Profile'}
       modifiers="inline-block align-middle space-right"
     />
 
-    { editModeActive
-      ? null
-      : (<Button
-        iconAriaHidden={false}
-        modifiers="only-icon mt15"
-        onClick={toggleEditMode}
-        icon="edit"
-      />) }
+    <Button
+      iconAriaHidden={false}
+      modifiers="only-icon mt15"
+      onClick={toggleEditMode}
+      icon={editModeActive ? 'close' : 'edit'}
+    />
   </div>
 );
 

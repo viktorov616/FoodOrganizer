@@ -39,7 +39,7 @@ class Profile extends React.Component<ProfileProps> {
         />
 
         { this.editModeActive
-          ? <ProfileEditMode {...user} />
+          ? <ProfileEditMode toggleEditMode={this.toggleEditMode} />
           : <ProfileViewMode {...user} /> }
       </Container>
     );
