@@ -4,8 +4,6 @@ import Button         from 'components/Button';
 import Input          from 'components/forms/common/Input';
 import ValidateForm   from 'components/forms/validation/ValidateForm';
 
-import { Link }       from 'react-router-dom';
-import { getClass }   from 'utils/getClass';
 import { action,
          observable } from 'mobx';
 import { observer,
@@ -20,16 +18,14 @@ interface LoginFormProps {
 interface LoginFormState {
   data: {
     email: string;
-    password: string;
   };
 }
 
 @inject('userStore')
 @observer
-class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
+class PasswordResetForm extends React.Component<LoginFormProps, LoginFormState> {
   @observable data = {
     email: '',
-    password: '',
   };
 
   @action.bound
@@ -39,11 +35,11 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
 
   handleSubmit = (e) => {
     const {
-      userStore: { login },
+      userStore: { resetPassword },
     } = this.props;
     e.preventDefault();
 
-    login(this.data);
+    resetPassword(this.data);
   }
 
   render() {
@@ -71,39 +67,16 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
             }}
           />
 
-          <Input
-            id="password"
-            label="Password"
-            name="password"
-            type="password"
-            onChange={this.handleFormDataChange}
-            value={this.data.password}
-            validationRules={[
-              { name: 'notEmpty' },
-            ]}
-            validationErrors={{
-              notEmpty: 'This field shoud be filled up',
-            }}
-          />
-
           <Button
             icon="send"
             isLoading={isSendingRequest}
             onClick={this.handleSubmit}
-            text="Login"
-            modifiers="raised mr20"
+            text="Send password reset email"
           />
-
-          <Link
-            className={getClass('btn', 'link')}
-            to="/password_reset"
-          >
-            Forgot password?
-          </Link>
         </ValidateForm>
       </div>
     );
   }
 }
 
-export default LoginForm;
+export default PasswordResetForm;

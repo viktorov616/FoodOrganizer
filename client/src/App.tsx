@@ -17,6 +17,8 @@ import Login            from 'pages/Login';
 // @ts-ignore
 import Register         from 'pages/Register';
 // @ts-ignore
+import PasswordReset    from 'pages/PasswordReset';
+// @ts-ignore
 import Profile          from 'pages/Profile';
 import ConditionalRoute from 'components/PrivateRoute';
 import Loader           from 'components/Loader';
@@ -98,6 +100,11 @@ class App extends React.Component<AppProps> {
         <ConditionalRoute
           path="/register"
           component={Register}
+          condition={!user}
+        />
+        <ConditionalRoute
+          path="/password_reset"
+          component={PasswordReset}
           condition={!user}
         />
       </React.Fragment>
