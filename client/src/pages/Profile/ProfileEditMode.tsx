@@ -20,7 +20,7 @@ interface ProfileEditModeState {
   formData: {
     name: string;
     email: string;
-  }
+  };
 }
 
 @inject('userStore')
@@ -30,7 +30,6 @@ class ProfileEditMode extends React.Component<ProfileEditModeProps, ProfileEditM
     name: this.props.userStore.user.name,
     email: this.props.userStore.user.email,
   };
-
 
   @action.bound
   handleFormDataChange(name: string, value: string) {

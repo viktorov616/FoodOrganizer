@@ -16,7 +16,7 @@ const MaterialIcon: React.SFC<MaterialIconProps> = ({
   iconModifiers,
 }) => (
   <i
-    aria-hidden={ariaHidden || undefined}
+    aria-hidden={ariaHidden ? ariaHidden : undefined} // linter
     className={cx('material-icons', baseClass, iconModifiers)}
   >
     { icon }
@@ -25,6 +25,6 @@ const MaterialIcon: React.SFC<MaterialIconProps> = ({
 
 MaterialIcon.defaultProps = {
   ariaHidden: true,
-}
+};
 
 export default MaterialIcon;

@@ -12,7 +12,7 @@ const UserBLock:React.SFC<UserBLockProps> = ({
   modifiers,
   name,
 }) => (
-  <div className={getClass("user-block", modifiers)}>
+  <div className={getClass('user-block', modifiers)}>
     <p className="user-block__name">{ name }</p>
 
     <MaterialIcon

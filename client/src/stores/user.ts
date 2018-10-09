@@ -4,6 +4,7 @@ import { register,
          getUser,
          login,
          updateAccount,
+         resetPassword,
          // @ts-ignore
          logout    }      from 'api';
 import { action,
@@ -17,14 +18,15 @@ export interface user {
 }
 
 export interface userStore {
+  getUser: () => any;
   isSendingRequest: boolean;
-  userWasFetched: boolean;
   login: (data: {}) => any; // TODO вынести интерфейс из LoginForm
   logout: () => any;
   register: () => any;
-  getUser: () => any;
-  updateAccount:( data: {}) => any; // TODO вынести интерфейс из формы
+  resetPassword: (data: {}) => any; // TODO вынести интерфейс из формы
+  updateAccount:(data: {}) => any; // TODO вынести интерфейс из формы
   user: user|null;
+  userWasFetched: boolean;
 }
 
 class UserStore<userStore> {
@@ -103,6 +105,17 @@ class UserStore<userStore> {
       this.isSendingRequest = false;
 
       this.user = response.data;
+    });
+  }
+
+  @action.bound
+  async resetPassword(data) {
+    this.isSendingRequest = true;
+
+    await resetPassword(data);
+
+    runInAction(() => {
+      this.isSendingRequest = false;
     });
   }
 }

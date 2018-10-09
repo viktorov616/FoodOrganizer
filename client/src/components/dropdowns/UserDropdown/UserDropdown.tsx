@@ -1,12 +1,11 @@
-import * as React          from 'react';
+import * as React        from 'react';
 
-import Dropdown            from '../Dropdown';
-import UserBlock           from './UserBlock';
-import UserDropdownItems   from './UserDropdownItems';
+import Dropdown          from '../Dropdown';
+import UserBlock         from './UserBlock';
+import UserDropdownItems from './UserDropdownItems';
 
-import { toJS }            from 'mobx'
-import { inject }          from 'mobx-react';
-import user, { userStore } from 'stores/user';
+import { inject }        from 'mobx-react';
+import { userStore }     from 'stores/user';
 
 interface UserDropdownProps {
   userStore?: userStore;
@@ -22,8 +21,6 @@ class UserDropdown extends React.Component<UserDropdownProps> {
       },
     } = this.props;
 
-    console.log(toJS(user));
-
     return (
       <Dropdown
         className="user-dropdown"
@@ -34,7 +31,7 @@ class UserDropdown extends React.Component<UserDropdownProps> {
           modifiers="inline"
         />
       </Dropdown>
-    )
+    );
   }
 }
 

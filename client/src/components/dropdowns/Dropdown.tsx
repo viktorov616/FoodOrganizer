@@ -21,7 +21,7 @@ class Dropdown extends React.Component<DropdownProps, DropdownState> {
   }
 
   toggleDropdown(active = this.state.active) {
-    this.setState({ active: !active })
+    this.setState({ active: !active });
   }
 
   render() {
@@ -48,14 +48,14 @@ class Dropdown extends React.Component<DropdownProps, DropdownState> {
 
         { active
           ? (<div
-              className={`${className}__items`}
-              role="menu"
-            >
+            className={`${className}__items`}
+            role="menu"
+          >
             { items }
           </div>)
           : null }
       </div>
-    )
+    );
   }
 }
 

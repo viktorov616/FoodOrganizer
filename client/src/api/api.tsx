@@ -37,3 +37,4 @@ export const login = data => axios.post('/api/login', data).catch(e => e.respons
 export const logout = () => axios.post('/api/logout').catch(e => e.response);
 export const getUser = () => axios('/api/user').catch(e => e.response);
 export const updateAccount = data => axios.post('/api/updateAccount', data).catch(e => e.response);
+export const resetPassword = data => axios.post('/api/resetPassword', data).catch(e => e.response);
