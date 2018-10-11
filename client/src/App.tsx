@@ -32,7 +32,7 @@ import { userStore }    from 'stores/user';
 
 interface AppProps {
   userStore?: userStore;
-};
+}
 
 @inject('userStore')
 @observer
@@ -103,7 +103,7 @@ class App extends React.Component<AppProps> {
           condition={!user}
         />
         <ConditionalRoute
-          path="/password_reset"
+          path="/password_reset/:token?"
           component={PasswordReset}
           condition={!user}
         />

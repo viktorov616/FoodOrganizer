@@ -1,4 +1,9 @@
+const mongoose = require('mongoose');
 const passport = require('passport');
+const crypto   = require('crypto');
+const dateFns  = require('date-fns');
+
+const User = mongoose.model('User');
 
 // exports.login = passport.authenticate('local');
 exports.login = (req, res, next) => passport.authenticate('local', (err, user) => {
@@ -35,4 +40,29 @@ exports.getUser = (req, res) => {
     email,
   });
 };
+
+exports.resetPassword = async (req, res) => {
+  console.log(req.body.email)
+  const user = await User.findOne({ email: req.body.email });
+
+  if (!user) {
+    return res.json({ errors: ['No account with that email exists'] });
+  }
+
+  user.resetPasswordToken = crypto.randomBytes(20).toString('hex');
+  user.resetPasswordExpires = dateFns.addDays(Date.now(), 1);
+  await user.save();
+
+  const resetURL = `//${req.headers.host}.account/password_reset/${user.resetPasswordToken}`;
+  return res.json({ resetURL });
+};
+
+exports.validateToken = async (req, res) => {
+  const user = await User.findOne({
+    resetPasswordToken: req.query.token,
+    resetPasswordExpires: { $gt: Date.now() }
+  })
+
+  res.json(!!user);
+}
 

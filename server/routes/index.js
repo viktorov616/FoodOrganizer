@@ -44,5 +44,7 @@ router.post(
 
 router.get('/api/user', authController.getUser);
 router.post('/api/updateAccount', catchErrors(userController.updateAccount));
+router.post('/api/resetPassword', catchErrors(authController.resetPassword));
+router.get('/api/validateToken', catchErrors(authController.validateToken));
 
 module.exports = router;

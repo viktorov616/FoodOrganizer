@@ -5,6 +5,7 @@ import { register,
          login,
          updateAccount,
          resetPassword,
+         validateToken,
          // @ts-ignore
          logout    }      from 'api';
 import { action,
@@ -24,9 +25,10 @@ export interface userStore {
   logout: () => any;
   register: () => any;
   resetPassword: (data: {}) => any; // TODO вынести интерфейс из формы
-  updateAccount:(data: {}) => any; // TODO вынести интерфейс из формы
+  updateAccount: (data: {}) => any; // TODO вынести интерфейс из формы
   user: user|null;
   userWasFetched: boolean;
+  validateToken: (data: {}) => any // TODO вынести интерфейс из формы
 }
 
 class UserStore<userStore> {
@@ -112,10 +114,27 @@ class UserStore<userStore> {
   async resetPassword(data) {
     this.isSendingRequest = true;
 
-    await resetPassword(data);
+    const response = await resetPassword(data);
 
     runInAction(() => {
       this.isSendingRequest = false;
+
+      notificationsStore.handleErrors(response);
+    });
+  }
+
+  @action.bound
+  async validateToken(data) {
+    this.isSendingRequest = true;
+    console.log(data)
+    const response = await validateToken(data);
+
+    runInAction(() => {
+      this.isSendingRequest = false;
+
+      notificationsStore.handleErrors(response);
+
+      return response;
     });
   }
 }
