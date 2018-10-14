@@ -42,10 +42,10 @@ exports.getUser = (req, res) => {
 };
 
 exports.resetPassword = async (req, res) => {
-  console.log(req.body.email)
   const user = await User.findOne({ email: req.body.email });
 
   if (!user) {
+    res.status(400);
     return res.json({ errors: ['No account with that email exists'] });
   }
 
@@ -61,8 +61,43 @@ exports.validateToken = async (req, res) => {
   const user = await User.findOne({
     resetPasswordToken: req.query.token,
     resetPasswordExpires: { $gt: Date.now() }
-  })
+  });
+  const tokenConfirmed = !!user;
 
-  res.json(!!user);
+  res.json({
+    tokenConfirmed,
+    ...(!tokenConfirmed ? { errors: ['Invalid token'] } : {})
+  });
 }
 
+exports.validatePasswords = (req, res, next) => {
+  if (req.body.password = req.body['password-confirm']) {
+    return next();
+  }
+
+  res.status(400);
+  res.json({ errors: ['Passwords do not match!'] });
+}
+
+exports.changePassword = async (req, res) => {
+  const user = await User.findOne({
+    resetPasswordToken: req.body.token,
+    resetPasswordExpires: { $gt: Date.now() }
+  });
+
+  if (!user) {
+    res.status(400);
+    return res.json({ errors: ['No account with that email exists'] });
+  }
+
+  await user.setPassword(req.body.password);
+  user.resetPasswordToken = undefined;
+  user.resetPasswordExpires = undefined;
+  const updatedUser = await user.save();
+
+  await req.login(updatedUser, (loginErr) => {
+    if (loginErr) return res.json({ errors: [loginErr] });
+  });
+
+  res.json({ user });
+}

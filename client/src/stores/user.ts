@@ -1,13 +1,6 @@
 import notificationsStore from './notifications';
-
-import { register,
-         getUser,
-         login,
-         updateAccount,
-         resetPassword,
-         validateToken,
-         // @ts-ignore
-         logout    }      from 'api';
+// @ts-ignore
+import * as api           from 'api';
 import { action,
          observable,
          runInAction }    from 'mobx';
@@ -25,6 +18,7 @@ export interface userStore {
   logout: () => any;
   register: () => any;
   resetPassword: (data: {}) => any; // TODO вынести интерфейс из формы
+  changePassword: (data: {}) => any; // TODO вынести интерфейс из формы
   updateAccount: (data: {}) => any; // TODO вынести интерфейс из формы
   user: user|null;
   userWasFetched: boolean;
@@ -40,7 +34,7 @@ class UserStore<userStore> {
   async login(data) {
     this.isSendingRequest = true;
 
-    const response = await login(data);
+    const response = await api.login(data);
 
     runInAction(() => {
       this.isSendingRequest = false;
@@ -56,7 +50,7 @@ class UserStore<userStore> {
   async logout() {
     this.isSendingRequest = true;
 
-    const response = await logout();
+    const response = await api.logout();
 
     runInAction(() => {
       this.isSendingRequest = false;
@@ -70,7 +64,7 @@ class UserStore<userStore> {
   async register(data) {
     this.isSendingRequest = true;
 
-    const response = await register(data);
+    const response = await api.register(data);
 
     runInAction(() => {
       this.isSendingRequest = false;
@@ -87,7 +81,7 @@ class UserStore<userStore> {
   async getUser() {
     this.isSendingRequest = true;
 
-    const response = await getUser();
+    const response = await api.getUser();
 
     runInAction(() => {
       this.isSendingRequest = false;
@@ -101,7 +95,7 @@ class UserStore<userStore> {
   async updateAccount(data) {
     this.isSendingRequest = true;
 
-    const response = await updateAccount(data);
+    const response = await api.updateAccount(data);
 
     runInAction(() => {
       this.isSendingRequest = false;
@@ -114,7 +108,7 @@ class UserStore<userStore> {
   async resetPassword(data) {
     this.isSendingRequest = true;
 
-    const response = await resetPassword(data);
+    const response = await api.resetPassword(data);
 
     runInAction(() => {
       this.isSendingRequest = false;
@@ -124,18 +118,32 @@ class UserStore<userStore> {
   }
 
   @action.bound
-  async validateToken(data) {
+  async changePassword(data) {
     this.isSendingRequest = true;
-    console.log(data)
-    const response = await validateToken(data);
+
+    const response = await api.changePassword(data);
 
     runInAction(() => {
       this.isSendingRequest = false;
 
       notificationsStore.handleErrors(response);
-
-      return response;
+      this.user = response.data.user;
     });
+  }
+
+  @action.bound
+  async validateToken(formData) {
+    this.isSendingRequest = true;
+
+    const { data } = await api.validateToken(formData);
+
+    runInAction(() => {
+      this.isSendingRequest = false;
+
+      notificationsStore.handleErrors(data);
+    });
+
+    return data;
   }
 }
 

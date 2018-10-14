@@ -44,7 +44,12 @@ router.post(
 
 router.get('/api/user', authController.getUser);
 router.post('/api/updateAccount', catchErrors(userController.updateAccount));
-router.post('/api/resetPassword', catchErrors(authController.resetPassword));
+router.post('/api/resetPassword', catchErrors(authController.resetPassword)); // TODO: rename to sendResetToken
 router.get('/api/validateToken', catchErrors(authController.validateToken));
+router.post(
+  '/api/changePassword',
+  authController.validatePasswords,
+  catchErrors(authController.changePassword)
+);
 
 module.exports = router;

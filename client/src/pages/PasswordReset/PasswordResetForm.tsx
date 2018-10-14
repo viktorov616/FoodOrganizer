@@ -1,21 +1,22 @@
-import * as React     from 'react';
+import * as React              from 'react';
 
-import Button         from 'components/Button';
-import Input          from 'components/forms/common/Input';
-import ValidateForm   from 'components/forms/validation/ValidateForm';
+import Button                  from 'components/Button';
+import Input                   from 'components/forms/common/Input';
+import ValidateForm            from 'components/forms/validation/ValidateForm';
 
 import { action,
-         observable } from 'mobx';
+         observable }          from 'mobx';
 import { observer,
-         inject }     from 'mobx-react';
+         inject }              from 'mobx-react';
 // @ts-ignore
-import { userStore }  from 'stores/user';
+import { userStore }           from 'stores/user';
 
-interface LoginFormProps {
+interface PasswordResetFormProps {
   userStore?: userStore;
+  token: string;
 }
 
-interface LoginFormState {
+interface PasswordResetFormState {
   data: {
     email: string;
   };
@@ -23,9 +24,11 @@ interface LoginFormState {
 
 @inject('userStore')
 @observer
-class PasswordResetForm extends React.Component<LoginFormProps, LoginFormState> {
+class PasswordResetForm extends React.Component<PasswordResetFormProps, PasswordResetFormState> {
   @observable data = {
-    email: '',
+    password: '',
+    'password-confirm': '',
+    token: this.props.token,
   };
 
   @action.bound
@@ -35,11 +38,11 @@ class PasswordResetForm extends React.Component<LoginFormProps, LoginFormState> 
 
   handleSubmit = (e) => {
     const {
-      userStore: { resetPassword },
+      userStore: { changePassword },
     } = this.props;
     e.preventDefault();
 
-    resetPassword(this.data);
+    changePassword(this.data);
   }
 
   render() {
@@ -51,19 +54,36 @@ class PasswordResetForm extends React.Component<LoginFormProps, LoginFormState> 
       <div className="g--6">
         <ValidateForm>
           <Input
-            autofocus
-            id="email"
-            label="Email"
-            name="email"
+            id="password"
+            label="Password"
+            name="password"
+            type="password"
             onChange={this.handleFormDataChange}
-            value={this.data.email}
+            value={this.data.password}
             validationRules={[
               { name: 'notEmpty' },
-              { name: 'isEmail' },
+              { name: 'same', additionalValue: this.data['password-confirm'] }
             ]}
             validationErrors={{
               notEmpty: 'This field shoud be filled up',
-              isEmail: 'Email is invalid',
+              same: 'The password not match with the password confirm'
+            }}
+          />
+
+          <Input
+            id="password-confirm"
+            label="Confirm Password"
+            name="password-confirm"
+            type="password"
+            onChange={this.handleFormDataChange}
+            value={this.data['password-confirm']}
+            validationRules={[
+              { name: 'notEmpty' },
+              { name: 'same', additionalValue: this.data.password }
+            ]}
+            validationErrors={{
+              notEmpty: 'This field shoud be filled up',
+              same: 'The password not match with the password confirm'
             }}
           />
 
@@ -71,7 +91,7 @@ class PasswordResetForm extends React.Component<LoginFormProps, LoginFormState> 
             icon="send"
             isLoading={isSendingRequest}
             onClick={this.handleSubmit}
-            text="Send password reset email"
+            text="Change password"
           />
         </ValidateForm>
       </div>

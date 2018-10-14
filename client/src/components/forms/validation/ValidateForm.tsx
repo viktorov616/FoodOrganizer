@@ -44,6 +44,7 @@ class ValidateForm extends React.Component<ValidateFormProps> {
     };
 
     if (componentRules && componentRules.length) {
+      console.log(componentRules)
       componentRules.some(({ name, additionalValue }) => {
         try {
           const values = this.inputs.map(input => input.state.value);
@@ -79,7 +80,6 @@ class ValidateForm extends React.Component<ValidateFormProps> {
 
   validateAll = () => {
     this.inputs.forEach((component) => {
-      // const validationResult = this.validate(component);
       this.validate(component);
     });
   }
