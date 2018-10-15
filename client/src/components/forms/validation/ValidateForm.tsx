@@ -44,7 +44,6 @@ class ValidateForm extends React.Component<ValidateFormProps> {
     };
 
     if (componentRules && componentRules.length) {
-      console.log(componentRules)
       componentRules.some(({ name, additionalValue }) => {
         try {
           const values = this.inputs.map(input => input.state.value);

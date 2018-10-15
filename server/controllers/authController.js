@@ -42,7 +42,7 @@ exports.getUser = (req, res) => {
   });
 };
 
-exports.resetPassword = async (req, res) => {
+exports.sendPasswordToken = async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
 
   if (!user) {

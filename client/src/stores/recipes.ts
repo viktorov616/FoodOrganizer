@@ -140,12 +140,10 @@ class RecipesStore<recipesStore>  {
   @action.bound
   async getRandomRecipe() {
     this.isSendingRequest = true;
-    console.log('recipes', this.filter);
     const response = await getRandomRecipe(this.filter);
 
     runInAction(() => {
       this.isSendingRequest = false;
-      console.log(response);
       this.randomRecipe = response.data;
       notificationsStore.handleErrors(response);
     });

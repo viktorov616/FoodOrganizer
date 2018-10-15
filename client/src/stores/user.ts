@@ -17,7 +17,7 @@ export interface userStore {
   login: (data: {}) => any; // TODO вынести интерфейс из LoginForm
   logout: () => any;
   register: () => any;
-  resetPassword: (data: {}) => any; // TODO вынести интерфейс из формы
+  sendPasswordToken: (data: {}) => any; // TODO вынести интерфейс из формы
   changePassword: (data: {}) => any; // TODO вынести интерфейс из формы
   updateAccount: (data: {}) => any; // TODO вынести интерфейс из формы
   user: user|null;
@@ -105,10 +105,10 @@ class UserStore<userStore> {
   }
 
   @action.bound
-  async resetPassword(data) {
+  async sendPasswordToken(data) {
     this.isSendingRequest = true;
 
-    const response = await api.resetPassword(data);
+    const response = await api.sendPasswordToken(data);
 
     runInAction(() => {
       this.isSendingRequest = false;

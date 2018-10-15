@@ -44,7 +44,6 @@ class RegisterForm extends React.Component<RegisterFormProps, RegisterFormState>
       userStore: { register },
     } = this.props;
     e.preventDefault();
-    console.log('submitted');
     register(this.data);
   }
 

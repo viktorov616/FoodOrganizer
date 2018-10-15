@@ -42,10 +42,7 @@ class PasswordReset extends React.Component<PasswordResetProps> {
       userStore: { validateToken },
     } = this.props;
     const response = await validateToken({ token });
-    // const response = { tokenConfirmed: true }
-    // console.log(response)
     runInAction(() => {
-      console.log(response)
       this.tokenConfirmed = response.tokenConfirmed
     })
 

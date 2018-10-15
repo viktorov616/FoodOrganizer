@@ -35,11 +35,11 @@ class SendTokenForm extends React.Component<SendTokenFormProps, SendTokenFormSta
 
   handleSubmit = (e) => {
     const {
-      userStore: { resetPassword },
+      userStore: { sendPasswordToken },
     } = this.props;
     e.preventDefault();
 
-    resetPassword(this.data);
+    sendPasswordToken(this.data);
   }
 
   render() {
