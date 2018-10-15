@@ -57,8 +57,6 @@ class PasswordReset extends React.Component<PasswordResetProps> {
       userStore: { isSendingRequest },
     } = this.props;
 
-    console.log(this.tokenConfirmed);
-
     return (
       <Container>
         <Notifications />

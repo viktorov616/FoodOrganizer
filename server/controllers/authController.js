@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const crypto   = require('crypto');
 const dateFns  = require('date-fns');
+const mail     = require('../handlers/mail');
 
 const User = mongoose.model('User');
 
@@ -53,36 +54,44 @@ exports.resetPassword = async (req, res) => {
   user.resetPasswordExpires = dateFns.addDays(Date.now(), 1);
   await user.save();
 
-  const resetURL = `//${req.headers.host}.account/password_reset/${user.resetPasswordToken}`;
-  return res.json({ resetURL });
+  const resetURL = `${req.headers.host}/password_reset/${user.resetPasswordToken}`;
+
+  await mail.send({
+    user,
+    resetURL,
+    filename: 'password-reset',
+    subject: 'Password Reset',
+  });
+
+  return res.json({ notices: ['You have been emailed a password reset link'] });
 };
 
 exports.validateToken = async (req, res) => {
   const user = await User.findOne({
     resetPasswordToken: req.query.token,
-    resetPasswordExpires: { $gt: Date.now() }
+    resetPasswordExpires: { $gt: Date.now() },
   });
   const tokenConfirmed = !!user;
 
   res.json({
     tokenConfirmed,
-    ...(!tokenConfirmed ? { errors: ['Invalid token'] } : {})
+    ...(!tokenConfirmed ? { errors: ['Invalid token'] } : {}),
   });
-}
+};
 
 exports.validatePasswords = (req, res, next) => {
-  if (req.body.password = req.body['password-confirm']) {
+  if (req.body.password === req.body['password-confirm']) {
     return next();
   }
 
   res.status(400);
   res.json({ errors: ['Passwords do not match!'] });
-}
+};
 
 exports.changePassword = async (req, res) => {
   const user = await User.findOne({
     resetPasswordToken: req.body.token,
-    resetPasswordExpires: { $gt: Date.now() }
+    resetPasswordExpires: { $gt: Date.now() },
   });
 
   if (!user) {
@@ -100,4 +109,4 @@ exports.changePassword = async (req, res) => {
   });
 
   res.json({ user });
-}
+};
