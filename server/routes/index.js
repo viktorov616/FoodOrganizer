@@ -47,8 +47,13 @@ router.post('/api/updateAccount', catchErrors(userController.updateAccount));
 router.post('/api/sendPasswordToken', catchErrors(authController.sendPasswordToken));
 router.get('/api/validateToken', catchErrors(authController.validateToken));
 router.post(
-  '/api/changePassword',
+  '/api/resetPassword',
   authController.validatePasswords,
+  catchErrors(authController.resetPassword),
+);
+router.post(
+  '/api/changePassword',
+  authController.validateUser,
   catchErrors(authController.changePassword),
 );
 

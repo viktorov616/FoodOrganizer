@@ -121,12 +121,15 @@ class UserStore<userStore> {
   async changePassword(data) {
     this.isSendingRequest = true;
 
-    const response = await api.changePassword(data);
+    const response = await (data.token
+      ? api.resetPassword(data)
+      : api.changePassword(data));
 
     runInAction(() => {
       this.isSendingRequest = false;
 
       notificationsStore.handleErrors(response);
+      console.log(response);
       this.user = response.data.user;
     });
   }

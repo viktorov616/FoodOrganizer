@@ -88,7 +88,7 @@ exports.validatePasswords = (req, res, next) => {
   res.json({ errors: ['Passwords do not match!'] });
 };
 
-exports.changePassword = async (req, res) => {
+exports.resetPassword = async (req, res) => {
   const user = await User.findOne({
     resetPasswordToken: req.body.token,
     resetPasswordExpires: { $gt: Date.now() },
@@ -96,12 +96,39 @@ exports.changePassword = async (req, res) => {
 
   if (!user) {
     res.status(400);
-    return res.json({ errors: ['No account with that email exists'] });
+    return res.json({ errors: ['Your token has expired'] });
   }
 
   await user.setPassword(req.body.password);
   user.resetPasswordToken = undefined;
   user.resetPasswordExpires = undefined;
+  const updatedUser = await user.save();
+
+  await req.login(updatedUser, (loginErr) => {
+    if (loginErr) return res.json({ errors: [loginErr] });
+  });
+
+  res.json({ user });
+};
+
+exports.validateUser = (req, res, next) => {
+  if (req.body.userId === `${req.user._id}`) return next();
+  console.log(req.body.userId, req.user._id, req.body.userId === req.user._id);
+  console.log(typeof req.body.userId, typeof req.user._id);
+  res.json({ errors: ['Invalid user id'] });
+};
+
+exports.changePassword = async (req, res) => {
+  // const user = await User.findOne({ _id: req.body.id });
+
+  // if (!user) {
+  //   res.status(400);
+  //   return res.json({ errors: ['Invalid user id'] });
+  // }
+
+  const user = req.user;
+
+  await user.setPassword(req.body.password);
   const updatedUser = await user.save();
 
   await req.login(updatedUser, (loginErr) => {

@@ -74,6 +74,14 @@
     }
   }
 
+  &--gray {
+    background: $silver;
+
+    &:hover {
+      background: lighten($grey, 15%)
+    }
+  }
+
   &--dropdown-item {
     width: 100%;
 
@@ -144,5 +152,9 @@
     &:active .btn__icon {
       color: lighten($primary, 25%)
     }
+  }
+
+  &--withIconSize {
+    height: 44px;
   }
 }

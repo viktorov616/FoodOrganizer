@@ -1,7 +1,7 @@
 import * as React              from 'react';
 
+import ChangePasswordForm      from 'pages/PasswordReset/ChangePasswordForm';
 import PasswordResetForm       from 'pages/PasswordReset/PasswordResetForm';
-import SendTokenForm           from 'pages/PasswordReset/SendTokenForm';
 import Container               from 'components/layout/Container';
 import Title                   from 'components/typography/Title';
 import Loader                  from 'components/Loader';
@@ -14,7 +14,9 @@ import { observer,
          inject    }           from 'mobx-react';
 // @ts-ignore
 import { userStore }           from 'stores/user';
-import { observable, action, runInAction }          from 'mobx';
+import { observable,
+         action,
+         runInAction }         from 'mobx';
 
 interface PasswordResetProps {
   match: match<passwordResetParams>;
@@ -60,8 +62,8 @@ class PasswordReset extends React.Component<PasswordResetProps> {
         <Title text="Password reset" />
         <Loader isActive={isSendingRequest} />
 
-        { !token ? <SendTokenForm /> : null }
-        { (token && this.tokenConfirmed) ? <PasswordResetForm token={token} /> : null }
+        { !token ? <PasswordResetForm /> : null }
+        { (token && this.tokenConfirmed) ? <ChangePasswordForm token={token} /> : null }
       </Container>
     );
   }

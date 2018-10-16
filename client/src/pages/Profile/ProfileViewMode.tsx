@@ -5,24 +5,29 @@ import Button     from 'components/Button';
 import { user }   from 'stores/user';
 
 interface ProfileViewModeProps {
-  email: user['email'], // wish I could use destrucuring
-  name: user['name'],
-  showChangePasswordForm: () => void,
+  passwordFormActive: boolean,
+  togglePasswordForm: () => void,
+  user: user,
 }
 
 const ProfileViewMode:React.SFC<ProfileViewModeProps> = ({
-  name,
-  email,
-  showChangePasswordForm,
+  passwordFormActive,
+  togglePasswordForm,
+  user: {
+    name,
+    email,
+  },
 }) => (
   <section>
     <p>Name: { name }</p>
     <p>Email: { email }</p>
 
-    <Button
-      onClick={showChangePasswordForm}
-      text="Change password"
-    />
+    { !passwordFormActive
+      ? (<Button
+        onClick={togglePasswordForm}
+        text="Change password"
+      />)
+      : null }
   </section>
 );
 
