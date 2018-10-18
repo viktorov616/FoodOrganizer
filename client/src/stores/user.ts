@@ -22,7 +22,7 @@ export interface userStore {
   updateAccount: (data: {}) => any; // TODO вынести интерфейс из формы
   user: user|null;
   userWasFetched: boolean;
-  validateToken: (data: {}) => any // TODO вынести интерфейс из формы
+  validateToken: (data: {}) => any; // TODO вынести интерфейс из формы
 }
 
 class UserStore<userStore> {
@@ -129,8 +129,7 @@ class UserStore<userStore> {
       this.isSendingRequest = false;
 
       notificationsStore.handleErrors(response);
-      console.log(response);
-      this.user = response.data.user;
+      if (response.status === 200) this.user = response.data.user;
     });
   }
 

@@ -19,6 +19,7 @@ interface ChangePasswordFormProps {
 
 interface ChangePasswordFormState {
   data: {
+    'current-password'?: string;
     password: string;
     'password-confirm': string;
   };
@@ -28,6 +29,7 @@ interface ChangePasswordFormState {
 @observer
 class ChangePasswordForm extends React.Component<ChangePasswordFormProps, ChangePasswordFormState> {
   @observable data = {
+    ...(this.props.token ? { 'current-password': '' } : {}),
     password: '',
     'password-confirm': '',
   };
@@ -50,35 +52,53 @@ class ChangePasswordForm extends React.Component<ChangePasswordFormProps, Change
 
     await changePassword({
       ...this.data,
-      ...(token ? { token } : { userId: '123' }),
+      ...(token ? { token } : { userId: user._id }),
     });
-    console.log(togglePasswordForm);
-    if (togglePasswordForm) togglePasswordForm()
+
+    if (togglePasswordForm) togglePasswordForm();
   }
 
   render() {
     const {
       togglePasswordForm,
+      token,
       userStore: { isSendingRequest },
     } = this.props;
 
     return (
       <div className="g--6">
         <ValidateForm>
+          { !token
+            ? (<Input
+              id="current-password"
+              label="Current password"
+              name="current-password"
+              type="password"
+              onChange={this.handleFormDataChange}
+              value={this.data['current-password']}
+              validationRules={[
+                { name: 'notEmpty' },
+              ]}
+              validationErrors={{
+                notEmpty: 'This field shoud be filled up',
+              }}
+            />)
+            : null }
+
           <Input
             id="password"
-            label="New password"
+            label="New Password"
             name="password"
             type="password"
             onChange={this.handleFormDataChange}
             value={this.data.password}
             validationRules={[
               { name: 'notEmpty' },
-              { name: 'same', additionalValue: this.data['password-confirm'] }
+              { name: 'same', additionalValue: this.data['password-confirm'] },
             ]}
             validationErrors={{
               notEmpty: 'This field shoud be filled up',
-              same: 'The password not match with the password confirm'
+              same: 'The password not match with the password confirm',
             }}
           />
 
@@ -91,11 +111,11 @@ class ChangePasswordForm extends React.Component<ChangePasswordFormProps, Change
             value={this.data['password-confirm']}
             validationRules={[
               { name: 'notEmpty' },
-              { name: 'same', additionalValue: this.data.password }
+              { name: 'same', additionalValue: this.data.password },
             ]}
             validationErrors={{
               notEmpty: 'This field shoud be filled up',
-              same: 'The password not match with the password confirm'
+              same: 'The password not match with the password confirm',
             }}
           />
 

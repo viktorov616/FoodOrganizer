@@ -24,7 +24,9 @@ const userSchema = new Schema({
   resetPasswordExpires: Date,
 });
 
-userSchema.plugin(passportLocalMongoose, { usernameField: 'email' });
+userSchema.plugin(passportLocalMongoose, { usernameField: 'email' }, (username, password, done) => {
+  console.log(username, password, done);
+});
 userSchema.plugin(mongodbErrorHandler);
 
 module.exports = mongoose.model('User', userSchema);

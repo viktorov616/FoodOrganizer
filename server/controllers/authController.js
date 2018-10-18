@@ -14,6 +14,9 @@ exports.login = (req, res, next) => passport.authenticate('local', (err, user) =
     return res.json({ errors: ['Incorrect email or password'] });
   }
 
+  console.log(user);
+  console.log(user.verifyPassword);
+
   return req.login(user, (loginErr) => {
     if (loginErr) return next(loginErr);
 
@@ -22,6 +25,7 @@ exports.login = (req, res, next) => passport.authenticate('local', (err, user) =
 })(req, res, next);
 
 exports.logout = (req, res) => {
+  console.log(req.verifyPassword, req.user, req.user.verifyPassword);
   req.logout();
   res.json({ notice: 'Successfully logout' });
 };
@@ -112,10 +116,12 @@ exports.resetPassword = async (req, res) => {
 };
 
 exports.validateUser = (req, res, next) => {
-  if (req.body.userId === `${req.user._id}`) return next();
-  console.log(req.body.userId, req.user._id, req.body.userId === req.user._id);
-  console.log(typeof req.body.userId, typeof req.user._id);
-  res.json({ errors: ['Invalid user id'] });
+  if (req.body.userId !== `${req.user._id}`) {
+    res.status(400);
+    res.json({ errors: ['Invalid user id'] });
+  }
+
+  return next();
 };
 
 exports.changePassword = async (req, res) => {
@@ -128,7 +134,7 @@ exports.changePassword = async (req, res) => {
 
   const user = req.user;
 
-  await user.setPassword(req.body.password);
+  await user.changePassword(req.body['current-password'], req.body.password).catch((...rest) => console.log(rest));
   const updatedUser = await user.save();
 
   await req.login(updatedUser, (loginErr) => {
