@@ -125,21 +125,20 @@ exports.validateUser = (req, res, next) => {
 };
 
 exports.changePassword = async (req, res) => {
-  // const user = await User.findOne({ _id: req.body.id });
+  const { user } = req;
 
-  // if (!user) {
-  //   res.status(400);
-  //   return res.json({ errors: ['Invalid user id'] });
-  // }
+  await user.changePassword(req.body['current-password'], req.body.password).catch(({ message }) => {
+    res.status(400);
+    return res.json({ errors: [message] });
+  });
 
-  const user = req.user;
+  if (res.statusCode === 400) return;
 
-  await user.changePassword(req.body['current-password'], req.body.password).catch((...rest) => console.log(rest));
   const updatedUser = await user.save();
 
   await req.login(updatedUser, (loginErr) => {
     if (loginErr) return res.json({ errors: [loginErr] });
   });
 
-  res.json({ user });
+  res.json({ user: updatedUser });
 };
