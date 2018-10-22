@@ -20,7 +20,7 @@ configure({ enforceActions: 'observed' });
 
 const routingStore = new RouterStore();
 
-ReactDOM.render(
+ReactDOM.hydrate(
   <AppContainer>
     <Provider
       notificationsStore={notificationsStore}

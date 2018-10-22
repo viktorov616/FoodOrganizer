@@ -176,9 +176,21 @@ const serverConfig = {
   resolve: {
     modules: [
       'node_modules',
-      path.join(__dirname, 'server'),
+      path.join(__dirname),
+      // path.join(__dirname, 'server'),
     ],
     extensions: ['.js'],
+    alias: {
+      client: path.join(__dirname, 'client'),
+      api: path.join(__dirname, 'client/src/api'),
+      components: path.join(__dirname, 'client/src/components'),
+      constants: path.join(__dirname, 'client/src/constants'),
+      interfaces: path.join(__dirname, 'client/src/interfaces'),
+      pages: path.join(__dirname, 'client/src/pages'),
+      src: path.join(__dirname, 'client/src'),
+      stores: path.join(__dirname, 'client/src/stores'),
+      utils: path.join(__dirname, 'client/src/utils'),
+    },
   },
   plugins,
   output: {
@@ -191,9 +203,9 @@ const serverConfig = {
       {
         test: /\.js$/,
         use: {
-            loader: 'babel-loader',
-            options: { cacheDirectory: true },
-          },
+          loader: 'babel-loader',
+          options: { cacheDirectory: true },
+        },
         exclude: [/node_modules/, /public/],
       },
     ],
