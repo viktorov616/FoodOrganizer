@@ -1,7 +1,7 @@
 import * as React       from 'react';
 
 // @ts-ignore
-import AddRecipe        from 'pages/AddRecipe';
+import AddRecipe        from 'pages/AddRecipe/AddRecipe.tsx';
 // @ts-ignore
 import EditRecipe       from 'pages/EditRecipe';
 // @ts-ignore

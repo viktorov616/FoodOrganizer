@@ -1,6 +1,6 @@
 import * as React    from 'react';
 
-import * as cx       from 'classnames';
+// import * as cx       from 'classnames';
 
 import { NavLink }   from 'react-router-dom';
 import { HOME_PAGE } from 'constants/navigation';
@@ -16,7 +16,7 @@ const NavigationLink: React.SFC<NavigationLinkProps> = ({ name, path }) => {
   }
 
   return (
-    <li className={cx({ active: path === window.location.pathname || HOME_PAGE === name })}>
+    <li>
       <NavLink
         exact
         to={path}

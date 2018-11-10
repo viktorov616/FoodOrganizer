@@ -5,9 +5,9 @@ import Button     from 'components/Button';
 import { user }   from 'stores/user';
 
 interface ProfileViewModeProps {
-  passwordFormActive: boolean,
-  togglePasswordForm: () => void,
-  user: user,
+  passwordFormActive: boolean;
+  togglePasswordForm: () => void;
+  user: user;
 }
 
 const ProfileViewMode:React.SFC<ProfileViewModeProps> = ({

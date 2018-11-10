@@ -31,7 +31,6 @@ class PasswordReset extends React.Component<PasswordResetProps> {
   async componentDidMount() {
     const {
       match: { params: { token } },
-      userStore: { validateToken },
     } = this.props;
 
     if (token) this.handleValidateToken();
@@ -45,8 +44,8 @@ class PasswordReset extends React.Component<PasswordResetProps> {
     } = this.props;
     const response = await validateToken({ token });
     runInAction(() => {
-      this.tokenConfirmed = response.tokenConfirmed
-    })
+      this.tokenConfirmed = response.tokenConfirmed;
+    });
 
   }
 

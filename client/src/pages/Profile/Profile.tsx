@@ -8,7 +8,6 @@ import Notifications      from 'components/notifications';
 import ProfileViewMode    from './ProfileViewMode';
 import ProfileEditMode    from './ProfileEditMode';
 
-
 import { userStore }      from 'stores/user';
 import { inject,
          observer }       from 'mobx-react';
